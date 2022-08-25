@@ -1,0 +1,43 @@
+{
+	"name": "asset_Clock",
+	"plugin-id": "Sprite",
+	"sid": 161468645877992,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "DragnDrop",
+			"name": "DragDrop",
+			"sid": 433796660311772
+		}
+	],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 156,
+						"height": 156,
+						"originX": 0.6778846153846154,
+						"originY": 0.49038461538461536,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 4936560,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 401906991063453,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

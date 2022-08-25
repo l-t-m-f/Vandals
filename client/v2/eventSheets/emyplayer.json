@@ -1,0 +1,700 @@
+{
+	"name": "eMyPlayer",
+	"events": [
+		{
+			"eventType": "comment",
+			"text": "CharacterSheet Events"
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__CharHashID",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "CharHashID on the server.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 184554215149898
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Animator",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 405462150512968
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Name",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 183330251684585
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Cradle",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 723463253147327
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Hex1",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 529078716646090
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Hex2",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 677677789167281
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Hex3",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 367326766469358
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Lvl",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 862751883618727
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Xp",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 895532679940408
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__XpRatio",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 357472604826861
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__CurrentHp",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 613854958849300
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__HealthScore",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 361239551519876
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__FuryScore",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 581469848380500
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__LoreScore",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 395255999518321
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__CoolScore",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 599566184952031
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__PulpScore",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 151634652826489
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__LuckScore",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 766080044509095
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Skill1",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 970542106364124
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Skill2",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 564710434365674
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Skill3",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 485841049133146
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Skill4",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 331197049709801
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Skill5",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 277938440278805
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Skill6",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 521899384619127
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Skill7",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 395808777090045
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Skill8",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 851860164790984
+		},
+		{
+			"eventType": "variable",
+			"name": "myplayer__Skill9",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 514535574796826
+		},
+		{
+			"eventType": "variable",
+			"name": "myPlayer__SpawnX",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "X-coordinate to spawn your Netpeer at next.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 543088857401336
+		},
+		{
+			"eventType": "variable",
+			"name": "myPlayer__SpawnY",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "Y-coordinate to spawn your Netpeer at next.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 948442108720849
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "for-each",
+					"objectClass": "System",
+					"sid": 165958090704896,
+					"parameters": {
+						"object": "vfx_InRangeTileTexture"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 467257703636961,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "cursor-is-over-object",
+							"objectClass": "Controls_Desktop",
+							"sid": 776712549750741,
+							"parameters": {
+								"object": "vfx_InRangeTileTexture"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-opacity",
+							"objectClass": "vfx_InRangeTileTexture",
+							"sid": 605392747811547,
+							"parameters": {
+								"opacity": "100"
+							}
+						}
+					],
+					"sid": 416030024848746
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 475307577448696
+						}
+					],
+					"actions": [
+						{
+							"id": "set-opacity",
+							"objectClass": "vfx_InRangeTileTexture",
+							"sid": 982567925975523,
+							"parameters": {
+								"opacity": "50"
+							}
+						}
+					],
+					"sid": 762916160154345
+				}
+			]
+		},
+		{
+			"functionName": "MyPlayer-HideRange",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 964147989886828,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "pick-all",
+							"objectClass": "System",
+							"sid": 819319143374539,
+							"parameters": {
+								"object": "vfx_InRangeTileTexture"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "destroy",
+							"objectClass": "vfx_InRangeTileTexture",
+							"sid": 180929163293864
+						}
+					],
+					"sid": 944742469630689
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 832757591259126,
+							"parameters": {
+								"variable": "fight__CastMode",
+								"value": "false"
+							}
+						}
+					],
+					"sid": 786394699585020
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "every-tick",
+					"objectClass": "System",
+					"sid": 653744701258656
+				}
+			],
+			"actions": [],
+			"sid": 818914979986222,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "pick-children",
+							"objectClass": "Netpeer",
+							"sid": 951822666589134,
+							"parameters": {
+								"child": "Spritefont_special_EnergyDisplay",
+								"which": "own"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "Spritefont_special_EnergyDisplay",
+							"sid": 630406698561203,
+							"parameters": {
+								"text": "Netpeer.CurDisplayEnergy"
+							}
+						}
+					],
+					"sid": 149480401965857
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "pick-by-comparison",
+							"objectClass": "System",
+							"sid": 667011490220637,
+							"parameters": {
+								"object": "Netpeer",
+								"expression": "Netpeer.AssocActorNr",
+								"comparison": 0,
+								"value": "Photon.MyActorNr"
+							}
+						},
+						{
+							"id": "pick-children",
+							"objectClass": "Netpeer",
+							"sid": 397147945736160,
+							"parameters": {
+								"child": "Spritefont_special_NameDisplay",
+								"which": "own"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "Spritefont_special_NameDisplay",
+							"sid": 730920475591369,
+							"parameters": {
+								"text": "myplayer__Name"
+							}
+						}
+					],
+					"sid": 786608746436871
+				}
+			]
+		},
+		{
+			"functionName": "MyPlayer-DisplayRange",
+			"functionDescription": "",
+			"functionCategory": "MyPlayer",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "set-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 460290478825358,
+					"parameters": {
+						"variable": "fight__CastMode",
+						"value": "true"
+					}
+				},
+				{
+					"callFunction": "Controls-Path-Delete",
+					"sid": 375027765938170
+				}
+			],
+			"sid": 132544670332947
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 332066726167487,
+					"parameters": {
+						"variable": "fight__CastMode"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 250754663135462,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-moving",
+							"objectClass": "Netpeer",
+							"sid": 403999274012967,
+							"behaviorType": "GridMove",
+							"isInverted": true
+						},
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "Netpeer",
+							"sid": 369812036444832,
+							"parameters": {
+								"instance-variable": "AssocActorNr",
+								"comparison": 0,
+								"value": "Photon.MyActorNr"
+							}
+						},
+						{
+							"id": "trigger-once-while-true",
+							"objectClass": "System",
+							"sid": 590704126808272
+						}
+					],
+					"actions": [],
+					"sid": 705547036400995,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 794473265415725,
+									"parameters": {
+										"name": "\"i_RangeWidth\"",
+										"start-index": "-Netpeer.CurDisplayRange",
+										"end-index": "Netpeer.CurDisplayRange"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 621890614946295,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 947277286234774,
+											"parameters": {
+												"name": "\"i_RangeHeight\"",
+												"start-index": "-Netpeer.CurDisplayRange",
+												"end-index": "Netpeer.CurDisplayRange"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 146454948728224,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 925784236131038,
+													"parameters": {
+														"first-value": "abs(loopindex(\"i_RangeWidth\"))+abs(loopindex(\"i_RangeHeight\"))",
+														"comparison": 3,
+														"second-value": "Netpeer.CurDisplayRange"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "create-object",
+													"objectClass": "System",
+													"sid": 453344195671740,
+													"parameters": {
+														"object-to-create": "vfx_InRangeTileTexture",
+														"layer": "\"Level\"",
+														"x": "GridGraph.TileToPositionX(GridGraph.PositionToTileX(Netpeer.X)+loopindex(\"i_RangeWidth\"))-16",
+														"y": "GridGraph.TileToPositionY(GridGraph.PositionToTileY(Netpeer.Y)+loopindex(\"i_RangeHeight\"))+16",
+														"create-hierarchy": false
+													}
+												}
+											],
+											"sid": 607397842578278,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 412758706962058,
+															"parameters": {
+																"first-value": "abs(loopindex(\"i_RangeWidth\"))+abs(loopindex(\"i_RangeHeight\"))",
+																"comparison": 5,
+																"second-value": "Netpeer.CurDisplayRange*(2/3)"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "set-animation-frame",
+															"objectClass": "vfx_InRangeTileTexture",
+															"sid": 129691380292340,
+															"parameters": {
+																"frame-number": "2"
+															}
+														}
+													],
+													"sid": 875346820793516
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "else",
+															"objectClass": "System",
+															"sid": 734090269892678
+														},
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 665096976286937,
+															"parameters": {
+																"first-value": "abs(loopindex(\"i_RangeWidth\"))+abs(loopindex(\"i_RangeHeight\"))",
+																"comparison": 5,
+																"second-value": "Netpeer.CurDisplayRange*(2/5)"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "set-animation-frame",
+															"objectClass": "vfx_InRangeTileTexture",
+															"sid": 114260723952929,
+															"parameters": {
+																"frame-number": "1"
+															}
+														}
+													],
+													"sid": 652151030331711
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "else",
+															"objectClass": "System",
+															"sid": 497697882666931
+														}
+													],
+													"actions": [
+														{
+															"id": "set-animation-frame",
+															"objectClass": "vfx_InRangeTileTexture",
+															"sid": 136421019306677,
+															"parameters": {
+																"frame-number": "0"
+															}
+														}
+													],
+													"sid": 698489352821680
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"sid": 743311316817615
+}

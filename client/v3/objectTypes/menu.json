@@ -1,0 +1,27 @@
+{
+	"name": "Menu",
+	"plugin-id": "NinePatch",
+	"sid": 687652035492544,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "Type",
+			"type": "string",
+			"desc": "",
+			"sid": 500900165916075
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"image": {
+		"width": 96,
+		"height": 95,
+		"originX": 0.5052083333333334,
+		"originY": 0.5052083333333334,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 6074719,
+		"useCollisionPoly": true
+	}
+}

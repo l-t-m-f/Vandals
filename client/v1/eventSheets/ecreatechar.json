@@ -1,0 +1,831 @@
+{
+	"name": "eCreateChar",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "createchar__MenuCamera_GoToX",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "Next X-coordinate to lerp the MenuCamera to.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 268226451199632
+		},
+		{
+			"eventType": "variable",
+			"name": "createchar_KindWheelNameToDisplay",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 803659509592507
+		},
+		{
+			"eventType": "variable",
+			"name": "createchar_KindWheel",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 195708925815238
+		},
+		{
+			"eventType": "variable",
+			"name": "createchar_PickedCradle",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 832609817524854
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eVFX"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eControls"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eUI"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eServer"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 163201713818636
+				}
+			],
+			"actions": [
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 882944067290190,
+					"parameters": {
+						"variable": "createchar__MenuCamera_GoToX",
+						"value": "MenuCamera.DefaultLayoutX"
+					}
+				},
+				{
+					"id": "stop",
+					"objectClass": "Audio",
+					"sid": 874945070917934,
+					"parameters": {
+						"tag": "\"\""
+					}
+				},
+				{
+					"id": "play",
+					"objectClass": "Audio",
+					"sid": 126636855861985,
+					"parameters": {
+						"audio-file": "2_Tinkertank",
+						"loop": "looping",
+						"volume": "-10",
+						"tag-optional": "\"\""
+					}
+				},
+				{
+					"callFunction": "CreateChar-KindWheel-Init",
+					"sid": 483244486320764
+				},
+				{
+					"callFunction": "CreateChar-HexSelection-Init",
+					"sid": 330159968655426
+				},
+				{
+					"callFunction": "CreateChar-LoadRef",
+					"sid": 780938985234078
+				},
+				{
+					"callFunction": "CreateChar-SkillTooltip-Init",
+					"sid": 169805997731442
+				}
+			],
+			"sid": 390617351472003
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "createchar_ Camera",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 931079991039064,
+							"parameters": {
+								"variable": "createchar__MenuCamera_GoToX",
+								"comparison": 1,
+								"value": "-1"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-position",
+							"objectClass": "MenuCamera",
+							"sid": 154304284444943,
+							"parameters": {
+								"x": "lerp(Self.X, createchar__MenuCamera_GoToX, 0.5)",
+								"y": "Self.Y"
+							}
+						}
+					],
+					"sid": 844283432058230
+				}
+			],
+			"sid": 907066261356808
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "createchar_ Data",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-completed",
+							"objectClass": "AJAX",
+							"sid": 611669844803290,
+							"parameters": {
+								"tag": "\"LoadData_CreateCharKinds\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "load",
+							"objectClass": "data_KindsInfo",
+							"sid": 835530191306368,
+							"parameters": {
+								"json": "AJAX.LastData"
+							}
+						}
+					],
+					"sid": 627176725724968
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-completed",
+							"objectClass": "AJAX",
+							"sid": 500660183099593,
+							"parameters": {
+								"tag": "\"LoadData_CreateCharAttributes\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "load",
+							"objectClass": "data_AttributesInfo",
+							"sid": 606965749495210,
+							"parameters": {
+								"json": "AJAX.LastData"
+							}
+						}
+					],
+					"sid": 844624714219860
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-completed",
+							"objectClass": "AJAX",
+							"sid": 872580702637680,
+							"parameters": {
+								"tag": "\"LoadData_CreateCharCradles\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "load",
+							"objectClass": "data_CradlesInfo",
+							"sid": 190776039503583,
+							"parameters": {
+								"json": "AJAX.LastData"
+							}
+						}
+					],
+					"sid": 576993763603365
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-completed",
+							"objectClass": "AJAX",
+							"sid": 830339481844605,
+							"parameters": {
+								"tag": "\"LoadData_CreateCharHexes\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "load",
+							"objectClass": "data_HexesInfo",
+							"sid": 508455549589437,
+							"parameters": {
+								"json": "AJAX.LastData"
+							}
+						}
+					],
+					"sid": 612802067718704
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-completed",
+							"objectClass": "AJAX",
+							"sid": 124450381700472,
+							"parameters": {
+								"tag": "\"LoadData_CreateCharSkills\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "load",
+							"objectClass": "data_SkillsInfo",
+							"sid": 903473782930631,
+							"parameters": {
+								"json": "AJAX.LastData"
+							}
+						}
+					],
+					"sid": 265242086787198
+				},
+				{
+					"functionName": "CreateChar-LoadRef",
+					"functionDescription": "",
+					"functionCategory": "CreateChar",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "Server-AJAX-Send",
+							"sid": 762276423543463,
+							"parameters": [
+								"\"LoadData_CreateCharKinds\"",
+								"\"LOCAL_DATAREF_KINDS.json\""
+							]
+						},
+						{
+							"callFunction": "Server-AJAX-Send",
+							"sid": 840172439449503,
+							"parameters": [
+								"\"LoadData_CreateCharAttributes\"",
+								"\"LOCAL_DATAREF_ATTRIBUTES.json\""
+							]
+						},
+						{
+							"callFunction": "Server-AJAX-Send",
+							"sid": 117480657939499,
+							"parameters": [
+								"\"LoadData_CreateCharCradles\"",
+								"\"LOCAL_DATAREF_CRADLES.json\""
+							]
+						},
+						{
+							"callFunction": "Server-AJAX-Send",
+							"sid": 812102188179793,
+							"parameters": [
+								"\"LoadData_CreateCharHexes\"",
+								"\"LOCAL_DATAREF_HEXES.json\""
+							]
+						},
+						{
+							"callFunction": "Server-AJAX-Send",
+							"sid": 948462636100459,
+							"parameters": [
+								"\"LoadData_CreateCharSkills\"",
+								"\"LOCAL_DATAREF_SKILLS.json\""
+							]
+						}
+					],
+					"sid": 422475740127465
+				}
+			],
+			"sid": 483401646289432
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "createchar_ Kinds Wheel",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "CreateChar-KindWheel-Init",
+					"functionDescription": "",
+					"functionCategory": "CreateChar, KindWheel",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "push",
+							"objectClass": "mem_KindWheel",
+							"sid": 228469050719091,
+							"parameters": {
+								"where": "back",
+								"value": "\"Popples\"",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "push",
+							"objectClass": "mem_KindWheel",
+							"sid": 801512756684106,
+							"parameters": {
+								"where": "back",
+								"value": "\"Lobmysians\"",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "push",
+							"objectClass": "mem_KindWheel",
+							"sid": 453454491478036,
+							"parameters": {
+								"where": "back",
+								"value": "\"Molekins\"",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "push",
+							"objectClass": "mem_KindWheel",
+							"sid": 762248569551940,
+							"parameters": {
+								"where": "back",
+								"value": "\"Roxis\"",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "push",
+							"objectClass": "mem_KindWheel",
+							"sid": 882858952189902,
+							"parameters": {
+								"where": "back",
+								"value": "\"Droids\"",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "push",
+							"objectClass": "mem_KindWheel",
+							"sid": 876597749395113,
+							"parameters": {
+								"where": "back",
+								"value": "\"Nobs\"",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "push",
+							"objectClass": "mem_KindWheel",
+							"sid": 345185816548080,
+							"parameters": {
+								"where": "back",
+								"value": "\"WickerOnes\"",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 539668686413090,
+							"parameters": {
+								"variable": "createchar_KindWheelNameToDisplay",
+								"value": "\"Popples\""
+							}
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 680943696990288,
+							"parameters": {
+								"variable": "createchar_KindWheel",
+								"value": "\"Popples\""
+							}
+						}
+					],
+					"sid": 991641086376895
+				},
+				{
+					"functionName": "CreateChar-KindWheel-MoveRight",
+					"functionDescription": "",
+					"functionCategory": "CreateChar, KindWheel",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "push",
+							"objectClass": "mem_KindWheel",
+							"sid": 528233860540506,
+							"parameters": {
+								"where": "front",
+								"value": "mem_KindWheel.At(6)",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "pop",
+							"objectClass": "mem_KindWheel",
+							"sid": 530647382050947,
+							"parameters": {
+								"where": "back",
+								"axis": "x"
+							}
+						},
+						{
+							"callFunction": "CreateChar-KindWheel-UpdateAsset",
+							"sid": 230698042944679
+						}
+					],
+					"sid": 177410919127499
+				},
+				{
+					"functionName": "CreateChar-KindWheel-MoveLeft",
+					"functionDescription": "",
+					"functionCategory": "CreateChar, KindWheel",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "push",
+							"objectClass": "mem_KindWheel",
+							"sid": 123477681997378,
+							"parameters": {
+								"where": "back",
+								"value": "mem_KindWheel.At(0)",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "pop",
+							"objectClass": "mem_KindWheel",
+							"sid": 315435873029865,
+							"parameters": {
+								"where": "front",
+								"axis": "x"
+							}
+						},
+						{
+							"callFunction": "CreateChar-KindWheel-UpdateAsset",
+							"sid": 688543976503149
+						}
+					],
+					"sid": 905655249296434
+				},
+				{
+					"functionName": "CreateChar-KindWheel-UpdateAsset",
+					"functionDescription": "",
+					"functionCategory": "CreateChar, KindWheel",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "asset_createchar_WheelKindPortrait_spotlight",
+							"sid": 446026620080763,
+							"parameters": {
+								"animation": "mem_KindWheel.At(0)",
+								"from": "beginning"
+							}
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 235641795245786,
+							"parameters": {
+								"variable": "createchar_KindWheel",
+								"value": "mem_KindWheel.At(0)"
+							}
+						}
+					],
+					"sid": 657752277982129,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each-ordered",
+									"objectClass": "System",
+									"sid": 841519660869043,
+									"parameters": {
+										"object": "asset_createchar_WheelKindPortrait",
+										"expression": "asset_createchar_WheelKindPortrait.PositionID",
+										"order": "ascending"
+									}
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "asset_createchar_WheelKindPortrait",
+									"sid": 425441552901932,
+									"parameters": {
+										"instance-variable": "PositionID",
+										"comparison": 4,
+										"value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-animation",
+									"objectClass": "asset_createchar_WheelKindPortrait",
+									"sid": 541157586280291,
+									"parameters": {
+										"animation": "mem_KindWheel.At(Self.PositionID)",
+										"from": "beginning"
+									}
+								}
+							],
+							"sid": 361857558105935
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each-ordered",
+									"objectClass": "System",
+									"sid": 487645171943880,
+									"parameters": {
+										"object": "asset_createchar_WheelKindPortrait",
+										"expression": "asset_createchar_WheelKindPortrait.PositionID",
+										"order": "descending"
+									}
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "asset_createchar_WheelKindPortrait",
+									"sid": 794103210842067,
+									"parameters": {
+										"instance-variable": "PositionID",
+										"comparison": 2,
+										"value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-animation",
+									"objectClass": "asset_createchar_WheelKindPortrait",
+									"sid": 517196827579445,
+									"parameters": {
+										"animation": "mem_KindWheel.At(7+Self.PositionID)",
+										"from": "beginning"
+									}
+								}
+							],
+							"sid": 931174366225200
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-at-x",
+									"objectClass": "mem_KindWheel",
+									"sid": 799676523958579,
+									"parameters": {
+										"x": "0",
+										"comparison": 0,
+										"value": "\"WickerOnes\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 513255478401477,
+									"parameters": {
+										"variable": "createchar_KindWheelNameToDisplay",
+										"value": "\"Wicker Ones\""
+									}
+								}
+							],
+							"sid": 835361069521816
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 899879192688745
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 436373214730402,
+									"parameters": {
+										"variable": "createchar_KindWheelNameToDisplay",
+										"value": "mem_KindWheel.At(0)"
+									}
+								}
+							],
+							"sid": 786208568624093
+						}
+					]
+				}
+			],
+			"sid": 297911662901665
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "createchar_ Skill Tooltip",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "CreateChar-SkillTooltip-Init",
+					"functionDescription": "Initializes the skill tooltip of the character creation menu by setting the hierarchy of the tooltip's text elements.",
+					"functionCategory": "CreateChar, SkillTooltip",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 246534147467512,
+					"children": [
+						{
+							"eventType": "comment",
+							"text": "Skill Name"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-comparison",
+									"objectClass": "System",
+									"sid": 940308937606056,
+									"parameters": {
+										"object": "SpriteFont_Variant2",
+										"expression": "SpriteFont_Variant2.Type",
+										"comparison": 0,
+										"value": "\"CreateChar_SkillName\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "add-child",
+									"objectClass": "Sizeable_Tooltip",
+									"sid": 129030156702912,
+									"parameters": {
+										"child": "SpriteFont_Variant2",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": false,
+										"transform-z-elevation": false,
+										"destroy-with-parent": false
+									}
+								}
+							],
+							"sid": 183498908253953
+						},
+						{
+							"eventType": "comment",
+							"text": "Skill Description"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-comparison",
+									"objectClass": "System",
+									"sid": 775862757119270,
+									"parameters": {
+										"object": "SpriteFont_Variant",
+										"expression": "SpriteFont_Variant.Type",
+										"comparison": 0,
+										"value": "\"CreateChar_SkillDescription\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "add-child",
+									"objectClass": "Sizeable_Tooltip",
+									"sid": 617853368792978,
+									"parameters": {
+										"child": "SpriteFont_Variant",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": false,
+										"transform-z-elevation": false,
+										"destroy-with-parent": false
+									}
+								}
+							],
+							"sid": 440496520551733
+						}
+					]
+				}
+			],
+			"sid": 155895458655338
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "createchar_ Hex Selection",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "CreateChar-HexSelection-Init",
+					"functionDescription": "",
+					"functionCategory": "CreateChar, HexSelection",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "push",
+							"objectClass": "mem_HexSelection",
+							"sid": 328101439096131,
+							"parameters": {
+								"where": "back",
+								"value": "\"NULL\"",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "push",
+							"objectClass": "mem_HexSelection",
+							"sid": 636694126067971,
+							"parameters": {
+								"where": "back",
+								"value": "\"NULL\"",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "push",
+							"objectClass": "mem_HexSelection",
+							"sid": 740378341526709,
+							"parameters": {
+								"where": "back",
+								"value": "\"NULL\"",
+								"axis": "x"
+							}
+						}
+					],
+					"sid": 319635333308736
+				}
+			],
+			"sid": 934025185904780
+		}
+	],
+	"sid": 532420305533117
+}

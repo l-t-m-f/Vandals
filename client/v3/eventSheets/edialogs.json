@@ -1,0 +1,1352 @@
+{
+	"name": "eDialogs",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "dialogs__SEC_PER_TYPEWRITTEN_CHAR",
+			"type": "number",
+			"initialValue": "0.04",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 230930996739875
+		},
+		{
+			"eventType": "variable",
+			"name": "dialogs__PAUSE_BETWEEN_SECTIONS",
+			"type": "number",
+			"initialValue": "1.5",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 448807814340225
+		},
+		{
+			"eventType": "variable",
+			"name": "dialogs__DisplayingUI",
+			"type": "boolean",
+			"initialValue": "false",
+			"comment": "True (1) when a Dialogs window is opened.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 720509878028100
+		},
+		{
+			"eventType": "variable",
+			"name": "dialogs__ShutUp",
+			"type": "boolean",
+			"initialValue": "false",
+			"comment": "True (1) when no NPC interaction can be triggered. To prevent conflict in the program.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 211371445153043
+		},
+		{
+			"eventType": "variable",
+			"name": "dialogs__CurSpeakingCharID",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "Character ID of the NPC currently implicated in the opened Dialogs. To prevent conflict in the program.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 342900161816826
+		},
+		{
+			"eventType": "variable",
+			"name": "dialogs__TurnOf",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "String to indicate if its Player or NPC's turn in the dialogs.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 111328456826483
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "has-los-to-object",
+					"objectClass": "NPC",
+					"sid": 412945776660699,
+					"behaviorType": "DialogsActivationRange",
+					"parameters": {
+						"object": "Netpeer",
+						"image-point": "0"
+					}
+				},
+				{
+					"id": "compare-instance-variable",
+					"objectClass": "Netpeer",
+					"sid": 732317043016274,
+					"parameters": {
+						"instance-variable": "AssocActorNr",
+						"comparison": 0,
+						"value": "Photon.MyActorNr"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 210449499953325,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 373206537850732,
+							"parameters": {
+								"variable": "dialogs__DisplayingUI"
+							},
+							"isInverted": true
+						},
+						{
+							"id": "compare-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 107909669734278,
+							"parameters": {
+								"variable": "dialogs__ShutUp"
+							},
+							"isInverted": true
+						},
+						{
+							"id": "is-boolean-instance-variable-set",
+							"objectClass": "NPC",
+							"sid": 622052543740338,
+							"parameters": {
+								"instance-variable": "Speaking"
+							},
+							"isInverted": true
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "Dialogs-Begin",
+							"sid": 901548984687297,
+							"parameters": [
+								"NPC.CharID"
+							]
+						}
+					],
+					"sid": 429681284133564
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "else",
+					"objectClass": "System",
+					"sid": 268732792555277
+				},
+				{
+					"id": "has-los-to-object",
+					"objectClass": "NPC",
+					"sid": 740623964712159,
+					"behaviorType": "DialogsActivationRange",
+					"parameters": {
+						"object": "Netpeer",
+						"image-point": "0"
+					},
+					"isInverted": true
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "Dialogs-End",
+					"sid": 991993540538055,
+					"parameters": [
+						"\"NULL\""
+					]
+				},
+				{
+					"id": "set-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 539221754972990,
+					"parameters": {
+						"variable": "dialogs__ShutUp",
+						"value": "false"
+					}
+				}
+			],
+			"sid": 961697572906551
+		},
+		{
+			"functionName": "Dialogs-Begin",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pCharID",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "CharID of the NPC targeted by this function.",
+					"sid": 547958156961683
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 370205525357039,
+					"parameters": {
+						"object": "NPC",
+						"expression": "NPC.CharID",
+						"comparison": 0,
+						"value": "pCharID"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-layer-visible",
+					"objectClass": "System",
+					"sid": 305940034034802,
+					"parameters": {
+						"layer": "\"IGM_Dialogs\"",
+						"visibility": "visible"
+					}
+				},
+				{
+					"id": "set-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 233125095295267,
+					"parameters": {
+						"variable": "dialogs__DisplayingUI",
+						"value": "true"
+					}
+				},
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 386764224570097,
+					"parameters": {
+						"variable": "dialogs__CurSpeakingCharID",
+						"value": "NPC.CharID"
+					}
+				},
+				{
+					"id": "set-boolean-instvar",
+					"objectClass": "NPC",
+					"sid": 615462657264024,
+					"parameters": {
+						"instance-variable": "Speaking",
+						"value": "true"
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "NPC",
+					"sid": 307014856890043,
+					"parameters": {
+						"instance-variable": "CurDialogTrack",
+						"value": "Self.DefaultDialogTrack"
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "NPC",
+					"sid": 597829808966655,
+					"parameters": {
+						"instance-variable": "CurDialogLine",
+						"value": "0"
+					}
+				},
+				{
+					"callFunction": "VFX-Dialogs-RefreshPortraits",
+					"sid": 886953392575226
+				}
+			],
+			"sid": 643779132904811,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-overlapping-another-object",
+							"objectClass": "NPC",
+							"sid": 112401163201138,
+							"parameters": {
+								"object": "dialogsSideHitbox"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 613187047572667,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "dialogsSideHitbox",
+									"sid": 780241962499531,
+									"parameters": {
+										"instance-variable": "Side",
+										"comparison": 0,
+										"value": "\"Left\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-layer-visible",
+									"objectClass": "System",
+									"sid": 437184659972082,
+									"parameters": {
+										"layer": "\"IGM_Dialogs_right\"",
+										"visibility": "visible"
+									}
+								}
+							],
+							"sid": 198895703027348
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 265278465801419
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "dialogsSideHitbox",
+									"sid": 468641668154133,
+									"parameters": {
+										"instance-variable": "Side",
+										"comparison": 0,
+										"value": "\"Right\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-layer-visible",
+									"objectClass": "System",
+									"sid": 272750204873520,
+									"parameters": {
+										"layer": "\"IGM_Dialogs_left\"",
+										"visibility": "visible"
+									}
+								}
+							],
+							"sid": 448987898474183,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "is-boolean-instance-variable-set",
+											"objectClass": "NPC",
+											"sid": 466059589729965,
+											"parameters": {
+												"instance-variable": "SpeaksFirst"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 436828815999666,
+											"parameters": {
+												"variable": "dialogs__TurnOf",
+												"value": "\"NPC\""
+											}
+										}
+									],
+									"sid": 505463744843625,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "pick-by-comparison",
+													"objectClass": "System",
+													"sid": 399096311887558,
+													"parameters": {
+														"object": "SpriteFont_Variant",
+														"expression": "SpriteFont_Variant.Type",
+														"comparison": 0,
+														"value": "\"NPCDialogs\""
+													}
+												},
+												{
+													"id": "pick-overlapping-point",
+													"objectClass": "System",
+													"sid": 565304048839053,
+													"parameters": {
+														"object": "dialogsSideHitbox",
+														"x": "0",
+														"y": "0"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "typewriter-text",
+													"objectClass": "SpriteFont_Variant",
+													"sid": 375810440072335,
+													"parameters": {
+														"text": "data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID)",
+														"duration": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID))"
+													}
+												},
+												{
+													"id": "wait",
+													"objectClass": "System",
+													"sid": 567367997399265,
+													"parameters": {
+														"seconds": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID))"
+													}
+												}
+											],
+											"sid": 145147128569353
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 468212920513350
+										}
+									],
+									"actions": [
+										{
+											"id": "set-boolean-instvar",
+											"objectClass": "NPC",
+											"sid": 935361826275569,
+											"parameters": {
+												"instance-variable": "SpeaksFirst",
+												"value": "true"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 998126067475922,
+											"parameters": {
+												"variable": "dialogs__TurnOf",
+												"value": "\"Player\""
+											}
+										},
+										{
+											"id": "typewriter-text",
+											"objectClass": "SpriteFont_Variant",
+											"sid": 822958009419417,
+											"parameters": {
+												"text": "data_Dialogs.At((NPC.CurDialogTrack*8)+3, NPC.CurDialogLine, NPC.CharID)",
+												"duration": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID))"
+											}
+										},
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 613186632985794,
+											"parameters": {
+												"seconds": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID))+0.5"
+											}
+										}
+									],
+									"sid": 495437098170628
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"functionName": "Dialogs-CheckNextStep",
+			"functionDescription": "",
+			"functionCategory": "Dialogs",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pReplyID",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"sid": 448474565310567
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 774563071994092,
+					"parameters": {
+						"object": "NPC",
+						"expression": "NPC.CharID",
+						"comparison": 0,
+						"value": "dialogs__CurSpeakingCharID"
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "VFX-Dialogs-RefreshPortraits",
+					"sid": 857532703751740
+				}
+			],
+			"sid": 326542776361346,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 109978896578123,
+							"parameters": {
+								"variable": "pReplyID",
+								"comparison": 0,
+								"value": "0"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 788344083825738,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 966325941087697,
+									"parameters": {
+										"first-value": "data_Dialogs.At((NPC.CurDialogTrack*8)+pReplyID, NPC.CurDialogLine+2, NPC.CharID)",
+										"comparison": 0,
+										"second-value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "NPC",
+									"sid": 402762843595207,
+									"parameters": {
+										"instance-variable": "DefaultDialogTrack",
+										"value": "NPC.CurDialogTrack+1"
+									}
+								}
+							],
+							"sid": 302554952127522
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 926285229593337,
+									"parameters": {
+										"first-value": "data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine+1, NPC.CharID)",
+										"comparison": 0,
+										"second-value": "\"choices\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-ShowDialogsOptions",
+									"sid": 931012867990790
+								}
+							],
+							"sid": 101625086856006
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 899730015097775
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 479724495058900,
+									"parameters": {
+										"first-value": "data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine+1, NPC.CharID)",
+										"comparison": 0,
+										"second-value": "-2"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Dialogs-Goto",
+									"sid": 918724576178489,
+									"parameters": [
+										"\"NULL\"",
+										"-1",
+										"-1"
+									]
+								}
+							],
+							"sid": 630046063544524
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 542750432047159
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 153986880832922,
+									"parameters": {
+										"first-value": "data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine+1, NPC.CharID)",
+										"comparison": 0,
+										"second-value": "-3"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Dialogs-Goto",
+									"sid": 718242548435329,
+									"parameters": [
+										"\"NULL\"",
+										"-1",
+										"-1"
+									]
+								}
+							],
+							"sid": 224760959412769
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 391269596896691
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 783100415253989,
+									"parameters": {
+										"first-value": "data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine+1, NPC.CharID)",
+										"comparison": 0,
+										"second-value": "-4"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Dialogs-Goto",
+									"sid": 606658346080058,
+									"parameters": [
+										"\"NULL\"",
+										"-1",
+										"-1"
+									]
+								}
+							],
+							"sid": 592613965354863
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 976444417283130
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Dialogs-Continue",
+									"sid": 261172135919713,
+									"parameters": [
+										"\"NULL\"",
+										"-1"
+									]
+								}
+							],
+							"sid": 956724514465466
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "For Player replies logic"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 547095137755355
+						}
+					],
+					"actions": [],
+					"sid": 510428655462082,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 376146318527266,
+									"parameters": {
+										"first-value": "data_Dialogs.At((NPC.CurDialogTrack*8)+pReplyID, NPC.CurDialogLine+2, NPC.CharID)",
+										"comparison": 0,
+										"second-value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "NPC",
+									"sid": 722108003276773,
+									"parameters": {
+										"instance-variable": "DefaultDialogTrack",
+										"value": "NPC.CurDialogTrack+1"
+									}
+								}
+							],
+							"sid": 883993092186331
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 433274327222389,
+									"parameters": {
+										"first-value": "data_Dialogs.At((NPC.CurDialogTrack*8)+pReplyID, NPC.CurDialogLine+1, NPC.CharID)",
+										"comparison": 0,
+										"second-value": "-2"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Dialogs-Goto",
+									"sid": 687916525307567,
+									"parameters": [
+										"\"NULL\"",
+										"-1",
+										"-1"
+									]
+								}
+							],
+							"sid": 229363051318739
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 867841768677051
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 852521041086233,
+									"parameters": {
+										"first-value": "data_Dialogs.At((NPC.CurDialogTrack*8)+pReplyID, NPC.CurDialogLine+1, NPC.CharID)",
+										"comparison": 0,
+										"second-value": "-3"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Dialogs-Goto",
+									"sid": 775041426378779,
+									"parameters": [
+										"\"NULL\"",
+										"-1",
+										"-1"
+									]
+								}
+							],
+							"sid": 119165584660582
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 725033542839038
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 994490296980138,
+									"parameters": {
+										"first-value": "data_Dialogs.At((NPC.CurDialogTrack*8)+pReplyID, NPC.CurDialogLine+1, NPC.CharID)",
+										"comparison": 0,
+										"second-value": "-4"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Dialogs-Goto",
+									"sid": 773957603226346,
+									"parameters": [
+										"\"NULL\"",
+										"-1",
+										"-1"
+									]
+								}
+							],
+							"sid": 137331728290313
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 641217380546691
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 803892278930182,
+									"parameters": {
+										"first-value": "data_Dialogs.At((NPC.CurDialogTrack*8)+pReplyID, NPC.CurDialogLine+1, NPC.CharID)",
+										"comparison": 0,
+										"second-value": "-5"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Dialogs-Goto",
+									"sid": 261987858583309,
+									"parameters": [
+										"\"NULL\"",
+										"-1",
+										"-1"
+									]
+								}
+							],
+							"sid": 543572816800608
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 380028802423716
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 296719685928768,
+									"parameters": {
+										"first-value": "data_Dialogs.At((NPC.CurDialogTrack*8)+pReplyID, NPC.CurDialogLine+1, NPC.CharID)",
+										"comparison": 0,
+										"second-value": "-9"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Dialogs-End",
+									"sid": 525507306396285,
+									"parameters": [
+										"\"NULL\""
+									]
+								}
+							],
+							"sid": 812401003145549
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 810676448030201
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Dialogs-Continue",
+									"sid": 784217529487674,
+									"parameters": [
+										"\"NULL\"",
+										"-1"
+									]
+								}
+							],
+							"sid": 115422256806171
+						}
+					]
+				}
+			]
+		},
+		{
+			"functionName": "Dialogs-Continue",
+			"functionDescription": "",
+			"functionCategory": "Dialogs",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pNextTurnOf",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"sid": 708213860951417
+				},
+				{
+					"name": "pReplyID",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 202796402315879
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 886617006932947,
+					"parameters": {
+						"object": "NPC",
+						"expression": "NPC.CharID",
+						"comparison": 0,
+						"value": "dialogs__CurSpeakingCharID"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 951699877696081,
+					"parameters": {
+						"variable": "dialogs__TurnOf",
+						"value": "pNextTurnOf"
+					}
+				},
+				{
+					"callFunction": "VFX-Dialogs-RefreshPortraits",
+					"sid": 699998354059645
+				},
+				{
+					"id": "add-to-instvar",
+					"objectClass": "NPC",
+					"sid": 411688038522427,
+					"parameters": {
+						"instance-variable": "CurDialogLine",
+						"value": "1"
+					}
+				}
+			],
+			"sid": 649601249769415,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 413772104715054,
+							"parameters": {
+								"variable": "dialogs__TurnOf",
+								"comparison": 0,
+								"value": "\"Player\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "typewriter-text",
+							"objectClass": "SpriteFont_Variant",
+							"sid": 396679481879641,
+							"parameters": {
+								"text": "data_Dialogs.At((NPC.CurDialogTrack*8)+pReplyID, NPC.CurDialogLine, NPC.CharID)",
+								"duration": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At((NPC.CurDialogTrack*8)+pReplyID, NPC.CurDialogLine, NPC.CharID))"
+							}
+						},
+						{
+							"id": "wait",
+							"objectClass": "System",
+							"sid": 517541004228145,
+							"parameters": {
+								"seconds": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID))"
+							}
+						},
+						{
+							"callFunction": "Dialogs-CheckNextStep",
+							"sid": 910680510498764,
+							"parameters": [
+								"pReplyID"
+							]
+						}
+					],
+					"sid": 549363867957308
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 116520020434623
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 300755723712388,
+							"parameters": {
+								"variable": "dialogs__TurnOf",
+								"comparison": 0,
+								"value": "\"NPC\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "typewriter-text",
+							"objectClass": "SpriteFont_Variant",
+							"sid": 597071053945255,
+							"parameters": {
+								"text": "data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID)",
+								"duration": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID))"
+							}
+						},
+						{
+							"id": "wait",
+							"objectClass": "System",
+							"sid": 463705854976749,
+							"parameters": {
+								"seconds": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID))"
+							}
+						},
+						{
+							"callFunction": "Dialogs-CheckNextStep",
+							"sid": 503764099778119,
+							"parameters": [
+								"pReplyID"
+							]
+						}
+					],
+					"sid": 282059575186484
+				}
+			]
+		},
+		{
+			"functionName": "Dialogs-Reply",
+			"functionDescription": "",
+			"functionCategory": "Dialogs",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pNextTurnOf",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"sid": 528585425542975
+				},
+				{
+					"name": "pReplyID",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 753057517351614
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 194429325050608,
+					"parameters": {
+						"object": "NPC",
+						"expression": "NPC.CharID",
+						"comparison": 0,
+						"value": "dialogs__CurSpeakingCharID"
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "UI-HideDialogsOptions",
+					"sid": 958057717436438
+				},
+				{
+					"callFunction": "VFX-Dialogs-RefreshPortraits",
+					"sid": 284965655310862
+				},
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 972954618790523,
+					"parameters": {
+						"variable": "dialogs__TurnOf",
+						"value": "pNextTurnOf"
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "NPC",
+					"sid": 645550340376470,
+					"parameters": {
+						"instance-variable": "CurDialogLine",
+						"value": "0"
+					}
+				},
+				{
+					"id": "typewriter-text",
+					"objectClass": "SpriteFont_Variant",
+					"sid": 935074276537726,
+					"parameters": {
+						"text": "data_Dialogs.At((NPC.CurDialogTrack*8)+pReplyID, NPC.CurDialogLine, NPC.CharID)",
+						"duration": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At((NPC.CurDialogTrack*8)+pReplyID, NPC.CurDialogLine, NPC.CharID))"
+					}
+				},
+				{
+					"id": "wait",
+					"objectClass": "System",
+					"sid": 848022525984069,
+					"parameters": {
+						"seconds": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID))"
+					}
+				},
+				{
+					"id": "wait-for-previous-actions",
+					"objectClass": "System",
+					"sid": 712658551755281
+				},
+				{
+					"callFunction": "Dialogs-CheckNextStep",
+					"sid": 314657710462338,
+					"parameters": [
+						"pReplyID"
+					]
+				}
+			],
+			"sid": 295349044610342
+		},
+		{
+			"functionName": "Dialogs-Goto",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pNextTurnOf",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"sid": 905525361728753
+				},
+				{
+					"name": "pReplyID",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 116878283820173
+				},
+				{
+					"name": "pDestinationDialogTrack",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 762019756440531
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 264030951289150,
+					"parameters": {
+						"object": "NPC",
+						"expression": "NPC.CharID",
+						"comparison": 0,
+						"value": "dialogs__CurSpeakingCharID"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 850165237626915,
+					"parameters": {
+						"variable": "dialogs__TurnOf",
+						"value": "pNextTurnOf"
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "NPC",
+					"sid": 418013130976525,
+					"parameters": {
+						"instance-variable": "CurDialogTrack",
+						"value": "pDestinationDialogTrack"
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "NPC",
+					"sid": 279762128343482,
+					"parameters": {
+						"instance-variable": "CurDialogLine",
+						"value": "0"
+					}
+				},
+				{
+					"id": "typewriter-text",
+					"objectClass": "SpriteFont_Variant",
+					"sid": 969334091495096,
+					"parameters": {
+						"text": "data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID)",
+						"duration": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID))"
+					}
+				},
+				{
+					"id": "wait",
+					"objectClass": "System",
+					"sid": 726289574488072,
+					"parameters": {
+						"seconds": "dialogs__SEC_PER_TYPEWRITTEN_CHAR*len(data_Dialogs.At(NPC.CurDialogTrack*8, NPC.CurDialogLine, NPC.CharID))"
+					}
+				},
+				{
+					"callFunction": "Dialogs-CheckNextStep",
+					"sid": 375027149489935,
+					"parameters": [
+						"pReplyID"
+					]
+				}
+			],
+			"sid": 279285992338562
+		},
+		{
+			"functionName": "Dialogs-End",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pSide",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"sid": 137565141902952
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"callFunction": "UI-HideDialogsOptions",
+					"sid": 592155585059252
+				},
+				{
+					"id": "set-boolean-instvar",
+					"objectClass": "NPC",
+					"sid": 567561706964444,
+					"parameters": {
+						"instance-variable": "Speaking",
+						"value": "false"
+					}
+				},
+				{
+					"id": "set-layer-visible",
+					"objectClass": "System",
+					"sid": 749843054505822,
+					"parameters": {
+						"layer": "\"IGM_Dialogs_\"&lowercase(pSide)",
+						"visibility": "invisible"
+					}
+				},
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 276181087266537,
+					"parameters": {
+						"variable": "dialogs__CurSpeakingCharID",
+						"value": "-1"
+					}
+				},
+				{
+					"id": "set-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 356967766685842,
+					"parameters": {
+						"variable": "dialogs__DisplayingUI",
+						"value": "false"
+					}
+				},
+				{
+					"id": "set-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 526517735208519,
+					"parameters": {
+						"variable": "dialogs__ShutUp",
+						"value": "true"
+					}
+				}
+			],
+			"sid": 672892447921163
+		},
+		{
+			"functionName": "UI-HideDialogsOptions",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 681300649880002
+		},
+		{
+			"functionName": "UI-ShowDialogsOptions",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 620542530585976
+		}
+	],
+	"sid": 120828757863230
+}

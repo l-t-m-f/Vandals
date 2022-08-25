@@ -1,0 +1,36 @@
+{
+	"name": "Flash",
+	"plugin-id": "Sprite",
+	"sid": 726804072681229,
+	"instanceVariables": [
+		{
+			"name": "fvFlashTime_on",
+			"type": "number",
+			"desc": "Duration in seconds of the flashing effect \"on\" time.",
+			"sid": 975545602994928
+		},
+		{
+			"name": "fvFlashTime_off",
+			"type": "number",
+			"desc": "Duration in seconds of the flashing effect \"off\" time. If -1, ignored and assume it is symmetric to the \"on\" duration.",
+			"sid": 736342321971308
+		},
+		{
+			"name": "fvFlashDuration",
+			"type": "number",
+			"desc": "Duration in seconds of the overall flashing effect.",
+			"sid": 352448895532686
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Flash",
+			"name": "Flash",
+			"sid": 416720414044786
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"asset_Monster"
+	]
+}

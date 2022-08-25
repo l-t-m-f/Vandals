@@ -1,0 +1,44 @@
+{
+	"name": "asset_House",
+	"plugin-id": "Sprite",
+	"sid": 673171769480435,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 192,
+						"height": 196,
+						"originX": 0,
+						"originY": 1,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 5518584,
+						"useCollisionPoly": true,
+						"imagePoints": [
+							{
+								"name": "YasZ",
+								"x": 0.4947916666666667,
+								"y": 0.9132653061224489
+							}
+						],
+						"duration": 1
+					}
+				],
+				"sid": 199766223094156,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

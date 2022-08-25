@@ -1,0 +1,20 @@
+{
+	"name": "InGameMenu",
+	"plugin-id": "NinePatch",
+	"sid": 588883603701260,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"image": {
+		"width": 96,
+		"height": 95,
+		"originX": 0.5052083333333334,
+		"originY": 0.5052083333333334,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 6303492,
+		"useCollisionPoly": true
+	}
+}

@@ -1,0 +1,253 @@
+{
+	"name": "KindIcon_myplayer",
+	"plugin-id": "Sprite",
+	"sid": 486350852315976,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "Type",
+			"type": "string",
+			"desc": "",
+			"sid": 474430289510501
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 128,
+						"height": 132,
+						"originX": 0.5,
+						"originY": 0.5151515151515151,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 2786800,
+						"collisionPoly": {
+							"points": [
+								0.03125,
+								0.030303030303030304,
+								1,
+								0.030303030303030304,
+								1,
+								1,
+								0.03125,
+								1
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 636118115816568,
+				"name": "NULL",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			},
+			{
+				"frames": [
+					{
+						"width": 128,
+						"height": 132,
+						"originX": 0.5,
+						"originY": 0.5151515151515151,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 8096007,
+						"collisionPoly": {
+							"points": [
+								0.03125,
+								0.030303030303030304,
+								1,
+								0.030303030303030304,
+								1,
+								1,
+								0.03125,
+								1
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 284615407759588,
+				"name": "Popples",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			},
+			{
+				"frames": [
+					{
+						"width": 128,
+						"height": 140,
+						"originX": 0.5,
+						"originY": 0.5428571428571428,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 1062244,
+						"collisionPoly": {
+							"points": [
+								0.03125,
+								0,
+								1,
+								0,
+								1,
+								1,
+								0.03125,
+								1
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 804127567422185,
+				"name": "Lobmysians",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			},
+			{
+				"frames": [
+					{
+						"width": 128,
+						"height": 128,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 9989432,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 550669309061407,
+				"name": "Molekins",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			},
+			{
+				"frames": [
+					{
+						"width": 128,
+						"height": 132,
+						"originX": 0.5,
+						"originY": 0.5151515151515151,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 3312594,
+						"collisionPoly": {
+							"points": [
+								0,
+								0.030303030303030304,
+								1,
+								0.030303030303030304,
+								1,
+								1,
+								0,
+								1
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 806502701310481,
+				"name": "Roxis",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			},
+			{
+				"frames": [
+					{
+						"width": 128,
+						"height": 128,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 9831214,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 567232890995577,
+				"name": "Droids",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			},
+			{
+				"frames": [
+					{
+						"width": 128,
+						"height": 128,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 5605782,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 236438894124779,
+				"name": "Nobs",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			},
+			{
+				"frames": [
+					{
+						"width": 128,
+						"height": 132,
+						"originX": 0.5,
+						"originY": 0.5151515151515151,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 2808861,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 664502832577116,
+				"name": "WickerOnes",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

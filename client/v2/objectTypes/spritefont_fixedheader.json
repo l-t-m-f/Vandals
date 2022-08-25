@@ -1,0 +1,27 @@
+{
+	"name": "SpriteFont_FixedHeader",
+	"plugin-id": "Spritefont2",
+	"sid": 221517082087098,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "Type",
+			"type": "string",
+			"desc": "Type of fixed header. (Used to pick button headers from the rest.)",
+			"sid": 860447402678576
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"image": {
+		"width": 256,
+		"height": 384,
+		"originX": 0.5,
+		"originY": 0.5,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 1,
+		"imageSpriteId": 2927981,
+		"useCollisionPoly": true
+	}
+}

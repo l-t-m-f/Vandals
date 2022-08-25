@@ -1,0 +1,332 @@
+{
+	"name": "eFight",
+	"events": [
+		{
+			"eventType": "comment",
+			"text": "Fight Events"
+		},
+		{
+			"eventType": "variable",
+			"name": "fight__CastMode",
+			"type": "boolean",
+			"initialValue": "false",
+			"comment": "True (1) if currently casting a spell (next click in area triggers the cast).",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 425939739486891
+		},
+		{
+			"eventType": "variable",
+			"name": "fight__CurPreviewedRangeSkillName",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "Name of the skill whose range is currently previewed.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 223328090285231
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__fight__DamageRequestDecryptedReturn",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 952323545374290
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "onevent3",
+					"objectClass": "Photon",
+					"sid": 435820977267309,
+					"parameters": {
+						"code0": "55"
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "VFX-AttackIllusion",
+					"sid": 756243913788364,
+					"parameters": [
+						"int(tokenat(Photon.EventData, 0, \"|\"))",
+						"int(tokenat(Photon.EventData, 1, \"|\"))"
+					]
+				}
+			],
+			"sid": 596150050139731
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-collision-with-another-object",
+					"objectClass": "CastRequest",
+					"sid": 466618781492073,
+					"parameters": {
+						"object": "Monster"
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "Monsters-Server-DamageRequest",
+					"sid": 411569587513781,
+					"parameters": [
+						"Functions.Enigma_Encrypt(Monster.MonsterGroupHashID, K_BROWSER)",
+						"Functions.Enigma_Encrypt(Monster.MonsterHashID, K_BROWSER)",
+						"Functions.Enigma_Encrypt(\"\"&1, K_BROWSER)"
+					]
+				},
+				{
+					"id": "destroy",
+					"objectClass": "CastRequest",
+					"sid": 711436600518818
+				}
+			],
+			"sid": 446781576669584
+		},
+		{
+			"functionName": "VFX-AttackIllusion",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pX",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "X-Coordinate to cast at.",
+					"sid": 155470745449348
+				},
+				{
+					"name": "pY",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "Y-Coordinate to cast at.",
+					"sid": 409123662554913
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "create-object",
+					"objectClass": "System",
+					"sid": 640615248616288,
+					"parameters": {
+						"object-to-create": "asset_PaintSpot",
+						"layer": "\"Assets_layer1\"",
+						"x": "GridGraph.PositionToTileX(pX)*32",
+						"y": "GridGraph.PositionToTileX(pY)*32",
+						"create-hierarchy": false
+					}
+				},
+				{
+					"id": "set-scale",
+					"objectClass": "asset_PaintSpot",
+					"sid": 139188166120191,
+					"parameters": {
+						"scale": "random(1.5, 2.5)"
+					}
+				},
+				{
+					"id": "set-angle",
+					"objectClass": "asset_PaintSpot",
+					"sid": 819212097934154,
+					"parameters": {
+						"angle": "0+(floor(random(0, 4))*90)"
+					}
+				},
+				{
+					"id": "set-default-color",
+					"objectClass": "asset_PaintSpot",
+					"sid": 364218372501962,
+					"parameters": {
+						"color": "rgbEx(random(30, 99), random(30, 99), random(30, 99))"
+					}
+				},
+				{
+					"id": "set-animation-frame",
+					"objectClass": "asset_PaintSpot",
+					"sid": 913367193036080,
+					"parameters": {
+						"frame-number": "floor(random(0, 3))"
+					}
+				}
+			],
+			"sid": 835363711683823
+		},
+		{
+			"functionName": "Netpeer-Attack-PlaceRequest",
+			"functionDescription": "",
+			"functionCategory": "Netpeer, Attack",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pX",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "X-Coordinate to cast at.",
+					"sid": 663604238415981
+				},
+				{
+					"name": "pY",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "Y-Coordinate to cast at.",
+					"sid": 677810333158549
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 966940835829108,
+					"parameters": {
+						"object": "Netpeer",
+						"expression": "Netpeer.AssocActorNr",
+						"comparison": 0,
+						"value": "Photon.MyActorNr"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 509029899299349,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "Netpeer",
+							"sid": 342495772217113,
+							"parameters": {
+								"instance-variable": "CurDisplayEnergy",
+								"comparison": 5,
+								"value": "5"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "subtract-from-instvar",
+							"objectClass": "Netpeer",
+							"sid": 831268085942970,
+							"parameters": {
+								"instance-variable": "CurDisplayEnergy",
+								"value": "5"
+							}
+						},
+						{
+							"id": "destroy",
+							"objectClass": "CastRequest",
+							"sid": 910246947809186
+						},
+						{
+							"id": "create-object",
+							"objectClass": "System",
+							"sid": 426768300629833,
+							"parameters": {
+								"object-to-create": "CastRequest",
+								"layer": "\"_GAMEOBJECTS\"",
+								"x": "GridGraph.PositionToTileX(pX)*32",
+								"y": "GridGraph.PositionToTileY(pY)*32",
+								"create-hierarchy": false
+							}
+						},
+						{
+							"id": "spawn-another-object",
+							"objectClass": "CastRequest",
+							"sid": 119061318531497,
+							"parameters": {
+								"object": "asset_PaintSpot",
+								"layer": "\"Assets_aboveAll\"",
+								"image-point": "0",
+								"create-hierarchy": false
+							}
+						},
+						{
+							"id": "add-child",
+							"objectClass": "CastRequest",
+							"sid": 416750855618505,
+							"parameters": {
+								"child": "asset_PaintSpot",
+								"transform-x": true,
+								"transform-y": true,
+								"transform-w": false,
+								"transform-h": false,
+								"transform-a": false,
+								"transform-z-elevation": false,
+								"destroy-with-parent": false
+							}
+						},
+						{
+							"id": "raiseevent17",
+							"objectClass": "Photon",
+							"sid": 405660383305767,
+							"parameters": {
+								"code0": "55",
+								"data1": "CastRequest.X&\"|\"&CastRequest.Y",
+								"interestgroup2": "0",
+								"cache11": "donotcache",
+								"receivers15": "others",
+								"targetactors16": "\"\"",
+								"webforward19": "no"
+							}
+						},
+						{
+							"id": "set-scale",
+							"objectClass": "asset_PaintSpot",
+							"sid": 785339825245935,
+							"parameters": {
+								"scale": "random(1.5, 2.5)"
+							}
+						},
+						{
+							"id": "set-angle",
+							"objectClass": "asset_PaintSpot",
+							"sid": 348746663406107,
+							"parameters": {
+								"angle": "0+(floor(random(0, 4))*90)"
+							}
+						},
+						{
+							"id": "set-default-color",
+							"objectClass": "asset_PaintSpot",
+							"sid": 874906230644319,
+							"parameters": {
+								"color": "rgbEx(random(30, 99), random(30, 99), random(30, 99))"
+							}
+						},
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 292155415965702,
+							"parameters": {
+								"variable": "fight__CastMode",
+								"value": "false"
+							}
+						},
+						{
+							"id": "set-animation-frame",
+							"objectClass": "asset_PaintSpot",
+							"sid": 388801594027042,
+							"parameters": {
+								"frame-number": "floor(random(0, 3))"
+							}
+						}
+					],
+					"sid": 501486296994500
+				}
+			]
+		}
+	],
+	"sid": 406112941091822
+}

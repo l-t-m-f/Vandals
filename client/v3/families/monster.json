@@ -1,0 +1,111 @@
+{
+	"name": "Monster",
+	"plugin-id": "Sprite",
+	"sid": 691338944056284,
+	"instanceVariables": [
+		{
+			"name": "MonsterGroupHashID",
+			"type": "string",
+			"desc": "",
+			"sid": 954424824570148
+		},
+		{
+			"name": "MonsterHashID",
+			"type": "string",
+			"desc": "",
+			"sid": 208737809405928
+		},
+		{
+			"name": "AnimatorCore",
+			"type": "string",
+			"desc": "",
+			"sid": 868385725319226
+		},
+		{
+			"name": "DisplayedHealth",
+			"type": "number",
+			"desc": "",
+			"sid": 970838369869596
+		},
+		{
+			"name": "MoveDir",
+			"type": "string",
+			"desc": "",
+			"sid": 707701504475021
+		},
+		{
+			"name": "Idly",
+			"type": "boolean",
+			"desc": "",
+			"sid": 655115760798644
+		},
+		{
+			"name": "debug__MonsterGridGraphX",
+			"type": "number",
+			"desc": "",
+			"sid": 429354602673412
+		},
+		{
+			"name": "debug__MonsterGridGraphY",
+			"type": "number",
+			"desc": "",
+			"sid": 642896435206336
+		},
+		{
+			"name": "FollowerCount",
+			"type": "number",
+			"desc": "",
+			"sid": 973959815465894
+		},
+		{
+			"name": "Leader",
+			"type": "boolean",
+			"desc": "",
+			"sid": 802739909133690
+		},
+		{
+			"name": "CurrentHealth",
+			"type": "number",
+			"desc": "",
+			"sid": 930429975297184
+		},
+		{
+			"name": "MaxHealth",
+			"type": "number",
+			"desc": "",
+			"sid": 371743579087236
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Bullet",
+			"name": "Move",
+			"sid": 356876397475527
+		},
+		{
+			"behaviorId": "Pin",
+			"name": "Pin",
+			"sid": 209910241860048
+		},
+		{
+			"behaviorId": "bound",
+			"name": "BoundToLayout",
+			"sid": 174750928302841
+		},
+		{
+			"behaviorId": "LOS",
+			"name": "LineOfSight",
+			"sid": 826460231319138
+		},
+		{
+			"behaviorId": "solid",
+			"name": "Solid",
+			"sid": 629946643193972
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"MonsterLeader",
+		"MonsterFollower"
+	]
+}

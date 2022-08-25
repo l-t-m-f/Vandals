@@ -1,0 +1,3558 @@
+{
+	"name": "eMonsters",
+	"events": [
+		{
+			"eventType": "comment",
+			"text": "Monsters Events"
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__monsters__CheckSpawnState_LastData",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "Decrypted content of the AJAX request \"CheckSpawnState\". FOR DEBUGGING. TO DELETE IN FINAL BUILD",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 597048483449750
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__monsters__RequestCreate_LastData",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "Decrypted content of the AJAX request \"RequestCreate\"'s return data, which indicates to the client how it should proceed. FOR DEBUGGING. TO DELETE IN FINAL BUILD",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 440757107744796
+		},
+		{
+			"eventType": "block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "set-text",
+					"objectClass": "TextIndicator_nextspawn",
+					"sid": 540808855953715,
+					"parameters": {
+						"text": "monsters__TimerUIValue"
+					}
+				}
+			],
+			"sid": 123701112637522
+		},
+		{
+			"eventType": "variable",
+			"name": "monsters__TimerSave_e",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "Encrypted string containing information about the monsters' respawn timer. Updated from the server during Server-Map-RefreshTimer function.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 311708788844457
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__monsters__TimerSave",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "Decrypted content of TimerSave_e. FOR DEBUGGING. TO DELETE IN FINAL BUILD",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 670920374255676
+		},
+		{
+			"eventType": "variable",
+			"name": "monsters__TimerUIValue",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "Value to display as the monsters' respawn timer in the UI. Concretely, it is a decrypted integer of the TimerSave_e monsters global (just above).",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 182607846196033
+		},
+		{
+			"eventType": "variable",
+			"name": "monsters__GroupsPositionsComposite_e",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "Encrypted string composite of tokens that takes the form |grouphashid@x@y@| for each MonsterLeader on the current map. X and Y coordinates are 'GridGraph' coordinates.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 618215265414489
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__monsters__GroupsPositionsComposite",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "Decrypted content of GroupPositionsComposite_e. FOR DEBUGGING. TO DELETE IN FINAL BUILD",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 640114798799147
+		},
+		{
+			"eventType": "variable",
+			"name": "monsters__TimerIsOn",
+			"type": "boolean",
+			"initialValue": "false",
+			"comment": "True (1) when the monsters' respawn timer is activated. This is False (0) when there is already the maximum amount of monsters on a map.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 670726116130570
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "monsters_ HostControl",
+			"description": "The Photon Host handles a lot of the monsters behaviors and relays information through encrypted tokens to the other peers.",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 150426093262388,
+							"parameters": {
+								"variable": "photonCloud_RoomMaster"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 227010432904834,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 172232850263816,
+									"parameters": {
+										"variable": "main__MapLoaded"
+									}
+								},
+								{
+									"id": "trigger-once-while-true",
+									"objectClass": "System",
+									"sid": 863710267506426
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Server-Map-CheckSpawnState",
+									"sid": 970058425949736
+								}
+							],
+							"sid": 593764300988134
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 685420160277227,
+									"parameters": {
+										"variable": "main__MapLoaded"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 752112806806113,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "UPDATE"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "every-x-seconds",
+											"objectClass": "System",
+											"sid": 813262494824986,
+											"parameters": {
+												"interval-seconds": "1"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 822616215247681,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-boolean-eventvar",
+													"objectClass": "System",
+													"sid": 595236032457820,
+													"parameters": {
+														"variable": "monsters__TimerIsOn"
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "Server-Map-RefreshTimer",
+													"sid": 295035518287379
+												}
+											],
+											"sid": 130008066963348
+										}
+									]
+								},
+								{
+									"eventType": "comment",
+									"text": "Record the position of the MonsterLeaders every 2 second. Create a GroupCompositionsComposite encrypted string and send it to the database."
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "every-x-seconds",
+											"objectClass": "System",
+											"sid": 996181745233000,
+											"parameters": {
+												"interval-seconds": "2"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 448653467774349,
+									"children": [
+										{
+											"eventType": "comment",
+											"text": "If there is no MonsterLeader, fake a GroupPositionsComposite."
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 823311488969419,
+													"parameters": {
+														"first-value": "MonsterLeader.Count",
+														"comparison": 0,
+														"second-value": "0"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 358269810563610,
+													"parameters": {
+														"variable": "monsters__GroupsPositionsComposite_e",
+														"value": "Functions.Enigma_Encrypt(\"None\", K_BROWSER)"
+													}
+												}
+											],
+											"sid": 825645125505182
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 153856921275524
+												},
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 231227057049996,
+													"parameters": {
+														"first-value": "MonsterLeader.Count",
+														"comparison": 4,
+														"second-value": "0"
+													}
+												}
+											],
+											"actions": [],
+											"sid": 612852463319651,
+											"children": [
+												{
+													"eventType": "variable",
+													"name": "temp_monster_groups_positions_composite",
+													"type": "string",
+													"initialValue": "",
+													"comment": "Temporary string to iterate into the GroupPositionsComposite monsters global.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 154772660485425
+												},
+												{
+													"eventType": "comment",
+													"text": "Construct the GroupPositionsComposite from the values of each MonsterLeader on the current map."
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "for-each",
+															"objectClass": "System",
+															"sid": 242882459630854,
+															"parameters": {
+																"object": "MonsterLeader"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 223594888031411,
+															"parameters": {
+																"variable": "temp_monster_groups_positions_composite",
+																"value": "temp_monster_groups_positions_composite&Functions.Enigma_Decrypt(MonsterLeader.MonsterGroupHashID_e, K_BROWSER)&\"@\"&GridGraph.PositionToTileX(MonsterLeader.X)&\"@\"&GridGraph.PositionToTileY(MonsterLeader.Y)&\"|\""
+															}
+														}
+													],
+													"sid": 414845904189893
+												},
+												{
+													"eventType": "block",
+													"conditions": [],
+													"actions": [
+														{
+															"id": "wait-for-previous-actions",
+															"objectClass": "System",
+															"sid": 141694425799810
+														},
+														{
+															"type": "comment",
+															"text": "Debug value to make sure the iteration went as expected. FOR DEBUGGING. TO DISABLE/DELETE IN FINAL BUILD."
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 838624945785154,
+															"parameters": {
+																"variable": "debug__monsters__GroupsPositionsComposite",
+																"value": "mid(temp_monster_groups_positions_composite, 0, len(temp_monster_groups_positions_composite)-1)"
+															}
+														}
+													],
+													"sid": 443095737296389,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [],
+															"actions": [
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 197450845193154,
+																	"parameters": {
+																		"variable": "monsters__GroupsPositionsComposite_e",
+																		"value": "Functions.Enigma_Encrypt(mid(temp_monster_groups_positions_composite, 0, len(temp_monster_groups_positions_composite)-1), K_BROWSER)"
+																	}
+																}
+															],
+															"sid": 718166261048209
+														}
+													]
+												}
+											]
+										},
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"callFunction": "Server-Monsters-UpdateGroupsPosition",
+													"sid": 437219936536529
+												}
+											],
+											"sid": 320203923115014
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "comment",
+							"text": "FUNCTIONS"
+						},
+						{
+							"functionName": "Server-Map-CheckSpawnState",
+							"functionDescription": "Requests the SpawnState corresponding to the current map's hash ID. Depending on the SpawnState, also returns all the necessary information to initialize the maps' already spawned monsters.",
+							"functionCategory": "Server, Map",
+							"functionReturnType": "none",
+							"functionIsAsync": false,
+							"functionParameters": [],
+							"eventType": "function-block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 817938151190539,
+									"parameters": {
+										"variable": "server__data_NextSecret",
+										"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+									}
+								},
+								{
+									"type": "comment",
+									"text": "APPID and BK as usual (BK only for logging the user sessionkey)"
+								},
+								{
+									"type": "comment",
+									"text": "MHI = MapHashID"
+								},
+								{
+									"callFunction": "Server-AJAX-Prep",
+									"sid": 502680140879790,
+									"parameters": [
+										"\"Map_CheckSpawnState\"",
+										"\"map/checkspawnstate.php?\"",
+										"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&MHI=\"&main__CurMapHashID"
+									]
+								}
+							],
+							"sid": 228445569901428
+						},
+						{
+							"functionName": "Server-Map-RefreshTimer",
+							"functionDescription": "Request to refresh the database timer and update the client with the new timer.",
+							"functionCategory": "Server, Map",
+							"functionReturnType": "none",
+							"functionIsAsync": false,
+							"functionParameters": [],
+							"eventType": "function-block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 815469146593818,
+									"parameters": {
+										"variable": "server__data_NextSecret",
+										"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+									}
+								},
+								{
+									"type": "comment",
+									"text": "APPID and BK as usual (BK only for logging the user sessionkey)"
+								},
+								{
+									"type": "comment",
+									"text": "MHI = MapHashID"
+								},
+								{
+									"callFunction": "Server-AJAX-Prep",
+									"sid": 875726244704734,
+									"parameters": [
+										"\"Map_RefreshTimer\"",
+										"\"map/refreshtimer.php?\"",
+										"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&MHI=\"&main__CurMapHashID"
+									]
+								}
+							],
+							"sid": 453968976702509
+						},
+						{
+							"functionName": "Server-Monsters-UpdateGroupsPosition",
+							"functionDescription": "Send an encrypted information about the position of each monsters group to the database.",
+							"functionCategory": "Server, Monsters",
+							"functionReturnType": "none",
+							"functionIsAsync": false,
+							"functionParameters": [],
+							"eventType": "function-block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 708008409553501,
+									"parameters": {
+										"variable": "server__data_NextSecret",
+										"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+									}
+								},
+								{
+									"type": "comment",
+									"text": "APPID and BK as usual (BK only for logging the user sessionkey)"
+								},
+								{
+									"type": "comment",
+									"text": "MHI = MapHashID, GPC= GroupsPositionsComposite"
+								},
+								{
+									"callFunction": "Server-AJAX-Prep",
+									"sid": 916958601213350,
+									"parameters": [
+										"\"Monsters_UpdateGroupsPositions\"",
+										"\"monsters/updategroupspositions.php?\"",
+										"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&MHI=\"&main__CurMapHashID&\"&GPC=\"&monsters__GroupsPositionsComposite_e"
+									]
+								}
+							],
+							"sid": 988962880463152
+						},
+						{
+							"eventType": "comment",
+							"text": "AJAX RESOLUTIONS"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-completed",
+									"objectClass": "AJAX",
+									"sid": 662977358082633,
+									"parameters": {
+										"tag": "\"Map_CheckSpawnState\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"type": "comment",
+									"text": "FIX NEED: Currently sets to max timer / not current timer"
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 107786558132407,
+									"parameters": {
+										"variable": "monsters__TimerSave_e",
+										"value": "Functions.Enigma_Encrypt(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 1, \"|\"), K_BROWSER)"
+									}
+								}
+							],
+							"sid": 495079549615048,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"type": "comment",
+											"text": "Debug value to peek at the LastData easily. FOR DEBUGGING. TO DELETE IN FINAL BUILD."
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 427280829141355,
+											"parameters": {
+												"variable": "debug__monsters__CheckSpawnState_LastData",
+												"value": "Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)"
+											}
+										}
+									],
+									"sid": 210926075676093
+								},
+								{
+									"eventType": "variable",
+									"name": "temp_spawn_state",
+									"type": "number",
+									"initialValue": "-1",
+									"comment": "Temporary decrypted value for the returned SpawnState. Either 0 (max monsters), 1 (no monsters), 2 (existing monsters to spawn). For lisibility.",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 566246219957379
+								},
+								{
+									"eventType": "comment",
+									"text": "Check the returned SpawnState saved in the temporary variable to determine if the local respawn timer should be turned on or off. Additionally, also determines if monsters should be spawned automatically (if they were previously spawned by another player)."
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 844177194384282,
+											"parameters": {
+												"variable": "temp_spawn_state",
+												"value": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 0, \"|\"))"
+											}
+										}
+									],
+									"sid": 613134957473605
+								},
+								{
+									"eventType": "comment",
+									"text": "SpawnState '0' -> Max monsters."
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 459318380256979,
+											"parameters": {
+												"first-value": "temp_spawn_state",
+												"comparison": 0,
+												"second-value": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 128432192218119,
+											"parameters": {
+												"variable": "monsters__TimerIsOn",
+												"value": "false"
+											}
+										}
+									],
+									"sid": 838161337453475
+								},
+								{
+									"eventType": "comment",
+									"text": "SpawnState '1' or '2' -> Room to spawn monsters."
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 157917104226225,
+											"parameters": {
+												"first-value": "temp_spawn_state",
+												"comparison": 0,
+												"second-value": "1"
+											}
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 750988786726610,
+											"parameters": {
+												"first-value": "temp_spawn_state",
+												"comparison": 0,
+												"second-value": "2"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 545428310116316,
+											"parameters": {
+												"variable": "monsters__TimerIsOn",
+												"value": "true"
+											}
+										}
+									],
+									"sid": 260424217297857,
+									"isOrBlock": true
+								},
+								{
+									"eventType": "variable",
+									"name": "monsters_tokens_to_next_group",
+									"type": "number",
+									"initialValue": "0",
+									"comment": "Temporary value incremented for each iteration of the \"i_Monsters\" loop down bellow. This integer is then used to select the proper token for subsequent monster groups that need to be spawned.",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 994716479858903
+								},
+								{
+									"eventType": "variable",
+									"name": "temp_monster_groups_count",
+									"type": "number",
+									"initialValue": "-1",
+									"comment": "Temporary decrypted value for the returned count of monsters group to spawn. For lisibility.",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 573932265164904
+								},
+								{
+									"eventType": "comment",
+									"text": "SpawnState NOT '1' -> Need to create monsters on map load."
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 127978397103980,
+											"parameters": {
+												"first-value": "temp_spawn_state",
+												"comparison": 0,
+												"second-value": "1"
+											},
+											"isInverted": true
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 753957665491444,
+											"parameters": {
+												"variable": "temp_monster_groups_count",
+												"value": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 2, \"|\"))"
+											}
+										}
+									],
+									"sid": 692537036879794,
+									"children": [
+										{
+											"eventType": "variable",
+											"name": "temp_monster_group_data_composite",
+											"type": "string",
+											"initialValue": "NULL",
+											"comment": "Temporary decrypted value of the whole data composite associated with the monster group to spawn next. For lisibility.",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 548195680417973
+										},
+										{
+											"eventType": "variable",
+											"name": "temp_monster_group_size",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "Temporary decrypted value of the size of the monster group to be spawned. For lisibility.",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 289221680477550
+										},
+										{
+											"eventType": "variable",
+											"name": "temp_monster_group_hashid",
+											"type": "string",
+											"initialValue": "NULL",
+											"comment": "Temporary decrypted value of the monster group hash ID associated with the monster(s) to spawn next. For lisibility.",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 638391118595324
+										},
+										{
+											"eventType": "variable",
+											"name": "monsters_group_spawn_x",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "Temporary decrypted value of the size of the X-coordinate over the 'GridGraph' for the monster group to be spawned. For lisibility.",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 873941654142144
+										},
+										{
+											"eventType": "variable",
+											"name": "monsters_group_spawn_y",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "Temporary decrypted value of the size of the Y-coordinate over the 'GridGraph' for the monster group to be spawned. For lisibility.",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 576526969580035
+										},
+										{
+											"eventType": "comment",
+											"text": "Double-check that there are groups to spawn."
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 392370097858686,
+													"parameters": {
+														"first-value": "temp_monster_groups_count",
+														"comparison": 4,
+														"second-value": "0"
+													}
+												}
+											],
+											"actions": [],
+											"sid": 561023848176252,
+											"children": [
+												{
+													"eventType": "comment",
+													"text": "Loops through for each monster group to spawn."
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "for",
+															"objectClass": "System",
+															"sid": 262499671806087,
+															"parameters": {
+																"name": "\"i_MonsterGroup\"",
+																"start-index": "0",
+																"end-index": "temp_monster_groups_count-1"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 435382237608839,
+															"parameters": {
+																"variable": "temp_monster_group_data_composite",
+																"value": "tokenat(Functions.Enigma_Encrypt(AJAX.LastData, K_BROWSER), 3+monsters_tokens_to_next_group, \"|\")"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 917291934397652,
+															"parameters": {
+																"variable": "temp_monster_group_size",
+																"value": "int(tokenat(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 3+monsters_tokens_to_next_group, \"|\"), 0, \"@\"))"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 171244385095325,
+															"parameters": {
+																"variable": "temp_monster_group_hashid",
+																"value": "tokenat(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 3+monsters_tokens_to_next_group, \"|\"), 1, \"@\")"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 833185918084155,
+															"parameters": {
+																"variable": "monsters_group_spawn_x",
+																"value": "int(tokenat(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 3+monsters_tokens_to_next_group, \"|\"), 2, \"@\"))"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 298145311493296,
+															"parameters": {
+																"variable": "monsters_group_spawn_y",
+																"value": "int(tokenat(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 3+monsters_tokens_to_next_group, \"|\"), 3, \"@\"))"
+															}
+														}
+													],
+													"sid": 173379664816157,
+													"children": [
+														{
+															"eventType": "variable",
+															"name": "temp_monster_data_composite",
+															"type": "string",
+															"initialValue": "NULL",
+															"comment": "Temporary decrypted value of the whole data composite associated with the monster to spawn next. Different from the monster_group_data_composite set before. For lisibility.",
+															"isStatic": false,
+															"isConstant": false,
+															"sid": 369293197150250
+														},
+														{
+															"eventType": "variable",
+															"name": "temp_monster_hashid",
+															"type": "string",
+															"initialValue": "NULL",
+															"comment": "Temporary decrypted value of the monster hash ID associated with the monster to spawn next. For lisibility.",
+															"isStatic": false,
+															"isConstant": false,
+															"sid": 984010124796447
+														},
+														{
+															"eventType": "variable",
+															"name": "temp_monster_animator_core",
+															"type": "string",
+															"initialValue": "NULL",
+															"comment": "Temporary decrypted value of the 'AnimatorCore' associated with the monster to spawn next. For lisibility.",
+															"isStatic": false,
+															"isConstant": false,
+															"sid": 176918905336634
+														},
+														{
+															"eventType": "variable",
+															"name": "temp_monster_current_health",
+															"type": "number",
+															"initialValue": "-1",
+															"comment": "Temporary decrypted value of current health of the monster to be spawned. Used to calculate the initial HealthRatio. For lisibility.",
+															"isStatic": false,
+															"isConstant": false,
+															"sid": 220619291858882
+														},
+														{
+															"eventType": "variable",
+															"name": "temp_monster_max_health",
+															"type": "number",
+															"initialValue": "-1",
+															"comment": "Temporary decrypted value of maximum health of the monster to be spawned. Used to calculate the initial HealthRatio. For lisibility.",
+															"isStatic": false,
+															"isConstant": false,
+															"sid": 253895280707217
+														},
+														{
+															"eventType": "variable",
+															"name": "temp_monster_leader_status",
+															"type": "number",
+															"initialValue": "-1",
+															"comment": "Temporary decrypted integer representing whether the next spawn is a MonsterLeader or a MonsterFollower (either 0 or 1).",
+															"isStatic": false,
+															"isConstant": false,
+															"sid": 751366962394617
+														},
+														{
+															"eventType": "comment",
+															"text": "In each monster group, loop for the size of the group and spawn the appropriate monsters."
+														},
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "for",
+																	"objectClass": "System",
+																	"sid": 265804720750023,
+																	"parameters": {
+																		"name": "\"i_Monster\"",
+																		"start-index": "0",
+																		"end-index": "temp_monster_group_size"
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 422146696680006,
+																	"parameters": {
+																		"variable": "temp_monster_data_composite",
+																		"value": "tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), (4+monsters_tokens_to_next_group+loopindex(\"i_Monster\")), \"|\")"
+																	}
+																},
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 188872824290335,
+																	"parameters": {
+																		"variable": "temp_monster_leader_status",
+																		"value": "int(tokenat(temp_monster_data_composite, 0, \"@\"))"
+																	}
+																},
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 621304992792637,
+																	"parameters": {
+																		"variable": "temp_monster_hashid",
+																		"value": "tokenat(temp_monster_data_composite, 1, \"@\")"
+																	}
+																},
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 477218205589036,
+																	"parameters": {
+																		"variable": "temp_monster_animator_core",
+																		"value": "tokenat(temp_monster_data_composite, 2, \"@\")"
+																	}
+																},
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 507229018803388,
+																	"parameters": {
+																		"variable": "temp_monster_current_health",
+																		"value": "int(tokenat(temp_monster_data_composite, 3, \"@\"))"
+																	}
+																},
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 472579488390107,
+																	"parameters": {
+																		"variable": "temp_monster_max_health",
+																		"value": "int(tokenat(temp_monster_data_composite, 4, \"@\"))"
+																	}
+																}
+															],
+															"sid": 525042760447425,
+															"children": [
+																{
+																	"eventType": "comment",
+																	"text": "Check if spawning data is for Follower or Leader."
+																},
+																{
+																	"eventType": "block",
+																	"conditions": [
+																		{
+																			"id": "compare-two-values",
+																			"objectClass": "System",
+																			"sid": 600870839090049,
+																			"parameters": {
+																				"first-value": "temp_monster_leader_status",
+																				"comparison": 0,
+																				"second-value": "1"
+																			}
+																		}
+																	],
+																	"actions": [
+																		{
+																			"type": "comment",
+																			"text": "Leader"
+																		},
+																		{
+																			"callFunction": "Monsters-Create",
+																			"sid": 675164072654080,
+																			"parameters": [
+																				true,
+																				"temp_monster_group_hashid",
+																				"temp_monster_hashid",
+																				"temp_monster_animator_core",
+																				"monsters_group_spawn_x",
+																				"monsters_group_spawn_y",
+																				"(temp_monster_current_health/temp_monster_max_health)"
+																			]
+																		}
+																	],
+																	"sid": 384388610401495
+																},
+																{
+																	"eventType": "block",
+																	"conditions": [
+																		{
+																			"id": "else",
+																			"objectClass": "System",
+																			"sid": 854395136628150
+																		},
+																		{
+																			"id": "compare-two-values",
+																			"objectClass": "System",
+																			"sid": 548585889782034,
+																			"parameters": {
+																				"first-value": "temp_monster_leader_status",
+																				"comparison": 0,
+																				"second-value": "0"
+																			}
+																		}
+																	],
+																	"actions": [
+																		{
+																			"type": "comment",
+																			"text": "Follower"
+																		},
+																		{
+																			"callFunction": "Monsters-Create",
+																			"sid": 146855184831823,
+																			"parameters": [
+																				false,
+																				"temp_monster_group_hashid",
+																				"temp_monster_hashid",
+																				"temp_monster_animator_core",
+																				"monsters_group_spawn_x",
+																				"monsters_group_spawn_y",
+																				"(temp_monster_current_health/temp_monster_max_health)"
+																			]
+																		}
+																	],
+																	"sid": 973562942518774
+																}
+															]
+														},
+														{
+															"eventType": "block",
+															"conditions": [],
+															"actions": [
+																{
+																	"type": "comment",
+																	"text": "Increment and point ot the correct token next on the next \"i_MonsterGroup\" loop."
+																},
+																{
+																	"id": "add-to-eventvar",
+																	"objectClass": "System",
+																	"sid": 633716289779312,
+																	"parameters": {
+																		"variable": "monsters_tokens_to_next_group",
+																		"value": "1+(temp_monster_group_size+1)"
+																	}
+																}
+															],
+															"sid": 716895862061368
+														}
+													]
+												}
+											]
+										}
+									],
+									"isOrBlock": true
+								},
+								{
+									"eventType": "comment",
+									"text": "Bind Followers and Leaders of the same group hashID."
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 362644383032180
+										},
+										{
+											"callFunction": "Monsters-BindGroups",
+											"sid": 838972522909478
+										}
+									],
+									"sid": 883874384606425
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-completed",
+									"objectClass": "AJAX",
+									"sid": 420215937696650,
+									"parameters": {
+										"tag": "\"Map_RefreshTimer\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"type": "comment",
+									"text": "Saved the encrypted timer"
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 775286392435452,
+									"parameters": {
+										"variable": "monsters__TimerSave_e",
+										"value": "AJAX.LastData"
+									}
+								}
+							],
+							"sid": 413324419096383,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 381460602202569,
+											"parameters": {
+												"variable": "debug__monsters__TimerSave",
+												"value": "int(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER))"
+											}
+										}
+									],
+									"sid": 671979300656877,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 417030053449081,
+													"parameters": {
+														"variable": "monsters__TimerUIValue",
+														"value": "int(Functions.Enigma_Decrypt(monsters__TimerSave_e, K_BROWSER))"
+													}
+												},
+												{
+													"type": "comment",
+													"text": "Relay the Timer to the other peers."
+												},
+												{
+													"id": "raiseevent17",
+													"objectClass": "Photon",
+													"sid": 631300858830966,
+													"parameters": {
+														"code0": "159",
+														"data1": "monsters__TimerSave_e",
+														"interestgroup2": "0",
+														"cache11": "donotcache",
+														"receivers15": "others",
+														"targetactors16": "\"\"",
+														"webforward19": "no"
+													}
+												}
+											],
+											"sid": 967495092924829
+										}
+									]
+								},
+								{
+									"eventType": "comment",
+									"text": "If the encrypted TimerSave record a timer of zero (0) send a server request to create a monster group from one of the MobSpawners."
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 182429893881809,
+											"parameters": {
+												"first-value": "int(Functions.Enigma_Decrypt(monsters__TimerSave_e, K_BROWSER))",
+												"comparison": 0,
+												"second-value": "0"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 159860203742725,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "pick-random-instance",
+													"objectClass": "System",
+													"sid": 119082040602833,
+													"parameters": {
+														"object": "MobSpawner"
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "Server-Monsters-RequestCreate",
+													"sid": 760026466780104,
+													"parameters": [
+														"Functions.Enigma_Encrypt(\"\"&GridGraph.PositionToTileX(MobSpawner.X), K_BROWSER)",
+														"Functions.Enigma_Encrypt(\"\"&GridGraph.PositionToTileY(MobSpawner.Y), K_BROWSER)"
+													]
+												}
+											],
+											"sid": 212552034084816
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "monsters_ Spawning",
+					"description": "The Photon Host handles the validation of the \"RequestCreate\" request to the server.",
+					"isActiveOnStart": false,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 987666948284482,
+									"parameters": {
+										"variable": "photonCloud_RoomMaster"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 270619589350014,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "On regular peer joins:"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "onactorjoin15",
+											"objectClass": "Photon",
+											"sid": 387843287319195
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 380889684370559,
+											"parameters": {
+												"first-value": "Photon.ActorNr",
+												"comparison": 1,
+												"second-value": "Photon.MyActorNr"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 411575277781810,
+									"children": [
+										{
+											"eventType": "variable",
+											"name": "temp_encrypted_data_composite",
+											"type": "string",
+											"initialValue": "NULL",
+											"comment": "Temporary holder to prepare the data for the Photon Raised Event.",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 897917969577120
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "for-each",
+													"objectClass": "System",
+													"sid": 472583558893842,
+													"parameters": {
+														"object": "MonsterLeader"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 207619843044519,
+													"parameters": {
+														"variable": "temp_encrypted_data_composite",
+														"value": "Functions.Enigma_Encrypt((MonsterLeader.MonsterGroupHashID_e&\"|\"&MonsterLeader.MonsterHashID_e&\"|\"&MonsterLeader.FollowerCount&\"|\"&MonsterLeader.DisplayedHealth&\"|\"&MonsterLeader.AnimatorCore&\"|\"&GridGraph.PositionToTileX(MonsterLeader.X)&\"|\"&GridGraph.PositionToTileY(MonsterLeader.Y)), K_BROWSER)"
+													}
+												},
+												{
+													"id": "raiseevent17",
+													"objectClass": "Photon",
+													"sid": 540362587846153,
+													"parameters": {
+														"code0": "200",
+														"data1": "temp_encrypted_data_composite",
+														"interestgroup2": "0",
+														"cache11": "donotcache",
+														"receivers15": "others",
+														"targetactors16": "\"\"&Photon.ActorNr",
+														"webforward19": "no"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 104176893925107,
+													"parameters": {
+														"variable": "debug__monsters__SharedLeaderCreateData_decrypted",
+														"value": "Functions.Enigma_Decrypt(temp_encrypted_data_composite, K_BROWSER)"
+													}
+												}
+											],
+											"sid": 894073272052927
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "for-each",
+													"objectClass": "System",
+													"sid": 297604765573047,
+													"parameters": {
+														"object": "MonsterFollower"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 174123346637183,
+													"parameters": {
+														"variable": "temp_encrypted_data_composite",
+														"value": "Functions.Enigma_Encrypt((MonsterFollower.MonsterGroupHashID_e&\"|\"&MonsterFollower.MonsterHashID_e&\"|\"&MonsterFollower.DisplayedHealth&\"|\"&MonsterFollower.AnimatorCore&\"|\"&GridGraph.PositionToTileX(MonsterFollower.X)&\"|\"&GridGraph.PositionToTileY(MonsterFollower.Y)), K_BROWSER)"
+													}
+												},
+												{
+													"id": "raiseevent17",
+													"objectClass": "Photon",
+													"sid": 577002438051365,
+													"parameters": {
+														"code0": "201",
+														"data1": "temp_encrypted_data_composite",
+														"interestgroup2": "0",
+														"cache11": "donotcache",
+														"receivers15": "others",
+														"targetactors16": "\"\"&Photon.ActorNr",
+														"webforward19": "no"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 579376312677223,
+													"parameters": {
+														"variable": "debug__monsters__SharedFollowerCreateData_decrypted",
+														"value": "Functions.Enigma_Decrypt(temp_encrypted_data_composite, K_BROWSER)"
+													}
+												}
+											],
+											"sid": 983390699294042
+										}
+									]
+								},
+								{
+									"eventType": "comment",
+									"text": "FUNCTIONS"
+								},
+								{
+									"functionName": "Server-Monsters-RequestCreate",
+									"functionDescription": "Checks with the server if a new monster group can be spawned.",
+									"functionCategory": "Server, Monsters",
+									"functionReturnType": "none",
+									"functionIsAsync": false,
+									"functionParameters": [
+										{
+											"name": "pX",
+											"type": "string",
+											"initialValue": "NULL",
+											"comment": "Encrypted X-coordinate to spawn the monster at.",
+											"sid": 104603013632765
+										},
+										{
+											"name": "pY",
+											"type": "string",
+											"initialValue": "NULL",
+											"comment": "Encrypted Y-coordinate to spawn the monster at.",
+											"sid": 832873920516957
+										}
+									],
+									"eventType": "function-block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 365989357870081,
+											"parameters": {
+												"variable": "server__data_NextSecret",
+												"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+											}
+										},
+										{
+											"callFunction": "Server-AJAX-Prep",
+											"sid": 406578122219575,
+											"parameters": [
+												"\"Monsters_RequestCreate\"",
+												"\"monsters/requestcreate.php?\"",
+												"\"APPID=\"&server__data_NextSecret&\"&MHI=\"&main__CurMapHashID&\"&X=\"&pX&\"&Y=\"&pY"
+											]
+										}
+									],
+									"sid": 867143200238711
+								},
+								{
+									"eventType": "comment",
+									"text": "AJAX RESOLUTIONS"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "on-completed",
+											"objectClass": "AJAX",
+											"sid": 662168501519935,
+											"parameters": {
+												"tag": "\"Monsters_RequestCreate\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 385198900310646,
+											"parameters": {
+												"variable": "debug__monsters__RequestCreate_LastData",
+												"value": "Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)"
+											}
+										}
+									],
+									"sid": 788375641995255,
+									"children": [
+										{
+											"eventType": "comment",
+											"text": "Checks if the server has signaled that the monster limit is reached. (\"MAX\" token.)"
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 673459619896982,
+													"parameters": {
+														"first-value": "Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)",
+														"comparison": 0,
+														"second-value": "\"MAX\""
+													}
+												}
+											],
+											"actions": [],
+											"sid": 208765695932447
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 828208512524098
+												},
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 944576482916775,
+													"parameters": {
+														"first-value": "Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)",
+														"comparison": 1,
+														"second-value": "\"MAX\""
+													}
+												}
+											],
+											"actions": [],
+											"sid": 807416115043340,
+											"children": [
+												{
+													"eventType": "variable",
+													"name": "temp_monster_group_hashid",
+													"type": "string",
+													"initialValue": "NULL",
+													"comment": "Temporary decrypted value of the monster group hash ID associated with the monster(s) to spawn next. For lisibility.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 118652867511162
+												},
+												{
+													"eventType": "variable",
+													"name": "temp_monster_follower_count",
+													"type": "number",
+													"initialValue": "-1",
+													"comment": "Temporary decrypted value for the amount of followers to spawn with the MonsterLeader. For lisibility.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 933592220098941
+												},
+												{
+													"eventType": "variable",
+													"name": "monsters_group_spawn_x",
+													"type": "number",
+													"initialValue": "-1",
+													"comment": "Temporary decrypted value of the size of the X-coordinate over the 'GridGraph' for the monster group to be spawned. For lisibility.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 470924198582743
+												},
+												{
+													"eventType": "variable",
+													"name": "monsters_group_spawn_y",
+													"type": "number",
+													"initialValue": "-1",
+													"comment": "Temporary decrypted value of the size of the Y-coordinate over the 'GridGraph' for the monster group to be spawned. For lisibility.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 621108751341571
+												},
+												{
+													"eventType": "block",
+													"conditions": [],
+													"actions": [
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 878283952562179,
+															"parameters": {
+																"variable": "temp_monster_group_hashid",
+																"value": "tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 0, \"|\")"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 993408832747175,
+															"parameters": {
+																"variable": "temp_monster_follower_count",
+																"value": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 1, \"|\"))"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 757330662495296,
+															"parameters": {
+																"variable": "monsters_group_spawn_x",
+																"value": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 2, \"|\"))"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 104101987364798,
+															"parameters": {
+																"variable": "monsters_group_spawn_y",
+																"value": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 3, \"|\"))"
+															}
+														}
+													],
+													"sid": 954989476604460
+												},
+												{
+													"eventType": "variable",
+													"name": "temp_monster_data_composite",
+													"type": "string",
+													"initialValue": "NULL",
+													"comment": "Temporary decrypted value of the whole data composite associated with the monster to spawn next. Different from the monster_group_data_composite set before. For lisibility.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 999629923803986
+												},
+												{
+													"eventType": "variable",
+													"name": "temp_monster_hashid",
+													"type": "string",
+													"initialValue": "NULL",
+													"comment": "Temporary decrypted value of the monster hash ID associated with the monster to spawn next. For lisibility.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 528369386274716
+												},
+												{
+													"eventType": "variable",
+													"name": "temp_monster_animator_core",
+													"type": "string",
+													"initialValue": "NULL",
+													"comment": "Temporary decrypted value of the 'AnimatorCore' associated with the monster to spawn next. For lisibility.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 773607887444111
+												},
+												{
+													"eventType": "variable",
+													"name": "temp_monster_current_health",
+													"type": "number",
+													"initialValue": "-1",
+													"comment": "Temporary decrypted value of current health of the monster to be spawned. Used to calculate the initial HealthRatio. For lisibility.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 803229395268603
+												},
+												{
+													"eventType": "variable",
+													"name": "temp_monster_max_health",
+													"type": "number",
+													"initialValue": "-1",
+													"comment": "Temporary decrypted value of maximum health of the monster to be spawned. Used to calculate the initial HealthRatio. For lisibility.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 785929672753923
+												},
+												{
+													"eventType": "variable",
+													"name": "temp_monster_leader_status",
+													"type": "number",
+													"initialValue": "-1",
+													"comment": "Temporary decrypted integer representing whether the next spawn is a MonsterLeader or a MonsterFollower (either 0 or 1).",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 202102595690923
+												},
+												{
+													"eventType": "comment",
+													"text": "Verifies that there is at least one MonsterFollower to create."
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 253205246303579,
+															"parameters": {
+																"first-value": "temp_monster_follower_count",
+																"comparison": 1,
+																"second-value": "0"
+															}
+														}
+													],
+													"actions": [],
+													"sid": 277055141460265,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "for",
+																	"objectClass": "System",
+																	"sid": 335423545186868,
+																	"parameters": {
+																		"name": "\"i_Monster\"",
+																		"start-index": "0",
+																		"end-index": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 1, \"|\"))"
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 807459519422625,
+																	"parameters": {
+																		"variable": "temp_monster_data_composite",
+																		"value": "tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 4+loopindex(\"i_Monster\"), \"|\")"
+																	}
+																},
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 582562812498864,
+																	"parameters": {
+																		"variable": "temp_monster_leader_status",
+																		"value": "int(tokenat(temp_monster_data_composite, 0, \"@\"))"
+																	}
+																},
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 162712865435219,
+																	"parameters": {
+																		"variable": "temp_monster_hashid",
+																		"value": "tokenat(temp_monster_data_composite, 1, \"@\")"
+																	}
+																},
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 254596100072946,
+																	"parameters": {
+																		"variable": "temp_monster_animator_core",
+																		"value": "tokenat(temp_monster_data_composite, 2, \"@\")"
+																	}
+																},
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 594757881008170,
+																	"parameters": {
+																		"variable": "temp_monster_current_health",
+																		"value": "int(tokenat(temp_monster_data_composite, 3, \"@\"))"
+																	}
+																},
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 878441011972888,
+																	"parameters": {
+																		"variable": "temp_monster_max_health",
+																		"value": "int(tokenat(temp_monster_data_composite, 4, \"@\"))"
+																	}
+																}
+															],
+															"sid": 785551143972251,
+															"children": [
+																{
+																	"eventType": "comment",
+																	"text": "Distinguished between spawning a MonsterLeader and MonsterFollowers here."
+																},
+																{
+																	"eventType": "block",
+																	"conditions": [
+																		{
+																			"id": "compare-two-values",
+																			"objectClass": "System",
+																			"sid": 806320276779146,
+																			"parameters": {
+																				"first-value": "temp_monster_leader_status",
+																				"comparison": 0,
+																				"second-value": "1"
+																			}
+																		}
+																	],
+																	"actions": [
+																		{
+																			"callFunction": "Monsters-Create",
+																			"sid": 296713270321475,
+																			"parameters": [
+																				true,
+																				"temp_monster_group_hashid",
+																				"temp_monster_hashid",
+																				"temp_monster_animator_core",
+																				"monsters_group_spawn_x",
+																				"monsters_group_spawn_y",
+																				"(temp_monster_current_health/temp_monster_max_health)"
+																			]
+																		}
+																	],
+																	"sid": 507828906245715
+																},
+																{
+																	"eventType": "block",
+																	"conditions": [
+																		{
+																			"id": "else",
+																			"objectClass": "System",
+																			"sid": 924231897632848
+																		},
+																		{
+																			"id": "compare-two-values",
+																			"objectClass": "System",
+																			"sid": 693996326808443,
+																			"parameters": {
+																				"first-value": "temp_monster_leader_status",
+																				"comparison": 0,
+																				"second-value": "0"
+																			}
+																		}
+																	],
+																	"actions": [
+																		{
+																			"callFunction": "Monsters-Create",
+																			"sid": 872390425131189,
+																			"parameters": [
+																				false,
+																				"temp_monster_group_hashid",
+																				"temp_monster_hashid",
+																				"temp_monster_animator_core",
+																				"monsters_group_spawn_x",
+																				"monsters_group_spawn_y",
+																				"(temp_monster_current_health/temp_monster_max_health)"
+																			]
+																		}
+																	],
+																	"sid": 649987726907869
+																}
+															]
+														}
+													]
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "else",
+															"objectClass": "System",
+															"sid": 318526712674107
+														}
+													],
+													"actions": [
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 775578001827733,
+															"parameters": {
+																"variable": "temp_monster_data_composite",
+																"value": "tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 4, \"|\")"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 246854934905970,
+															"parameters": {
+																"variable": "temp_monster_leader_status",
+																"value": "int(tokenat(temp_monster_data_composite, 0, \"@\"))"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 172845010455454,
+															"parameters": {
+																"variable": "temp_monster_hashid",
+																"value": "tokenat(temp_monster_data_composite, 1, \"@\")"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 661854763367263,
+															"parameters": {
+																"variable": "temp_monster_animator_core",
+																"value": "tokenat(temp_monster_data_composite, 2, \"@\")"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 554946664945419,
+															"parameters": {
+																"variable": "temp_monster_current_health",
+																"value": "int(tokenat(temp_monster_data_composite, 3, \"@\"))"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 371697178832075,
+															"parameters": {
+																"variable": "temp_monster_max_health",
+																"value": "int(tokenat(temp_monster_data_composite, 4, \"@\"))"
+															}
+														},
+														{
+															"callFunction": "Monsters-Create",
+															"sid": 815609754534205,
+															"parameters": [
+																true,
+																"temp_monster_group_hashid",
+																"temp_monster_hashid",
+																"temp_monster_animator_core",
+																"monsters_group_spawn_x",
+																"monsters_group_spawn_y",
+																"(temp_monster_current_health/temp_monster_max_health)"
+															]
+														}
+													],
+													"sid": 339494783017583
+												},
+												{
+													"eventType": "comment",
+													"text": "Bind Followers and Leaders of the same group hashID."
+												},
+												{
+													"eventType": "block",
+													"conditions": [],
+													"actions": [
+														{
+															"id": "wait-for-previous-actions",
+															"objectClass": "System",
+															"sid": 263565397539670
+														},
+														{
+															"callFunction": "Monsters-BindGroups",
+															"sid": 769610523257400
+														}
+													],
+													"sid": 736997857549678
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					],
+					"sid": 108237876186731
+				}
+			],
+			"sid": 242212251863908
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "monsters_ Local manip",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "Monsters-Create",
+					"functionDescription": "Spawn a Monster Leader.",
+					"functionCategory": "Monsters",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pLeader",
+							"type": "boolean",
+							"initialValue": "false",
+							"comment": "True (1) if creating a leader",
+							"sid": 315354569450537
+						},
+						{
+							"name": "pMonsterGroupHashID",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Hash ID to associate with the created monster group.",
+							"sid": 987126220701046
+						},
+						{
+							"name": "pMonsterHashID",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"sid": 651700311018918
+						},
+						{
+							"name": "pAnimatorCore",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Animator core to set the MonsterLeader to.",
+							"sid": 285944100287048
+						},
+						{
+							"name": "pSpawnX",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"sid": 525517918433019
+						},
+						{
+							"name": "pSpawnY",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"sid": 854615636580534
+						},
+						{
+							"name": "pHealthRatio",
+							"type": "number",
+							"initialValue": "1",
+							"comment": "",
+							"sid": 962286588441508
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 251282310446547,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "temp_encrypted_data_composite",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Temporary holder to prepare the data for the Photon Raised Event.",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 242753280440840
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 138721617524403,
+									"parameters": {
+										"variable": "pLeader"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "create-object",
+									"objectClass": "System",
+									"sid": 531417184848242,
+									"parameters": {
+										"object-to-create": "MonsterLeader",
+										"layer": "\"Monsters\"",
+										"x": "GridGraph.TileToPositionX(pSpawnX)",
+										"y": "GridGraph.TileToPositionY(pSpawnY)",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 477648733601375,
+									"parameters": {
+										"instance-variable": "MonsterGroupHashID_e",
+										"value": "Functions.Enigma_Encrypt(pMonsterGroupHashID, K_BROWSER)"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 345831413083805,
+									"parameters": {
+										"instance-variable": "MonsterHashID_e",
+										"value": "Functions.Enigma_Encrypt(pMonsterHashID, K_BROWSER)"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 177654197771593,
+									"parameters": {
+										"instance-variable": "FollowerCount",
+										"value": "0"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 857961598873956,
+									"parameters": {
+										"instance-variable": "DisplayedHealth",
+										"value": "pHealthRatio"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 887567252405667,
+									"parameters": {
+										"instance-variable": "AnimatorCore",
+										"value": "pAnimatorCore"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 748221025006986,
+									"parameters": {
+										"instance-variable": "debug__MonsterGridGraphX",
+										"value": "pSpawnX"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 532961858267128,
+									"parameters": {
+										"instance-variable": "debug__MonsterGridGraphY",
+										"value": "pSpawnY"
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterLeader",
+									"sid": 341454917027548,
+									"parameters": {
+										"object": "asset_Monster",
+										"layer": "\"Assets_layer2\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterLeader",
+									"sid": 327516148859744,
+									"parameters": {
+										"child": "asset_Monster",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterLeader",
+									"sid": 549923710187868,
+									"parameters": {
+										"object": "debugtext_MonsterGroupInfo",
+										"layer": "\"UI\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterLeader",
+									"sid": 260393313482606,
+									"parameters": {
+										"child": "debugtext_MonsterGroupInfo",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": false,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterLeader",
+									"sid": 690258984416643,
+									"parameters": {
+										"object": "UI_Healthbar",
+										"layer": "\"UI\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterLeader",
+									"sid": 124952179345781,
+									"parameters": {
+										"object": "UI_HealthbarFiller",
+										"layer": "\"UI\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "set-y",
+									"objectClass": "UI_Healthbar",
+									"sid": 557503215389688,
+									"parameters": {
+										"y": "Self.Y-16"
+									}
+								},
+								{
+									"id": "set-y",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 202314685429265,
+									"parameters": {
+										"y": "Self.Y-16"
+									}
+								},
+								{
+									"id": "set-x",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 255968753135187,
+									"parameters": {
+										"x": "Self.X-16"
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterLeader",
+									"sid": 546864924789412,
+									"parameters": {
+										"child": "UI_Healthbar",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterLeader",
+									"sid": 977698477091395,
+									"parameters": {
+										"child": "UI_HealthbarFiller",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								}
+							],
+							"sid": 135982033860828,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 496388459765007,
+											"parameters": {
+												"variable": "photonCloud_RoomMaster"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-angle-of-motion",
+											"objectClass": "MonsterLeader",
+											"sid": 501034652950090,
+											"behaviorType": "Move",
+											"parameters": {
+												"angle": "random(-180,180)"
+											}
+										},
+										{
+											"id": "set-speed",
+											"objectClass": "MonsterLeader",
+											"sid": 665396111618471,
+											"behaviorType": "Move",
+											"parameters": {
+												"speed": "random(4, 7)\n"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 912684155296569,
+											"parameters": {
+												"variable": "temp_encrypted_data_composite",
+												"value": "Functions.Enigma_Encrypt((MonsterLeader.MonsterGroupHashID_e&\"|\"&MonsterLeader.MonsterHashID_e&\"|\"&MonsterLeader.FollowerCount&\"|\"&MonsterLeader.DisplayedHealth&\"|\"&MonsterLeader.AnimatorCore&\"|\"&GridGraph.PositionToTileX(pSpawnX)&\"|\"&GridGraph.PositionToTileY(pSpawnY)), K_BROWSER)"
+											}
+										},
+										{
+											"id": "raiseevent17",
+											"objectClass": "Photon",
+											"sid": 934519840201000,
+											"parameters": {
+												"code0": "200",
+												"data1": "temp_encrypted_data_composite",
+												"interestgroup2": "0",
+												"cache11": "donotcache",
+												"receivers15": "others",
+												"targetactors16": "\"\"",
+												"webforward19": "no"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 291424861475929,
+											"parameters": {
+												"variable": "debug__monsters__LastLeaderSharedPos_decrypted",
+												"value": "MonsterLeader.MonsterGroupHashID_e&\"|\"&MonsterLeader.MonsterHashID_e&\"|\"&MonsterLeader.FollowerCount&\"|\"&MonsterLeader.DisplayedHealth&\"|\"&MonsterLeader.AnimatorCore&\"|\"&GridGraph.PositionToTileX(pSpawnX)&\"|\"&GridGraph.PositionToTileY(pSpawnY)"
+											}
+										}
+									],
+									"sid": 651916760392001
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 175295288339125
+								}
+							],
+							"actions": [
+								{
+									"id": "create-object",
+									"objectClass": "System",
+									"sid": 701360984254103,
+									"parameters": {
+										"object-to-create": "MonsterFollower",
+										"layer": "\"Monsters\"",
+										"x": "GridGraph.TileToPositionX(pSpawnX+choose(-1, 1))",
+										"y": "GridGraph.TileToPositionY(pSpawnY+choose(-1, 1))",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 949111685787369,
+									"parameters": {
+										"instance-variable": "MonsterGroupHashID_e",
+										"value": "Functions.Enigma_Encrypt(pMonsterGroupHashID, K_BROWSER)"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 934970766781567,
+									"parameters": {
+										"instance-variable": "MonsterHashID_e",
+										"value": "Functions.Enigma_Encrypt(pMonsterHashID, K_BROWSER)"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 329582775476569,
+									"parameters": {
+										"instance-variable": "DisplayedHealth",
+										"value": "pHealthRatio"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 664883456674339,
+									"parameters": {
+										"instance-variable": "AnimatorCore",
+										"value": "pAnimatorCore"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 902848031461931,
+									"parameters": {
+										"instance-variable": "debug__MonsterGridGraphX",
+										"value": "pSpawnX"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 903623476314836,
+									"parameters": {
+										"instance-variable": "debug__MonsterGridGraphY",
+										"value": "pSpawnY"
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterFollower",
+									"sid": 908666861639507,
+									"parameters": {
+										"object": "asset_Monster2",
+										"layer": "\"Assets_layer2\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterFollower",
+									"sid": 921765137288910,
+									"parameters": {
+										"child": "asset_Monster2",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterFollower",
+									"sid": 396388650055687,
+									"parameters": {
+										"object": "UI_Healthbar",
+										"layer": "\"UI\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterFollower",
+									"sid": 735310127591708,
+									"parameters": {
+										"object": "UI_HealthbarFiller",
+										"layer": "\"UI\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "set-y",
+									"objectClass": "UI_Healthbar",
+									"sid": 151549786668834,
+									"parameters": {
+										"y": "Self.Y-16"
+									}
+								},
+								{
+									"id": "set-y",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 563671465866623,
+									"parameters": {
+										"y": "Self.Y-16"
+									}
+								},
+								{
+									"id": "set-x",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 339489430373640,
+									"parameters": {
+										"x": "Self.X-16"
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterFollower",
+									"sid": 743253905458472,
+									"parameters": {
+										"child": "UI_Healthbar",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterFollower",
+									"sid": 508526547240714,
+									"parameters": {
+										"child": "UI_HealthbarFiller",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								}
+							],
+							"sid": 520381474416606,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 244982608384703,
+											"parameters": {
+												"variable": "photonCloud_RoomMaster"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 670902377113830,
+											"parameters": {
+												"variable": "temp_encrypted_data_composite",
+												"value": "Functions.Enigma_Encrypt((MonsterFollower.MonsterGroupHashID_e&\"|\"&MonsterFollower.MonsterHashID_e&\"|\"&MonsterFollower.DisplayedHealth&\"|\"&MonsterFollower.AnimatorCore&\"|\"&GridGraph.PositionToTileX(pSpawnX)&\"|\"&GridGraph.PositionToTileY(pSpawnY)), K_BROWSER)"
+											}
+										},
+										{
+											"id": "raiseevent17",
+											"objectClass": "Photon",
+											"sid": 537779900273337,
+											"parameters": {
+												"code0": "201",
+												"data1": "temp_encrypted_data_composite",
+												"interestgroup2": "0",
+												"cache11": "donotcache",
+												"receivers15": "others",
+												"targetactors16": "\"\"",
+												"webforward19": "no"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 538007864384556,
+											"parameters": {
+												"variable": "debug__monsters__SharedFollowerCreateData_decrypted",
+												"value": "MonsterFollower.MonsterGroupHashID_e&\"|\"&MonsterFollower.MonsterHashID_e&\"|\"&MonsterFollower.DisplayedHealth&\"|\"&MonsterFollower.AnimatorCore&\"|\"&GridGraph.PositionToTileX(pSpawnX)&\"|\"&GridGraph.PositionToTileY(pSpawnY)"
+											}
+										}
+									],
+									"sid": 684400588980136
+								}
+							]
+						}
+					]
+				},
+				{
+					"functionName": "Monsters-BindGroups",
+					"functionDescription": "",
+					"functionCategory": "Monsters",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 376529118828480,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each",
+									"objectClass": "System",
+									"sid": 999677393789083,
+									"parameters": {
+										"object": "MonsterLeader"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 237968844070440,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-by-comparison",
+											"objectClass": "System",
+											"sid": 937678211048823,
+											"parameters": {
+												"object": "MonsterFollower",
+												"expression": "Functions.Enigma_Decrypt(MonsterFollower.MonsterGroupHashID_e, K_BROWSER)",
+												"comparison": 0,
+												"value": "Functions.Enigma_Decrypt(MonsterLeader.MonsterGroupHashID_e, K_BROWSER)"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "add-child",
+											"objectClass": "MonsterLeader",
+											"sid": 483419712082280,
+											"parameters": {
+												"child": "MonsterFollower",
+												"transform-x": false,
+												"transform-y": false,
+												"transform-w": false,
+												"transform-h": false,
+												"transform-a": false,
+												"transform-z-elevation": false,
+												"destroy-with-parent": false
+											}
+										},
+										{
+											"id": "set-pin-distance",
+											"objectClass": "MonsterFollower",
+											"sid": 501126484944173,
+											"behaviorType": "Pin",
+											"parameters": {
+												"distance": "96"
+											}
+										},
+										{
+											"id": "pin-to-object-distance",
+											"objectClass": "MonsterFollower",
+											"sid": 134712147026246,
+											"behaviorType": "Pin",
+											"parameters": {
+												"pin-to": "MonsterLeader",
+												"mode": "rope-style"
+											}
+										}
+									],
+									"sid": 227374600407614,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "for-each",
+													"objectClass": "System",
+													"sid": 153248844145694,
+													"parameters": {
+														"object": "MonsterFollower"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "add-to-instvar",
+													"objectClass": "MonsterLeader",
+													"sid": 775439717422004,
+													"parameters": {
+														"instance-variable": "FollowerCount",
+														"value": "1"
+													}
+												}
+											],
+											"sid": 791370495023448
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 733334090520213
+		},
+		{
+			"eventType": "comment",
+			"text": "All peers:"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 532012027146524,
+					"parameters": {
+						"variable": "photonCloud_RoomMaster"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-enabled",
+					"objectClass": "MonsterLeader",
+					"sid": 837352005198122,
+					"behaviorType": "Move",
+					"parameters": {
+						"state": "enabled"
+					}
+				}
+			],
+			"sid": 755155857440655,
+			"isOrBlock": true
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "else",
+					"objectClass": "System",
+					"sid": 255061509643988
+				}
+			],
+			"actions": [
+				{
+					"id": "set-enabled",
+					"objectClass": "MonsterLeader",
+					"sid": 971483709877493,
+					"behaviorType": "Move",
+					"parameters": {
+						"state": "disabled"
+					}
+				}
+			],
+			"sid": 460079830167109
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__monsters__LastLeaderSharedPos_decrypted",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 448018341988266
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__monsters__LastFollowerSharedPos_decrypted",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 536663396247453
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__monsters__SharedLeaderCreateData_decrypted",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 756341086814459
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__monsters__SharedFollowerCreateData_decrypted",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 521188926771113
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "monsters_ OverworldLogic",
+			"description": "",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 650991666749859,
+							"parameters": {
+								"variable": "photonCloud_RoomMaster"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 990754875251178,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "every-x-seconds",
+									"objectClass": "System",
+									"sid": 658909202692453,
+									"parameters": {
+										"interval-seconds": "random(2, 5)"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-angle-of-motion",
+									"objectClass": "MonsterLeader",
+									"sid": 281723808383403,
+									"behaviorType": "Move",
+									"parameters": {
+										"angle": "Self.Move.AngleOfMotion + choose(-45, 15, 0, 15, 45)"
+									}
+								}
+							],
+							"sid": 764968854932898,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-children",
+											"objectClass": "MonsterLeader",
+											"sid": 631709529322891,
+											"parameters": {
+												"child": "asset_Monster",
+												"which": "own"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 118116926892795,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 741360006959275,
+													"parameters": {
+														"first-value": "MonsterLeader.Move.AngleOfMotion",
+														"comparison": 4,
+														"second-value": "135"
+													}
+												},
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 866697897115977,
+													"parameters": {
+														"first-value": "MonsterLeader.Move.AngleOfMotion",
+														"comparison": 2,
+														"second-value": "-90"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-animation",
+													"objectClass": "asset_Monster",
+													"sid": 145881100518800,
+													"parameters": {
+														"animation": "\"walk_side_l\"",
+														"from": "current-frame"
+													}
+												}
+											],
+											"sid": 305922927265095
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 695385689643608,
+													"parameters": {
+														"first-value": "MonsterLeader.Move.AngleOfMotion",
+														"comparison": 2,
+														"second-value": "45"
+													}
+												},
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 113379081050836,
+													"parameters": {
+														"first-value": "MonsterLeader.Move.AngleOfMotion",
+														"comparison": 5,
+														"second-value": "-90"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-animation",
+													"objectClass": "asset_Monster",
+													"sid": 936698043173611,
+													"parameters": {
+														"animation": "\"walk_side_r\"",
+														"from": "current-frame"
+													}
+												}
+											],
+											"sid": 382760222324516
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 644323949865175,
+													"parameters": {
+														"first-value": "MonsterLeader.Move.AngleOfMotion",
+														"comparison": 3,
+														"second-value": "135"
+													}
+												},
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 888116829702395,
+													"parameters": {
+														"first-value": "MonsterLeader.Move.AngleOfMotion",
+														"comparison": 5,
+														"second-value": "45"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-animation",
+													"objectClass": "asset_Monster",
+													"sid": 862481160250033,
+													"parameters": {
+														"animation": "\"walk_down\"",
+														"from": "current-frame"
+													}
+												}
+											],
+											"sid": 559657023609853
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "every-x-seconds",
+									"objectClass": "System",
+									"sid": 312582838191270,
+									"parameters": {
+										"interval-seconds": "0.5"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 794155032349449,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "System",
+											"sid": 581655361394773,
+											"parameters": {
+												"object": "MonsterFollower"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "raiseevent17",
+											"objectClass": "Photon",
+											"sid": 756953178755897,
+											"parameters": {
+												"code0": "198",
+												"data1": "Functions.Enigma_Encrypt(MonsterFollower.MonsterHashID_e&\"|\"&round(MonsterFollower.X)&\"|\"&round(MonsterFollower.Y), K_BROWSER)",
+												"interestgroup2": "0",
+												"cache11": "donotcache",
+												"receivers15": "others",
+												"targetactors16": "\"\"",
+												"webforward19": "no"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 774492934005130,
+											"parameters": {
+												"variable": "debug__monsters__LastLeaderSharedPos_decrypted",
+												"value": "MonsterFollower.MonsterHashID_e&\"|\"&round(MonsterFollower.X)&\"|\"&round(MonsterFollower.Y)"
+											}
+										}
+									],
+									"sid": 342691998283258
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "System",
+											"sid": 846338379032714,
+											"parameters": {
+												"object": "MonsterLeader"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "raiseevent17",
+											"objectClass": "Photon",
+											"sid": 753082152128801,
+											"parameters": {
+												"code0": "199",
+												"data1": "Functions.Enigma_Encrypt(MonsterLeader.MonsterHashID_e&\"|\"&round(MonsterLeader.X)&\"|\"&round(MonsterLeader.Y), K_BROWSER)",
+												"interestgroup2": "0",
+												"cache11": "donotcache",
+												"receivers15": "others",
+												"targetactors16": "\"\"",
+												"webforward19": "no"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 343241052016285,
+											"parameters": {
+												"variable": "debug__monsters__LastFollowerSharedPos_decrypted",
+												"value": "MonsterLeader.MonsterHashID_e&\"|\"&round(MonsterLeader.X)&\"|\"&round(MonsterLeader.Y)"
+											}
+										}
+									],
+									"sid": 811602506273650
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 563085883159129
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 603356328175435,
+					"parameters": {
+						"variable": "main__MapLoaded"
+					}
+				},
+				{
+					"id": "compare-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 632457646951651,
+					"parameters": {
+						"variable": "photonCloud_RoomMaster"
+					},
+					"isInverted": true
+				}
+			],
+			"actions": [],
+			"sid": 431789527716374,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "onevent3",
+							"objectClass": "Photon",
+							"sid": 751217027339259,
+							"parameters": {
+								"code0": "159"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 861144048958529,
+							"parameters": {
+								"variable": "monsters__TimerUIValue",
+								"value": "int(Photon.EventData)"
+							}
+						}
+					],
+					"sid": 911467188658444
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "onevent3",
+							"objectClass": "Photon",
+							"sid": 965386763373038,
+							"parameters": {
+								"code0": "198"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 987439940145172,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 778374677626048,
+									"parameters": {
+										"first-value": "MonsterFollower.Count",
+										"comparison": 4,
+										"second-value": "0"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 492653406357982,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-by-comparison",
+											"objectClass": "System",
+											"sid": 517258676812887,
+											"parameters": {
+												"object": "MonsterFollower",
+												"expression": "Functions.Enigma_Decrypt(MonsterFollower.MonsterHashID_e, K_BROWSER)",
+												"comparison": 0,
+												"value": "Functions.Enigma_Decrypt(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 0, \"|\"), K_BROWSER)"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-position",
+											"objectClass": "MonsterFollower",
+											"sid": 949190752757077,
+											"parameters": {
+												"x": "int(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 1, \"|\"))",
+												"y": "int(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 2, \"|\"))"
+											}
+										}
+									],
+									"sid": 875132792154597
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "onevent3",
+							"objectClass": "Photon",
+							"sid": 680632421454707,
+							"parameters": {
+								"code0": "199"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 153038776899953,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 133112440091531,
+									"parameters": {
+										"first-value": "MonsterLeader.Count",
+										"comparison": 4,
+										"second-value": "0"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 138105953122194,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-by-comparison",
+											"objectClass": "System",
+											"sid": 882152989378763,
+											"parameters": {
+												"object": "MonsterLeader",
+												"expression": "Functions.Enigma_Decrypt(MonsterLeader.MonsterHashID_e, K_BROWSER)",
+												"comparison": 0,
+												"value": "Functions.Enigma_Decrypt(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 0, \"|\"), K_BROWSER)"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-position",
+											"objectClass": "MonsterLeader",
+											"sid": 937782464524026,
+											"parameters": {
+												"x": "int(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 1, \"|\"))",
+												"y": "int(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 2, \"|\"))"
+											}
+										}
+									],
+									"sid": 939846225534170
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "variable",
+					"name": "temp_event_data",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 100656183328254
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "onevent3",
+							"objectClass": "Photon",
+							"sid": 870424391145787,
+							"parameters": {
+								"code0": "200"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 393130739671377,
+							"parameters": {
+								"variable": "temp_event_data",
+								"value": "Photon.EventData"
+							}
+						}
+					],
+					"sid": 521261622048013,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "temp_monster_group_hashid",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 962890558134710
+						},
+						{
+							"eventType": "variable",
+							"name": "temp_monster_hashid",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 100170991569826
+						},
+						{
+							"eventType": "variable",
+							"name": "temp_monster_follower_count",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 325606767946627
+						},
+						{
+							"eventType": "variable",
+							"name": "temp_monster_displayed_health",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 234872398476058
+						},
+						{
+							"eventType": "variable",
+							"name": "temp_monster_animator_core",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 343644126107083
+						},
+						{
+							"eventType": "variable",
+							"name": "temp_monster_spawn_x",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 787326591331899
+						},
+						{
+							"eventType": "variable",
+							"name": "temp_monster_spawn_y",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 721597659789234
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 485590608244300,
+									"parameters": {
+										"variable": "temp_monster_group_hashid",
+										"value": "Functions.Enigma_Decrypt(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 0, \"|\"), K_BROWSER)"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 835430412586558,
+									"parameters": {
+										"variable": "temp_monster_hashid",
+										"value": "Functions.Enigma_Decrypt(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 1, \"|\"), K_BROWSER)"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 518640212510900,
+									"parameters": {
+										"variable": "temp_monster_follower_count",
+										"value": "int(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 2, \"|\"))"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 244717821765506,
+									"parameters": {
+										"variable": "temp_monster_displayed_health",
+										"value": "float(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 3, \"|\"))\n"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 466241789445007,
+									"parameters": {
+										"variable": "temp_monster_animator_core",
+										"value": "tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 4, \"|\")"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 283727648905293,
+									"parameters": {
+										"variable": "temp_monster_spawn_x",
+										"value": "int(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 5, \"|\"))"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 578504895092950,
+									"parameters": {
+										"variable": "temp_monster_spawn_y",
+										"value": "int(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 6, \"|\"))"
+									}
+								},
+								{
+									"callFunction": "Monsters-Create",
+									"sid": 808100015951675,
+									"parameters": [
+										true,
+										"temp_monster_group_hashid",
+										"temp_monster_hashid",
+										"temp_monster_animator_core",
+										"temp_monster_spawn_x",
+										"temp_monster_spawn_y",
+										"temp_monster_displayed_health"
+									]
+								}
+							],
+							"sid": 816560095895492
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "onevent3",
+							"objectClass": "Photon",
+							"sid": 223735955131013,
+							"parameters": {
+								"code0": "201"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 659247857155183,
+							"parameters": {
+								"variable": "temp_event_data",
+								"value": "Photon.EventData"
+							}
+						}
+					],
+					"sid": 777031598117836,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "temp_monster_group_hashid",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 246376817896137
+						},
+						{
+							"eventType": "variable",
+							"name": "temp_monster_hashid",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 292049466284478
+						},
+						{
+							"eventType": "variable",
+							"name": "temp_monster_displayed_health",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 293603237143298
+						},
+						{
+							"eventType": "variable",
+							"name": "temp_monster_animator_core",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 738654879652328
+						},
+						{
+							"eventType": "variable",
+							"name": "temp_monster_spawn_x",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 882252042822440
+						},
+						{
+							"eventType": "variable",
+							"name": "temp_monster_spawn_y",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 880064880222931
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 702130790669922,
+									"parameters": {
+										"variable": "temp_monster_group_hashid",
+										"value": "Functions.Enigma_Decrypt(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 0, \"|\"), K_BROWSER)"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 631649281520325,
+									"parameters": {
+										"variable": "temp_monster_hashid",
+										"value": "Functions.Enigma_Decrypt(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 1, \"|\"), K_BROWSER)"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 109897074330756,
+									"parameters": {
+										"variable": "temp_monster_displayed_health",
+										"value": "float(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 2, \"|\"))\n"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 685048209475283,
+									"parameters": {
+										"variable": "temp_monster_animator_core",
+										"value": "tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 3, \"|\")"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 861947767631832,
+									"parameters": {
+										"variable": "temp_monster_spawn_x",
+										"value": "int(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 4, \"|\"))"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 328704987103230,
+									"parameters": {
+										"variable": "temp_monster_spawn_y",
+										"value": "int(tokenat(Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER), 5, \"|\"))"
+									}
+								},
+								{
+									"callFunction": "Monsters-Create",
+									"sid": 140416582665501,
+									"parameters": [
+										false,
+										"temp_monster_group_hashid",
+										"temp_monster_hashid",
+										"temp_monster_animator_core",
+										"temp_monster_spawn_x",
+										"temp_monster_spawn_y",
+										"temp_monster_displayed_health"
+									]
+								}
+							],
+							"sid": 263050274919221
+						}
+					]
+				}
+			]
+		}
+	],
+	"sid": 527755237893097
+}

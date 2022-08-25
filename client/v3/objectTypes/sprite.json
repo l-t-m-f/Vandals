@@ -1,0 +1,54 @@
+{
+	"name": "Sprite",
+	"plugin-id": "Sprite",
+	"sid": 709174982690776,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [
+		{
+			"effectId": "blurhorizontal",
+			"name": "BlurHorizontal"
+		},
+		{
+			"effectId": "blurvertical",
+			"name": "BlurVertical"
+		},
+		{
+			"effectId": "radialblur",
+			"name": "RadialBlur"
+		},
+		{
+			"effectId": "lighten",
+			"name": "Lighten"
+		}
+	],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 212,
+						"height": 212,
+						"originX": 0.5330188679245284,
+						"originY": 0.5235849056603774,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 1662480,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 877750602092148,
+				"name": "Animation 1",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			}
+		],
+		"subfolders": []
+	}
+}

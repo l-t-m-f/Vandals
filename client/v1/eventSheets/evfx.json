@@ -1,0 +1,81 @@
+{
+	"name": "eVFX",
+	"events": [
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ Particles",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-created",
+							"objectClass": "Particle_Shape",
+							"sid": 268091028367338
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation-frame",
+							"objectClass": "Particle_Shape",
+							"sid": 648995948720767,
+							"parameters": {
+								"frame-number": "floor(random(0, 8))"
+							}
+						},
+						{
+							"id": "set-angle",
+							"objectClass": "Particle_Shape",
+							"sid": 183624410026319,
+							"parameters": {
+								"angle": "random(0, 360)"
+							}
+						}
+					],
+					"sid": 420496238444978,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "random_num_for_color",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 465205528609996
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 620047927435061,
+									"parameters": {
+										"variable": "random_num_for_color",
+										"value": "round(random(20, 40))"
+									}
+								},
+								{
+									"id": "set-default-color",
+									"objectClass": "Particle_Shape",
+									"sid": 928955683154186,
+									"parameters": {
+										"color": "rgbEx(random_num_for_color, random_num_for_color, random_num_for_color)"
+									}
+								}
+							],
+							"sid": 380268718903114
+						}
+					]
+				}
+			],
+			"sid": 705315335272020
+		}
+	],
+	"sid": 478894933030428
+}

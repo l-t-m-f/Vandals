@@ -1,0 +1,16 @@
+{
+	"name": "ChatBoxInput",
+	"plugin-id": "Text",
+	"sid": 554964967279024,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "Active",
+			"type": "boolean",
+			"desc": "",
+			"sid": 818368724172782
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": []
+}

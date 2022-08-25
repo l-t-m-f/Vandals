@@ -1,0 +1,131 @@
+{
+	"name": "Netpeer",
+	"plugin-id": "Sprite",
+	"sid": 794971085887473,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "AssocActorNr",
+			"type": "number",
+			"desc": "Photon actor number associated to this Netpeer.",
+			"sid": 876000845175400
+		},
+		{
+			"name": "CanMove",
+			"type": "boolean",
+			"desc": "",
+			"sid": 246261464427141
+		},
+		{
+			"name": "NextNodeID",
+			"type": "number",
+			"desc": "",
+			"sid": 232726857527444
+		},
+		{
+			"name": "MoveDir",
+			"type": "string",
+			"desc": "",
+			"sid": 748403049411182
+		},
+		{
+			"name": "LastMoveDir",
+			"type": "string",
+			"desc": "",
+			"sid": 185729186262944
+		},
+		{
+			"name": "CurDisplayRange",
+			"type": "number",
+			"desc": "Integer indicating the range to display on the game grid (for skill usage).",
+			"sid": 813018431987957
+		},
+		{
+			"name": "CurDisplayEnergy",
+			"type": "number",
+			"desc": "",
+			"sid": 635911269317391
+		},
+		{
+			"name": "Animator",
+			"type": "string",
+			"desc": "Name of the animation core or \"Animator\" for this Netpeer.",
+			"sid": 452955423337276
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "TileMovement",
+			"name": "GridMove",
+			"sid": 496219316298356
+		},
+		{
+			"behaviorId": "Pathfinding",
+			"name": "Pathfinder",
+			"sid": 258735946353395
+		},
+		{
+			"behaviorId": "bound",
+			"name": "BoundToLayout",
+			"sid": 504172550944868
+		},
+		{
+			"behaviorId": "LOS",
+			"name": "OverworldSightRange",
+			"sid": 193921587654736
+		},
+		{
+			"behaviorId": "LOS",
+			"name": "CurSkillRange",
+			"sid": 742458601715176
+		}
+	],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 32,
+						"height": 32,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 8504264,
+						"collisionPoly": {
+							"points": [
+								0.03125,
+								0.03125,
+								0.96875,
+								0.03125,
+								0.96875,
+								0.96875,
+								0.03125,
+								0.96875
+							]
+						},
+						"useCollisionPoly": true,
+						"imagePoints": [
+							{
+								"name": "Dialog",
+								"x": 1.125,
+								"y": -0.125
+							}
+						],
+						"duration": 1
+					}
+				],
+				"sid": 129271710805543,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

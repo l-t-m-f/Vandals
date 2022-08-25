@@ -1,0 +1,292 @@
+{
+	"name": "eAnimator",
+	"events": [
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "animator_ YasZ",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each-ordered",
+							"objectClass": "System",
+							"sid": 154833084294634,
+							"parameters": {
+								"object": "YasZ",
+								"expression": "YasZ.ImagePointY(\"YasZ\")",
+								"order": "ascending"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "move-to-top",
+							"objectClass": "YasZ",
+							"sid": 756309418994724
+						}
+					],
+					"sid": 585333134098759
+				}
+			],
+			"sid": 395622277364776
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 233141797940152,
+					"parameters": {
+						"variable": "photonCloud_RoomMaster"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 456183530539608,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each",
+							"objectClass": "System",
+							"sid": 962670112979283,
+							"parameters": {
+								"object": "MonsterFollower"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 146795822576275,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-parent",
+									"objectClass": "MonsterFollower",
+									"sid": 427766715242940,
+									"parameters": {
+										"parent": "MonsterLeader",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 980922648636600,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "MonsterLeader.MoveDir"
+									}
+								}
+							],
+							"sid": 352818556831219,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "is-boolean-instance-variable-set",
+											"objectClass": "MonsterLeader",
+											"sid": 168957544556286,
+											"parameters": {
+												"instance-variable": "Idly"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-boolean-instvar",
+											"objectClass": "MonsterFollower",
+											"sid": 478712634398191,
+											"parameters": {
+												"instance-variable": "Idly",
+												"value": "true"
+											}
+										}
+									],
+									"sid": 283956116414522,
+									"disabled": true
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 111572363233758
+										},
+										{
+											"id": "is-boolean-instance-variable-set",
+											"objectClass": "MonsterLeader",
+											"sid": 649619887629980,
+											"parameters": {
+												"instance-variable": "Idly"
+											},
+											"isInverted": true
+										}
+									],
+									"actions": [
+										{
+											"id": "set-boolean-instvar",
+											"objectClass": "MonsterFollower",
+											"sid": 447860614585398,
+											"parameters": {
+												"instance-variable": "Idly",
+												"value": "false"
+											}
+										}
+									],
+									"sid": 230873634450630,
+									"disabled": true
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each",
+							"objectClass": "System",
+							"sid": 733954123763693,
+							"parameters": {
+								"object": "Monster"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 132935326165332,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "Monster",
+									"sid": 312229261832595,
+									"parameters": {
+										"child": "asset_Monster",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 183591916919742,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "is-boolean-instance-variable-set",
+											"objectClass": "Monster",
+											"sid": 246441647581184,
+											"parameters": {
+												"instance-variable": "Idly"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "asset_Monster",
+											"sid": 961560313380077,
+											"parameters": {
+												"animation": "Monster.AnimatorCore&\"_idle_\"&lowercase(Monster.MoveDir)",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 878614472554131
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 905436872877069
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "asset_Monster",
+											"sid": 768120836613890,
+											"parameters": {
+												"animation": "Monster.AnimatorCore&\"_move_\"&lowercase(Monster.MoveDir)",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 975173836762019
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "Monster",
+							"sid": 415698649571618,
+							"parameters": {
+								"instance-variable": "AnimatorCore",
+								"comparison": 1,
+								"value": "\"NULL\""
+							}
+						},
+						{
+							"id": "pick-children",
+							"objectClass": "Monster",
+							"sid": 873914161648691,
+							"parameters": {
+								"child": "asset_Monster",
+								"which": "own"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 461982899763372,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-flashing",
+									"objectClass": "asset_Monster",
+									"sid": 748646014103748,
+									"behaviorType": "Flash",
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "set-visible",
+									"objectClass": "asset_Monster",
+									"sid": 513801189704097,
+									"parameters": {
+										"visibility": "visible"
+									}
+								}
+							],
+							"sid": 810071501683758
+						}
+					]
+				}
+			]
+		}
+	],
+	"sid": 644820207035112
+}

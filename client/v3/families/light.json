@@ -1,0 +1,30 @@
+{
+	"name": "Light",
+	"plugin-id": "Sprite",
+	"sid": 953116177337756,
+	"instanceVariables": [
+		{
+			"name": "LightActive",
+			"type": "boolean",
+			"desc": "",
+			"sid": 489223895239372
+		},
+		{
+			"name": "LightStr",
+			"type": "number",
+			"desc": "",
+			"sid": 329853042202751
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "LOS",
+			"name": "Light_LOSTest",
+			"sid": 261952524409686
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"Netpeer"
+	]
+}

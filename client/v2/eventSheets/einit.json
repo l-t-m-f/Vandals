@@ -1,0 +1,39 @@
+{
+	"name": "eInit",
+	"events": [
+		{
+			"eventType": "include",
+			"includeSheet": "ePhotonCloud"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 314154617160616
+				}
+			],
+			"actions": [
+				{
+					"id": "set-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 325997338822358,
+					"parameters": {
+						"variable": "main__MapLoaded",
+						"value": "false"
+					}
+				},
+				{
+					"callFunction": "PhotonCloud-Connect",
+					"sid": 112896533164599,
+					"parameters": [
+						"\"001\""
+					]
+				}
+			],
+			"sid": 106561992152832
+		}
+	],
+	"sid": 435393016806307
+}

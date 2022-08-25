@@ -1,0 +1,21 @@
+{
+	"name": "Minimap",
+	"plugin-id": "Tilemap",
+	"sid": 199251924586967,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"image": {
+		"width": 352,
+		"height": 224,
+		"originX": 0.5,
+		"originY": 0.5,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 5500532,
+		"useCollisionPoly": true
+	},
+	"tile-collision-polys": {}
+}

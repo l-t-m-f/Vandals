@@ -1,0 +1,125 @@
+{
+	"name": "MonsterLeader",
+	"plugin-id": "Sprite",
+	"sid": 104734503358987,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "MonsterGroupHashID_e",
+			"type": "string",
+			"desc": "Encrypted HashID for the whole monster group (leader+followers). Used mostly for position, as only leaders have their position on the server. (Received from server.)",
+			"sid": 925017567410612
+		},
+		{
+			"name": "MonsterHashID_e",
+			"type": "string",
+			"desc": "Encrypted HashID (received from server).",
+			"sid": 223337505626839
+		},
+		{
+			"name": "AnimatorCore",
+			"type": "string",
+			"desc": "Encrypted name of the Animator to build this monster leader's animation asset.",
+			"sid": 596534636122539
+		},
+		{
+			"name": "FollowerCount",
+			"type": "number",
+			"desc": "",
+			"sid": 211792341157462
+		},
+		{
+			"name": "debug__MonsterGridGraphX",
+			"type": "number",
+			"desc": "Only used locally. TO DELETE IN FINAL BUILD.",
+			"sid": 677824491592161
+		},
+		{
+			"name": "debug__MonsterGridGraphY",
+			"type": "number",
+			"desc": "Only used locally. TO DELETE IN FINAL BUILD.",
+			"sid": 873962880376803
+		},
+		{
+			"name": "GroupType",
+			"type": "string",
+			"desc": "",
+			"sid": 677326940827474
+		},
+		{
+			"name": "GroupDescriptor",
+			"type": "string",
+			"desc": "",
+			"sid": 825150934851860
+		},
+		{
+			"name": "DisplayedHealth",
+			"type": "number",
+			"desc": "",
+			"sid": 421442074160946
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Bullet",
+			"name": "Move",
+			"sid": 749399794463368
+		},
+		{
+			"behaviorId": "bound",
+			"name": "BoundToLayout",
+			"sid": 890419632784259
+		},
+		{
+			"behaviorId": "LOS",
+			"name": "InteractRange",
+			"sid": 753891093009799
+		},
+		{
+			"behaviorId": "solid",
+			"name": "Solid",
+			"sid": 778867913934930
+		}
+	],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 48,
+						"height": 48,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 6086594,
+						"collisionPoly": {
+							"points": [
+								0.16666666666666666,
+								0.16666666666666666,
+								0.8333333333333334,
+								0.16666666666666666,
+								0.8333333333333334,
+								0.8333333333333334,
+								0.16666666666666666,
+								0.8333333333333334
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 687267230089788,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

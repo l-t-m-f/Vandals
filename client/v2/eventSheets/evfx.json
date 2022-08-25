@@ -1,0 +1,1280 @@
+{
+	"name": "eVFX",
+	"events": [
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ Monsters Display on Hover",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "cursor-is-over-object",
+							"objectClass": "Controls_Desktop",
+							"sid": 305161758315380,
+							"parameters": {
+								"object": "MonsterLeader"
+							}
+						},
+						{
+							"id": "cursor-is-over-object",
+							"objectClass": "Controls_Desktop",
+							"sid": 856500285841624,
+							"parameters": {
+								"object": "MonsterFollower"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 360071320088211,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterLeader",
+									"sid": 782364529620887,
+									"parameters": {
+										"child": "UI_Healthbar",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-fade-in-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 305883201701883,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-in-time": "0.45"
+									}
+								},
+								{
+									"id": "set-wait-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 764315358233721,
+									"behaviorType": "Fade",
+									"parameters": {
+										"wait-time": "0"
+									}
+								},
+								{
+									"id": "set-fade-out-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 467820529955412,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-out-time": "0"
+									}
+								}
+							],
+							"sid": 970405108602016,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-opacity",
+											"objectClass": "UI_Healthbar",
+											"sid": 446004498986660,
+											"parameters": {
+												"comparison": 0,
+												"opacity": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "start-fade",
+											"objectClass": "UI_Healthbar",
+											"sid": 530695350309727,
+											"behaviorType": "Fade"
+										}
+									],
+									"sid": 832137289613629
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterLeader",
+									"sid": 243686826684280,
+									"parameters": {
+										"child": "UI_HealthbarFiller",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-fade-in-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 904833747187625,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-in-time": "0.45"
+									}
+								},
+								{
+									"id": "set-wait-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 706212388995788,
+									"behaviorType": "Fade",
+									"parameters": {
+										"wait-time": "0"
+									}
+								},
+								{
+									"id": "set-fade-out-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 771079040501692,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-out-time": "0"
+									}
+								}
+							],
+							"sid": 775776030673530,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-opacity",
+											"objectClass": "UI_HealthbarFiller",
+											"sid": 793757920028199,
+											"parameters": {
+												"comparison": 0,
+												"opacity": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "start-fade",
+											"objectClass": "UI_HealthbarFiller",
+											"sid": 437439967342554,
+											"behaviorType": "Fade"
+										}
+									],
+									"sid": 182408979617412
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterFollower",
+									"sid": 260482795761192,
+									"parameters": {
+										"child": "UI_Healthbar",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-fade-in-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 386912775832533,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-in-time": "0.45"
+									}
+								},
+								{
+									"id": "set-wait-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 515059133038258,
+									"behaviorType": "Fade",
+									"parameters": {
+										"wait-time": "0"
+									}
+								},
+								{
+									"id": "set-fade-out-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 571491803613809,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-out-time": "0"
+									}
+								}
+							],
+							"sid": 959262911623177,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-opacity",
+											"objectClass": "UI_Healthbar",
+											"sid": 737490646490301,
+											"parameters": {
+												"comparison": 0,
+												"opacity": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "start-fade",
+											"objectClass": "UI_Healthbar",
+											"sid": 366574496411726,
+											"behaviorType": "Fade"
+										}
+									],
+									"sid": 678044310990169
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterFollower",
+									"sid": 616936054804482,
+									"parameters": {
+										"child": "UI_HealthbarFiller",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-fade-in-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 544269154003164,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-in-time": "0.45"
+									}
+								},
+								{
+									"id": "set-wait-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 140929423430441,
+									"behaviorType": "Fade",
+									"parameters": {
+										"wait-time": "0"
+									}
+								},
+								{
+									"id": "set-fade-out-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 857699560886093,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-out-time": "0"
+									}
+								}
+							],
+							"sid": 737022830963983,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-opacity",
+											"objectClass": "UI_HealthbarFiller",
+											"sid": 962837018338458,
+											"parameters": {
+												"comparison": 0,
+												"opacity": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "start-fade",
+											"objectClass": "UI_HealthbarFiller",
+											"sid": 631656421339857,
+											"behaviorType": "Fade"
+										}
+									],
+									"sid": 907984606838886
+								}
+							]
+						}
+					],
+					"isOrBlock": true
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "cursor-is-over-object",
+							"objectClass": "Controls_Desktop",
+							"sid": 622831929185582,
+							"parameters": {
+								"object": "MonsterLeader"
+							},
+							"isInverted": true
+						}
+					],
+					"actions": [],
+					"sid": 570009280795780,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterLeader",
+									"sid": 236130570144831,
+									"parameters": {
+										"child": "UI_Healthbar",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-fade-in-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 280703385545755,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-in-time": "0"
+									}
+								},
+								{
+									"id": "set-wait-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 196303791487298,
+									"behaviorType": "Fade",
+									"parameters": {
+										"wait-time": "0"
+									}
+								},
+								{
+									"id": "set-fade-out-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 234263529730505,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-out-time": "0.55"
+									}
+								}
+							],
+							"sid": 412891181853244,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-opacity",
+											"objectClass": "UI_Healthbar",
+											"sid": 768787610382218,
+											"parameters": {
+												"comparison": 1,
+												"opacity": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "start-fade",
+											"objectClass": "UI_Healthbar",
+											"sid": 379230295386449,
+											"behaviorType": "Fade"
+										}
+									],
+									"sid": 209077498790478
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterLeader",
+									"sid": 536503667981453,
+									"parameters": {
+										"child": "UI_HealthbarFiller",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-fade-in-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 681915672809651,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-in-time": "0"
+									}
+								},
+								{
+									"id": "set-wait-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 134472226500463,
+									"behaviorType": "Fade",
+									"parameters": {
+										"wait-time": "0"
+									}
+								},
+								{
+									"id": "set-fade-out-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 443048043720435,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-out-time": "0.55"
+									}
+								}
+							],
+							"sid": 571410458010408,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-opacity",
+											"objectClass": "UI_HealthbarFiller",
+											"sid": 483359020208284,
+											"parameters": {
+												"comparison": 1,
+												"opacity": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "start-fade",
+											"objectClass": "UI_HealthbarFiller",
+											"sid": 981609022499898,
+											"behaviorType": "Fade"
+										}
+									],
+									"sid": 670393499195306
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "cursor-is-over-object",
+							"objectClass": "Controls_Desktop",
+							"sid": 735730535580689,
+							"parameters": {
+								"object": "MonsterFollower"
+							},
+							"isInverted": true
+						}
+					],
+					"actions": [],
+					"sid": 195691884983485,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterFollower",
+									"sid": 239965724940385,
+									"parameters": {
+										"child": "UI_Healthbar",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-fade-in-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 218162121083783,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-in-time": "0"
+									}
+								},
+								{
+									"id": "set-wait-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 379933726290546,
+									"behaviorType": "Fade",
+									"parameters": {
+										"wait-time": "0"
+									}
+								},
+								{
+									"id": "set-fade-out-time",
+									"objectClass": "UI_Healthbar",
+									"sid": 448408095147245,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-out-time": "0.55"
+									}
+								}
+							],
+							"sid": 442149910780199,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-opacity",
+											"objectClass": "UI_Healthbar",
+											"sid": 591978333527001,
+											"parameters": {
+												"comparison": 1,
+												"opacity": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "start-fade",
+											"objectClass": "UI_Healthbar",
+											"sid": 880444017215733,
+											"behaviorType": "Fade"
+										}
+									],
+									"sid": 372985293796148
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterFollower",
+									"sid": 641992804526223,
+									"parameters": {
+										"child": "UI_HealthbarFiller",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-fade-in-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 961966330574019,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-in-time": "0"
+									}
+								},
+								{
+									"id": "set-wait-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 976892734523523,
+									"behaviorType": "Fade",
+									"parameters": {
+										"wait-time": "0"
+									}
+								},
+								{
+									"id": "set-fade-out-time",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 981614760433485,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-out-time": "0.55"
+									}
+								}
+							],
+							"sid": 869144889447071,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-opacity",
+											"objectClass": "UI_HealthbarFiller",
+											"sid": 550147907928580,
+											"parameters": {
+												"comparison": 1,
+												"opacity": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "start-fade",
+											"objectClass": "UI_HealthbarFiller",
+											"sid": 157355464936674,
+											"behaviorType": "Fade"
+										}
+									],
+									"sid": 813099289785576
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 524509190546421
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ Player Overworld Artworks",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each",
+							"objectClass": "System",
+							"sid": 517518662532463,
+							"parameters": {
+								"object": "Netpeer"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 708097004333142,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "Netpeer",
+									"sid": 895168873003640,
+									"parameters": {
+										"child": "asset_OverworldPC",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 943059571941688,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "Netpeer",
+											"sid": 633765906131040,
+											"parameters": {
+												"instance-variable": "MoveDir",
+												"comparison": 0,
+												"value": "\"NULL\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "asset_OverworldPC",
+											"sid": 965547077549920,
+											"parameters": {
+												"animation": "Netpeer.Animator&\"_idle_\"&Netpeer.LastMoveDir",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 860755467008355
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 970252836432345
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "asset_OverworldPC",
+											"sid": 390731988282492,
+											"parameters": {
+												"animation": "Netpeer.Animator&\"_move_\"&Netpeer.LastMoveDir",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 444078698941473
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 831048804355824
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ ActiveSkill Icons",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for",
+							"objectClass": "System",
+							"sid": 623931340670623,
+							"parameters": {
+								"name": "\"i_ActiveSkills\"",
+								"start-index": "1",
+								"end-index": "9"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 570518966704481,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-comparison",
+									"objectClass": "System",
+									"sid": 635410696384832,
+									"parameters": {
+										"object": "SkillIcon_medium",
+										"expression": "SkillIcon_medium.Type",
+										"comparison": 0,
+										"value": "\"CreateChar_PreviewPower\"&loopindex(\"i_ActiveSkills\")"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 731265162558082,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 156357486935981,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "1"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 435126186365304,
+											"parameters": {
+												"animation": "myplayer__Skill1",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 979232857784093
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 168831461809908
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 829699030781115,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "2"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 116882125871988,
+											"parameters": {
+												"animation": "myplayer__Skill2",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 314658816365505
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 626877104945787
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 907615516660059,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "3"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 144366106010369,
+											"parameters": {
+												"animation": "myplayer__Skill3",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 548200184895401
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 453664932772681
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 932023867866566,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "4"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 996140182025038,
+											"parameters": {
+												"animation": "myplayer__Skill4",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 682486698988063
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 794919124982866
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 761117052215891,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "5"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 190953617895416,
+											"parameters": {
+												"animation": "myplayer__Skill5",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 613495234853356
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 695142813982140
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 798245330065244,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "6"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 205207946978371,
+											"parameters": {
+												"animation": "myplayer__Skill6",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 425594189487966
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 137273993139978
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 763183859948673,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "7"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 879953652268351,
+											"parameters": {
+												"animation": "myplayer__Skill7",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 912807259793846
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 198562639700567
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 345182573169764,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "8"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 674969364823038,
+											"parameters": {
+												"animation": "myplayer__Skill8",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 844449067905098
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 121130231754468
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 198681747891877,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "9"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 800530629509158,
+											"parameters": {
+												"animation": "myplayer__Skill9",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 972536330808745
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 960523946222851
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ Grid Graph",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-tick",
+							"objectClass": "System",
+							"sid": 630782209384276
+						}
+					],
+					"actions": [
+						{
+							"id": "set-position",
+							"objectClass": "vfx_TileHoverSelection",
+							"sid": 736511776860375,
+							"parameters": {
+								"x": "(GridGraph.PositionToTileX(Controls_Desktop.X)*32)+14",
+								"y": "(GridGraph.PositionToTileY(Controls_Desktop.Y)*32)+18"
+							}
+						}
+					],
+					"sid": 713497656880724
+				}
+			],
+			"sid": 387561155387885
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ Particles",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-created",
+							"objectClass": "Particle_Shape",
+							"sid": 268091028367338
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation-frame",
+							"objectClass": "Particle_Shape",
+							"sid": 648995948720767,
+							"parameters": {
+								"frame-number": "floor(random(0, 8))"
+							}
+						},
+						{
+							"id": "set-angle",
+							"objectClass": "Particle_Shape",
+							"sid": 183624410026319,
+							"parameters": {
+								"angle": "random(0, 360)"
+							}
+						}
+					],
+					"sid": 420496238444978,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "random_num_for_color",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 465205528609996
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 620047927435061,
+									"parameters": {
+										"variable": "random_num_for_color",
+										"value": "round(random(20, 40))"
+									}
+								},
+								{
+									"id": "set-default-color",
+									"objectClass": "Particle_Shape",
+									"sid": 928955683154186,
+									"parameters": {
+										"color": "rgbEx(random_num_for_color, random_num_for_color, random_num_for_color)"
+									}
+								}
+							],
+							"sid": 380268718903114
+						}
+					]
+				}
+			],
+			"sid": 705315335272020
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-two-values",
+					"objectClass": "System",
+					"sid": 310217018595494,
+					"parameters": {
+						"first-value": "LayoutName",
+						"comparison": 0,
+						"second-value": "\"001\""
+					}
+				}
+			],
+			"actions": [],
+			"sid": 263803438057107,
+			"disabled": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 180418554548541,
+							"parameters": {
+								"interval-seconds": "random(1, 8.25)"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "shake",
+							"objectClass": "Camera",
+							"sid": 746671656046170,
+							"behaviorType": "ScrollTo",
+							"parameters": {
+								"magnitude": "random(4, 8)",
+								"duration": "random(1.5, 3)",
+								"mode": "reducing-magnitude"
+							}
+						},
+						{
+							"id": "play-by-name",
+							"objectClass": "Audio",
+							"sid": 368612610219131,
+							"parameters": {
+								"folder": "sounds",
+								"audio-file-name": "\"Crash_\"&floor(random(1,10))",
+								"loop": "not-looping",
+								"volume": "0",
+								"tag-optional": "\"SFX\""
+							}
+						}
+					],
+					"sid": 781980151687995,
+					"disabled": true
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "is-overlapping-another-object",
+					"objectClass": "PathTarget",
+					"sid": 875288991712285,
+					"parameters": {
+						"object": "asset_Monster"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-default-color",
+					"objectClass": "PathTarget",
+					"sid": 813974197252230,
+					"parameters": {
+						"color": "rgbEx255(255, 0, 0)"
+					}
+				}
+			],
+			"sid": 922812304732780
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "else",
+					"objectClass": "System",
+					"sid": 576402054358533
+				}
+			],
+			"actions": [
+				{
+					"id": "set-default-color",
+					"objectClass": "PathTarget",
+					"sid": 773822506574942,
+					"parameters": {
+						"color": "rgbEx255(255, 255, 255)"
+					}
+				}
+			],
+			"sid": 999015582567583
+		},
+		{
+			"functionName": "VFX-Dialogs-RefreshPortraits",
+			"functionDescription": "",
+			"functionCategory": "VFX, Dialogs",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 113371384642318
+		}
+	],
+	"sid": 478894933030428
+}

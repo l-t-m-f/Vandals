@@ -1,0 +1,822 @@
+{
+	"name": "eDebug",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "debug__LastAJAX",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 530688610051437
+		},
+		{
+			"eventType": "comment",
+			"text": ""
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__CurUsernameContent_r",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 325127847242487
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__CurIrlNameContent",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 185633501204846
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__CurEmailContent",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 410902045920010
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__CurPhoneContent",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 983843645202413
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__EncryptLastCrypto",
+			"type": "boolean",
+			"initialValue": "true",
+			"comment": "True (1) if LAST_CRYPTO display should be encrypted.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 344030801273103
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "_debug Last Crypto",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "Debug-LastCrypto-Set",
+					"functionDescription": "Set the debug text indicator LAST_CRYPTO to the latest hovered object's crypto properties.",
+					"functionCategory": "Debug, Last Crypto",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pText",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Text to set the LAST_CRYPTO text to.",
+							"sid": 881935670731106
+						},
+						{
+							"name": "pPropertyOf",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Holder of the LAST_CRYPTO.",
+							"sid": 719060938089969
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 836197468189600,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 125049689420301,
+									"parameters": {
+										"variable": "debug__EncryptLastCrypto"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "LAST_CRYPTO",
+									"sid": 856020780065719,
+									"parameters": {
+										"text": "\"[b]Crypto properties of [/b]\"&newline&pPropertyOf&newline&pText"
+									}
+								}
+							],
+							"sid": 205557485820056
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 754359639047400
+								},
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 607190747959926,
+									"parameters": {
+										"variable": "debug__EncryptLastCrypto"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "LAST_CRYPTO",
+									"sid": 887857610919165,
+									"parameters": {
+										"text": "\"[b]Crypto properties of [/b]\"&newline&newline&Functions.Enigma_Decrypt(pText, K_BROWSER)"
+									}
+								}
+							],
+							"sid": 253490234707864
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 477539189543300,
+							"parameters": {
+								"variable": "main__Platform",
+								"comparison": 0,
+								"value": "\"Mobile\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 310449154679827
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 645731868658163,
+							"parameters": {
+								"variable": "main__Platform",
+								"comparison": 0,
+								"value": "\"Desktop\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 148638961430304,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "cursor-is-over-object",
+									"objectClass": "Controls_Desktop",
+									"sid": 228654382438956,
+									"parameters": {
+										"object": "Netpeer"
+									}
+								},
+								{
+									"id": "trigger-once-while-true",
+									"objectClass": "System",
+									"sid": 614149346225906
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Debug-LastCrypto-Set",
+									"sid": 442407513848317,
+									"parameters": [
+										"Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\")",
+										"\"Netpeer \"&Netpeer.AssocActorNr"
+									]
+								}
+							],
+							"sid": 754443741834731
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "cursor-is-over-object",
+									"objectClass": "Controls_Desktop",
+									"sid": 328502753631968,
+									"parameters": {
+										"object": "Monster"
+									}
+								},
+								{
+									"id": "trigger-once-while-true",
+									"objectClass": "System",
+									"sid": 741304451428102
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Debug-LastCrypto-Set",
+									"sid": 880234559379780,
+									"parameters": [
+										"Photon.PropertyOfMyRoom(\"MonstersCipher\")",
+										"\"Monsters\""
+									]
+								}
+							],
+							"sid": 528873807956393
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "key-is-down",
+							"objectClass": "Keyboard",
+							"sid": 345714600990024,
+							"parameters": {
+								"key": 18
+							}
+						},
+						{
+							"id": "key-is-down",
+							"objectClass": "Keyboard",
+							"sid": 876375193170625,
+							"parameters": {
+								"key": 69
+							}
+						},
+						{
+							"id": "trigger-once-while-true",
+							"objectClass": "System",
+							"sid": 115791212011654
+						}
+					],
+					"actions": [],
+					"sid": 406276693552109,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 347055500574827,
+									"parameters": {
+										"variable": "debug__EncryptLastCrypto"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 968191207619445,
+									"parameters": {
+										"variable": "debug__EncryptLastCrypto",
+										"value": "false"
+									}
+								}
+							],
+							"sid": 572494089602310
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 909140850683440
+								},
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 412102063996026,
+									"parameters": {
+										"variable": "debug__EncryptLastCrypto"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 384169903521855,
+									"parameters": {
+										"variable": "debug__EncryptLastCrypto",
+										"value": "true"
+									}
+								}
+							],
+							"sid": 154777425348731
+						}
+					]
+				}
+			],
+			"sid": 754175887670556
+		},
+		{
+			"functionName": "Debug-Console-Log",
+			"functionDescription": "",
+			"functionCategory": "Debug, Console",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pMessage",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"sid": 566102466418463
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "set-text",
+					"objectClass": "DEBUG_CONSOLE",
+					"sid": 421233721799503,
+					"parameters": {
+						"text": "\"\""
+					}
+				}
+			],
+			"sid": 857339330819064,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-size",
+							"objectClass": "data_DebugConsole",
+							"sid": 272026362210233,
+							"parameters": {
+								"axis": "x",
+								"comparison": 4,
+								"value": "60"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "pop",
+							"objectClass": "data_DebugConsole",
+							"sid": 396696266682951,
+							"parameters": {
+								"where": "front",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "push",
+							"objectClass": "data_DebugConsole",
+							"sid": 409150502765632,
+							"parameters": {
+								"where": "back",
+								"value": "pMessage",
+								"axis": "x"
+							}
+						}
+					],
+					"sid": 866355948974306
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 497779458934109
+						}
+					],
+					"actions": [
+						{
+							"id": "push",
+							"objectClass": "data_DebugConsole",
+							"sid": 340866688284674,
+							"parameters": {
+								"where": "back",
+								"value": "pMessage",
+								"axis": "x"
+							}
+						}
+					],
+					"sid": 159159890089724
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each-element",
+							"objectClass": "data_DebugConsole",
+							"sid": 596973638085091,
+							"parameters": {
+								"axes": "x"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "DEBUG_CONSOLE",
+							"sid": 857492330075960,
+							"parameters": {
+								"text": "Self.Text&newline&data_DebugConsole.At(data_DebugConsole.CurX)"
+							}
+						}
+					],
+					"sid": 823646363871747
+				}
+			]
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "debug_photonCloud_ HostControl indicator",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 921731626802859,
+							"parameters": {
+								"variable": "photonCloud_RoomMaster"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-visible",
+							"objectClass": "TextIndicator_host",
+							"sid": 803971335737444,
+							"parameters": {
+								"visibility": "visible"
+							}
+						},
+						{
+							"id": "set-font-color",
+							"objectClass": "TextIndicator_nextspawn",
+							"sid": 585409754243693,
+							"parameters": {
+								"color": "rgbEx(185, 185, 185)"
+							}
+						}
+					],
+					"sid": 436880654464775
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 138297693782199
+						}
+					],
+					"actions": [
+						{
+							"id": "set-visible",
+							"objectClass": "TextIndicator_host",
+							"sid": 280606940040787,
+							"parameters": {
+								"visibility": "invisible"
+							}
+						},
+						{
+							"id": "set-font-color",
+							"objectClass": "TextIndicator_nextspawn",
+							"sid": 504090617812026,
+							"parameters": {
+								"color": "rgbEx(65, 65, 65)"
+							}
+						}
+					],
+					"sid": 130313890636686
+				}
+			],
+			"sid": 612436391208119
+		},
+		{
+			"eventType": "block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "set-text",
+					"objectClass": "TextIndicator_map",
+					"sid": 923806453775726,
+					"parameters": {
+						"text": "\"Room: \"&Photon.MyRoomName&newline&\"Players in room: \"&Photon.ActorCount&newline&\"Master actor is: \"&Photon.MasterActorNr&\" (\"&photonCloud_RoomMaster&\")\""
+					}
+				}
+			],
+			"sid": 625458942257982
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "for-each",
+					"objectClass": "System",
+					"sid": 750441890866023,
+					"parameters": {
+						"object": "MonsterLeader"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 862774127479272,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "pick-children",
+							"objectClass": "MonsterLeader",
+							"sid": 160184309864817,
+							"parameters": {
+								"child": "debugtext_MonsterGroupInfo",
+								"which": "own"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "debugtext_MonsterGroupInfo",
+							"sid": 823080473191612,
+							"parameters": {
+								"text": "MonsterLeader.AnimatorCore"
+							}
+						}
+					],
+					"sid": 875276824480780,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterLeader",
+									"sid": 375040561620540,
+									"parameters": {
+										"child": "MonsterFollower",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 141674397120853,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "System",
+											"sid": 614794542199199,
+											"parameters": {
+												"object": "MonsterFollower"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "debugtext_MonsterGroupInfo",
+											"sid": 588662014168663,
+											"parameters": {
+												"text": "debugtext_MonsterGroupInfo.Text&newline&MonsterFollower.AnimatorCore"
+											}
+										}
+									],
+									"sid": 666165931717023
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "for-each",
+					"objectClass": "System",
+					"sid": 680478894114559,
+					"parameters": {
+						"object": "Netpeer"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 468018590578599,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "pick-children",
+							"objectClass": "Netpeer",
+							"sid": 460874850815371,
+							"parameters": {
+								"child": "TextValue_netpeer",
+								"which": "own"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "TextValue_netpeer",
+							"sid": 239510310182612,
+							"parameters": {
+								"text": "Netpeer.AssocActorNr&newline&Netpeer.MoveDir"
+							}
+						}
+					],
+					"sid": 154063249513418
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-key-pressed",
+					"objectClass": "Keyboard",
+					"sid": 555229567227579,
+					"parameters": {
+						"key": 71
+					}
+				},
+				{
+					"id": "key-is-down",
+					"objectClass": "Keyboard",
+					"sid": 989635221517311,
+					"parameters": {
+						"key": 18
+					}
+				}
+			],
+			"actions": [],
+			"sid": 594989339362897,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "layer-is-visible",
+							"objectClass": "System",
+							"sid": 143407886886677,
+							"parameters": {
+								"layer": "\"_GAMEOBJECTS\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 983305683873275,
+							"parameters": {
+								"layer": "\"_GAMEOBJECTS\"",
+								"visibility": "invisible"
+							}
+						}
+					],
+					"sid": 958427512953343
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 524123015416143
+						}
+					],
+					"actions": [
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 875765430623896,
+							"parameters": {
+								"layer": "\"_GAMEOBJECTS\"",
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 701833188921257
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-key-pressed",
+					"objectClass": "Keyboard",
+					"sid": 968465919214385,
+					"parameters": {
+						"key": 84
+					}
+				},
+				{
+					"id": "key-is-down",
+					"objectClass": "Keyboard",
+					"sid": 285895946302457,
+					"parameters": {
+						"key": 18
+					}
+				}
+			],
+			"actions": [],
+			"sid": 580224286790582,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 998226935064296,
+							"parameters": {
+								"first-value": "LayoutName",
+								"comparison": 0,
+								"second-value": "\"LoadChar\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "Server-Test",
+							"sid": 574246465755066,
+							"parameters": [
+								"1"
+							]
+						}
+					],
+					"sid": 318791521058919
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-key-pressed",
+					"objectClass": "Keyboard",
+					"sid": 907115034231615,
+					"parameters": {
+						"key": 83
+					}
+				},
+				{
+					"id": "key-is-down",
+					"objectClass": "Keyboard",
+					"sid": 222907433836580,
+					"parameters": {
+						"key": 18
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "Server-Test2",
+					"sid": 210706962941259
+				}
+			],
+			"sid": 217301335670671
+		}
+	],
+	"sid": 977517148505838
+}

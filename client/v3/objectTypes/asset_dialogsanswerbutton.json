@@ -1,0 +1,49 @@
+{
+	"name": "asset_DialogsAnswerButton",
+	"plugin-id": "Sprite",
+	"sid": 250653773192709,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 196,
+						"height": 59,
+						"originX": 0.7755102040816326,
+						"originY": -0.1016949152542373,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 2106193,
+						"useCollisionPoly": true,
+						"duration": 1
+					},
+					{
+						"width": 196,
+						"height": 59,
+						"originX": 1.3061224489795917,
+						"originY": -1.9661016949152543,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 6081989,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 204161609014724,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

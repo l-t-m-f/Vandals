@@ -1,0 +1,10 @@
+{
+	"name": "Controls_Desktop",
+	"plugin-id": "Mouse",
+	"sid": 309562381721100,
+	"singleglobal-inst": {
+		"type": "Controls_Desktop",
+		"properties": {},
+		"uid": 5
+	}
+}

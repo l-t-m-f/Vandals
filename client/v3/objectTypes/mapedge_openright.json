@@ -1,0 +1,20 @@
+{
+	"name": "MapEdge_openRight",
+	"plugin-id": "NinePatch",
+	"sid": 472159349730608,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"image": {
+		"width": 96,
+		"height": 96,
+		"originX": 0.5,
+		"originY": 0.5,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 1808225,
+		"useCollisionPoly": true
+	}
+}

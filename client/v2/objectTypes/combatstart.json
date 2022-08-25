@@ -1,0 +1,73 @@
+{
+	"name": "CombatStart",
+	"plugin-id": "Sprite",
+	"sid": 914221950459826,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "PositionID",
+			"type": "number",
+			"desc": "ID of the combat start position (out of 8).",
+			"sid": 636235078752619
+		},
+		{
+			"name": "TeamID",
+			"type": "number",
+			"desc": "TeamID of the combat start position (1 or 2).",
+			"sid": 590658766812840
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 32,
+						"height": 32,
+						"originX": 0,
+						"originY": 1,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 262707,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 439096120921534,
+				"name": "1",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			},
+			{
+				"frames": [
+					{
+						"width": 32,
+						"height": 32,
+						"originX": 0,
+						"originY": 1,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 4450372,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 991275427416391,
+				"name": "2",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

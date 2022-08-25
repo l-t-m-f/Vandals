@@ -1,0 +1,500 @@
+{
+	"name": "eMain",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "GRID_SIZE",
+			"type": "number",
+			"initialValue": "32",
+			"comment": "Size of the game grid in pixel.",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 132536265861849
+		},
+		{
+			"eventType": "variable",
+			"name": "main__TYPEWRITE_SINGLECHAR_DUR",
+			"type": "number",
+			"initialValue": "0.04",
+			"comment": "Speed in second for typing a single character.",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 987630992173004
+		},
+		{
+			"eventType": "variable",
+			"name": "main__Platform",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "Platform running this Vandals session. (\"Desktop\" or \"Mobile\")",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 884238154513058
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "ePhotonCloud"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eControls"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eMonsters"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eUI"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "every-tick",
+					"objectClass": "System",
+					"sid": 350978458473120
+				}
+			],
+			"actions": [],
+			"sid": 349868622151222,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "pick-by-comparison",
+							"objectClass": "System",
+							"sid": 125251385467766,
+							"parameters": {
+								"object": "Netpeer",
+								"expression": "Netpeer.AssocActorNr",
+								"comparison": 0,
+								"value": "Photon.MyActorNr"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-position",
+							"objectClass": "Camera",
+							"sid": 509566712469047,
+							"parameters": {
+								"x": "lerp(Self.X, Netpeer.X, 0.025)",
+								"y": "lerp(Self.Y, Netpeer.Y, 0.025)"
+							}
+						}
+					],
+					"sid": 173077583632812
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "set-text",
+					"objectClass": "TextIndicator_map",
+					"sid": 923806453775726,
+					"parameters": {
+						"text": "\"Room: \"&Photon.MyRoomName&newline&\"Players in room: \"&Photon.ActorCount&newline&\"Master actor is: \"&Photon.MasterActorNr&\" (\"&network_RoomMaster&\")\""
+					}
+				}
+			],
+			"sid": 625458942257982
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 715962922846678
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "Main-Init",
+					"sid": 203312421957032
+				}
+			],
+			"sid": 554845252875387
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "onactorjoin15",
+					"objectClass": "Photon",
+					"sid": 333220024261255
+				},
+				{
+					"id": "compare-two-values",
+					"objectClass": "System",
+					"sid": 546001692790549,
+					"parameters": {
+						"first-value": "Photon.ActorNr",
+						"comparison": 1,
+						"second-value": "Photon.MyActorNr"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 894834873895539,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "pick-by-comparison",
+							"objectClass": "System",
+							"sid": 668268992840753,
+							"parameters": {
+								"object": "Netpeer",
+								"expression": "Netpeer.AssocActorNr",
+								"comparison": 0,
+								"value": "Photon.MyActorNr"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "raiseevent17",
+							"objectClass": "Photon",
+							"sid": 731267828374806,
+							"parameters": {
+								"code0": "1",
+								"data1": "Photon.MyActorNr&\"|\"&Netpeer.X&\"|\"&Netpeer.Y&\"|\"&myplayer__Artwork",
+								"interestgroup2": "0",
+								"cache11": "donotcache",
+								"receivers15": "others",
+								"targetactors16": "\"\"&Photon.ActorNr",
+								"webforward19": "no"
+							}
+						}
+					],
+					"sid": 564574925121154
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "for-each",
+					"objectClass": "System",
+					"sid": 680478894114559,
+					"parameters": {
+						"object": "Netpeer"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 468018590578599,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "pick-children",
+							"objectClass": "Netpeer",
+							"sid": 460874850815371,
+							"parameters": {
+								"child": "TextValue_netpeer",
+								"which": "own"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "TextValue_netpeer",
+							"sid": 239510310182612,
+							"parameters": {
+								"text": "Netpeer.AssocActorNr&newline&Netpeer.MoveDir"
+							}
+						}
+					],
+					"sid": 154063249513418
+				}
+			]
+		},
+		{
+			"functionName": "Main-Init",
+			"functionDescription": "Initializes the Netpeer for this session of all connected sessions.",
+			"functionCategory": "Main",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 753566499606807,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 687478095019816,
+							"parameters": {
+								"variable": "SpawnX",
+								"comparison": 0,
+								"value": "-1"
+							}
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 404731074419567,
+							"parameters": {
+								"variable": "SpawnY",
+								"comparison": 0,
+								"value": "-1"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 853093717802242,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "random_x",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "X-coordinate at which to spawn the Netpeer. Chosen randomly.",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 420805146028994
+						},
+						{
+							"eventType": "variable",
+							"name": "random_y",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "Y-coordinate at which to spawn the Netpeer. Chosen randomly.",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 879020599400138
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 502291368475683,
+									"parameters": {
+										"variable": "random_x",
+										"value": "random(0, LayoutWidth)"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 161378410111110,
+									"parameters": {
+										"variable": "random_y",
+										"value": "random(0, LayoutHeight)"
+									}
+								}
+							],
+							"sid": 968198190315210,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "Test the random coordinates to see if there is already a solid there."
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 512730420560264,
+											"parameters": {
+												"first-value": "Functions.Main_CheckPosition(random_x,random_y)",
+												"comparison": 0,
+												"second-value": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"type": "comment",
+											"text": "If the way is clear."
+										},
+										{
+											"id": "raiseevent17",
+											"objectClass": "Photon",
+											"sid": 116386270298919,
+											"parameters": {
+												"code0": "1",
+												"data1": "Photon.MyActorNr&\"|\"&random_x&\"|\"&random_y&\"|\"&myplayer__Artwork",
+												"interestgroup2": "0",
+												"cache11": "donotcache",
+												"receivers15": "all",
+												"targetactors16": "\"\"",
+												"webforward19": "no"
+											}
+										}
+									],
+									"sid": 546289997712583
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 599104104289296,
+											"parameters": {
+												"first-value": "Functions.Main_CheckPosition(random_x,random_y)",
+												"comparison": 0,
+												"second-value": "1"
+											}
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Main-Init",
+											"sid": 488937929750513
+										}
+									],
+									"sid": 111749189831169
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 368633276711401
+						}
+					],
+					"actions": [
+						{
+							"id": "raiseevent17",
+							"objectClass": "Photon",
+							"sid": 271278640834733,
+							"parameters": {
+								"code0": "1",
+								"data1": "Photon.MyActorNr&\"|\"&SpawnX&\"|\"&SpawnY&\"|\"&myplayer__Artwork",
+								"interestgroup2": "0",
+								"cache11": "donotcache",
+								"receivers15": "all",
+								"targetactors16": "\"\"",
+								"webforward19": "no"
+							}
+						}
+					],
+					"sid": 471442531979635
+				}
+			]
+		},
+		{
+			"functionName": "Main_CheckPosition",
+			"functionDescription": "Verifies if the specified coordinates are overlapping a member of the \"Solid\" family and return 1 if it is the case.",
+			"functionCategory": "Main",
+			"functionReturnType": "number",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pX",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 115759316805508
+				},
+				{
+					"name": "pY",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 298673174556111
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "create-object",
+					"objectClass": "System",
+					"sid": 771367752683991,
+					"parameters": {
+						"object-to-create": "CollisionChecker",
+						"layer": "0",
+						"x": "pX",
+						"y": "pY"
+					}
+				}
+			],
+			"sid": 264115128515691,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-overlapping-another-object",
+							"objectClass": "CollisionChecker",
+							"sid": 719185522947167,
+							"parameters": {
+								"object": "Solid"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-function-return-value",
+							"objectClass": "Functions",
+							"sid": 522746619050693,
+							"parameters": {
+								"value": "1"
+							}
+						},
+						{
+							"id": "destroy",
+							"objectClass": "CollisionChecker",
+							"sid": 833293787706283
+						}
+					],
+					"sid": 611558959862457
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 925561503596508
+						}
+					],
+					"actions": [
+						{
+							"id": "set-function-return-value",
+							"objectClass": "Functions",
+							"sid": 636708054803253,
+							"parameters": {
+								"value": "0"
+							}
+						},
+						{
+							"id": "destroy",
+							"objectClass": "CollisionChecker",
+							"sid": 727614994695273
+						}
+					],
+					"sid": 444373051995667
+				}
+			]
+		}
+	],
+	"sid": 480696172581489
+}

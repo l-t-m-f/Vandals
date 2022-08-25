@@ -1,0 +1,44 @@
+{
+	"name": "asset_Catapult",
+	"plugin-id": "Sprite",
+	"sid": 728068007821873,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 138,
+						"height": 85,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 9977778,
+						"useCollisionPoly": true,
+						"imagePoints": [
+							{
+								"name": "YasZ",
+								"x": 0.5652173913043478,
+								"y": 0.788235294117647
+							}
+						],
+						"duration": 1
+					}
+				],
+				"sid": 179193541552978,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			}
+		],
+		"subfolders": []
+	}
+}

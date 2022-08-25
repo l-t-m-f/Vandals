@@ -1,0 +1,17 @@
+{
+	"name": "YasZ",
+	"plugin-id": "Sprite",
+	"sid": 214054555014893,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"members": [
+		"asset_LevelItem",
+		"asset_House",
+		"asset_Catapult",
+		"asset_strangeThing",
+		"asset_OverworldPC",
+		"asset_Monster",
+		"assetNPC"
+	]
+}

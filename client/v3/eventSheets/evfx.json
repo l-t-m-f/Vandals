@@ -1,0 +1,1255 @@
+{
+	"name": "eVFX",
+	"events": [
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ Flashing",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "VFX-Flashing-FlashAsset",
+					"functionDescription": "Activate the Flash of an asset by UID.",
+					"functionCategory": "VFX, Flashing",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pFlashingAssetUID",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "UID of the asset to flash. (Asset must be in the \"Flash\" family to be considered.)",
+							"sid": 301044643793044
+						},
+						{
+							"name": "pOverrideDuration",
+							"type": "boolean",
+							"initialValue": "false",
+							"comment": "True (1) to use the duration parametered in the function call.",
+							"sid": 796499671650737
+						},
+						{
+							"name": "pOverridenDuration",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "Duration in seconds to override the default flashing duration of the object.",
+							"sid": 954785124747255
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [
+						{
+							"id": "pick-by-unique-id",
+							"objectClass": "Flash",
+							"sid": 985961011922932,
+							"parameters": {
+								"unique-id": "pFlashingAssetUID"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 512199340188786,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-flashing",
+									"objectClass": "Flash",
+									"sid": 912339872505165,
+									"behaviorType": "Flash",
+									"isInverted": true
+								}
+							],
+							"actions": [],
+							"sid": 325386699327458,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 981380222719725,
+											"parameters": {
+												"variable": "pOverrideDuration"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 651741172152908,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Flash",
+													"sid": 700027246439401,
+													"parameters": {
+														"instance-variable": "fvFlashTime_off",
+														"comparison": 0,
+														"value": "-1"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "flash",
+													"objectClass": "Flash",
+													"sid": 167128769805248,
+													"behaviorType": "Flash",
+													"parameters": {
+														"on-time": "Flash.fvFlashTime_on",
+														"off-time": "Flash.fvFlashTime_on",
+														"duration": "pOverridenDuration"
+													}
+												}
+											],
+											"sid": 315349887192855
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 365228426303099
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Flash",
+													"sid": 708605463898411,
+													"parameters": {
+														"instance-variable": "fvFlashTime_off",
+														"comparison": 0,
+														"value": "-1"
+													},
+													"isInverted": true
+												}
+											],
+											"actions": [
+												{
+													"id": "flash",
+													"objectClass": "Flash",
+													"sid": 740240767054896,
+													"behaviorType": "Flash",
+													"parameters": {
+														"on-time": "Flash.fvFlashTime_on",
+														"off-time": "Flash.fvFlashTime_off",
+														"duration": "pOverridenDuration"
+													}
+												}
+											],
+											"sid": 309840748777148
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 966750002435763
+										},
+										{
+											"id": "compare-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 663291281744084,
+											"parameters": {
+												"variable": "pOverrideDuration"
+											},
+											"isInverted": true
+										}
+									],
+									"actions": [],
+									"sid": 812008633188210,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Flash",
+													"sid": 726522517824260,
+													"parameters": {
+														"instance-variable": "fvFlashTime_off",
+														"comparison": 0,
+														"value": "-1"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "flash",
+													"objectClass": "Flash",
+													"sid": 482371124172091,
+													"behaviorType": "Flash",
+													"parameters": {
+														"on-time": "Flash.fvFlashTime_on",
+														"off-time": "Flash.fvFlashTime_on",
+														"duration": "Flash.fvFlashDuration"
+													}
+												}
+											],
+											"sid": 374873254135397
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 554775855282797
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Flash",
+													"sid": 958104013322643,
+													"parameters": {
+														"instance-variable": "fvFlashTime_off",
+														"comparison": 0,
+														"value": "-1"
+													},
+													"isInverted": true
+												}
+											],
+											"actions": [
+												{
+													"id": "flash",
+													"objectClass": "Flash",
+													"sid": 757033181429524,
+													"behaviorType": "Flash",
+													"parameters": {
+														"on-time": "Flash.fvFlashTime_on",
+														"off-time": "Flash.fvFlashTime_off",
+														"duration": "Flash.fvFlashDuration"
+													}
+												}
+											],
+											"sid": 194473351310359
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 690792946506136
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ Player Overworld Artworks",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each",
+							"objectClass": "System",
+							"sid": 938328681868618,
+							"parameters": {
+								"object": "Netpeer"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 919894906755558,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "Netpeer",
+									"sid": 916902148314861,
+									"parameters": {
+										"child": "asset_OverworldPC",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 216105573256958,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 980207650996515,
+											"parameters": {
+												"first-value": "tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 2, \"@\"), 0, \"#\")",
+												"comparison": 0,
+												"second-value": "\"NULL\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "asset_OverworldPC",
+											"sid": 128961483064826,
+											"parameters": {
+												"animation": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\"), K_BROWSER), 3, \"|\"), 0, \"@\")&\"_idle_\"&tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 2, \"@\"), 1, \"#\")",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 271503695200068
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 290906173751114
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "asset_OverworldPC",
+											"sid": 233217023018440,
+											"parameters": {
+												"animation": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\"), K_BROWSER), 3, \"|\"), 0, \"@\")&\"_move_\"&tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 2, \"@\"), 1, \"#\")",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 317199683418278
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 831048804355824
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ LightShadow",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "VFX-LightShadow-InitTexture",
+					"functionDescription": "",
+					"functionCategory": "VFX, LightShadow",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 933010872757128,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 764621872186430,
+									"parameters": {
+										"name": "\"i_W\"",
+										"start-index": "0",
+										"end-index": "round(tilemap_LightShadow.Width/32)"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 712239283143262,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 448700608507770,
+											"parameters": {
+												"name": "\"i_H\"",
+												"start-index": "0",
+												"end-index": "round(tilemap_LightShadow.Height/32)"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-tile",
+											"objectClass": "tilemap_LightShadow",
+											"sid": 524140441306450,
+											"parameters": {
+												"tile-x": "loopindex(\"i_W\")",
+												"tile-y": "loopindex(\"i_H\")",
+												"tile": "6",
+												"state": "normal"
+											}
+										}
+									],
+									"sid": 448487074351369
+								}
+							]
+						}
+					]
+				},
+				{
+					"functionName": "VFX-LightShadow-CreateLight",
+					"functionDescription": "",
+					"functionCategory": "VFX, LightShadow",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 105333028429577,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each",
+									"objectClass": "System",
+									"sid": 820036608961789,
+									"parameters": {
+										"object": "Light"
+									}
+								},
+								{
+									"id": "is-boolean-instance-variable-set",
+									"objectClass": "Light",
+									"sid": 863924526728854,
+									"parameters": {
+										"instance-variable": "LightActive"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 621141768516645,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 338290070298248,
+											"parameters": {
+												"name": "\"i_LightShadowTileW\"",
+												"start-index": "0",
+												"end-index": "floor(tilemap_LightShadow.Width/32)"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 348279188292562,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "for",
+													"objectClass": "System",
+													"sid": 781427546288190,
+													"parameters": {
+														"name": "\"i_LightShadowTileH\"",
+														"start-index": "0",
+														"end-index": "floor(tilemap_LightShadow.Height/32)"
+													}
+												}
+											],
+											"actions": [],
+											"sid": 944704005839607,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 312819138298792,
+															"parameters": {
+																"first-value": "tilemap_LightShadow.TileAt(loopindex(\"i_LightShadowTileW\"), loopindex(\"i_LightShadowTileH\"))",
+																"comparison": 0,
+																"second-value": "0"
+															}
+														},
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 696848726960503,
+															"parameters": {
+																"first-value": "tilemap_LightShadow.TileAt(loopindex(\"i_LightShadowTileW\"), loopindex(\"i_LightShadowTileH\"))",
+																"comparison": 0,
+																"second-value": "7"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "create-object",
+															"objectClass": "System",
+															"sid": 365331141927252,
+															"disabled": true,
+															"parameters": {
+																"object-to-create": "vfx_LightShadowRespawner",
+																"layer": "\"VFX\"",
+																"x": "tilemap_LightShadow.TileToPositionX(loopindex(\"i_LightShadowTileW\"))",
+																"y": "tilemap_LightShadow.TileToPositionY(loopindex(\"i_LightShadowTileH\"))",
+																"create-hierarchy": false
+															}
+														},
+														{
+															"id": "set-tile",
+															"objectClass": "tilemap_LightShadow",
+															"sid": 649461697149325,
+															"parameters": {
+																"tile-x": "loopindex(\"i_LightShadowTileW\")",
+																"tile-y": "loopindex(\"i_LightShadowTileH\")",
+																"tile": "6",
+																"state": "normal"
+															}
+														}
+													],
+													"sid": 922831033058522,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "has-los-to-position",
+																	"objectClass": "Light",
+																	"sid": 556854831935117,
+																	"behaviorType": "Light_LOSTest",
+																	"parameters": {
+																		"x": "tilemap_LightShadow.TileToPositionX(loopindex(\"i_LightShadowTileW\"))",
+																		"y": "tilemap_LightShadow.TileToPositionY(loopindex(\"i_LightShadowTileH\"))"
+																	},
+																	"isInverted": true
+																}
+															],
+															"actions": [],
+															"sid": 301131790220239
+														}
+													],
+													"isOrBlock": true
+												}
+											]
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 665244230750762,
+											"parameters": {
+												"name": "\"i_W\"",
+												"start-index": "-Light.LightStr",
+												"end-index": "Light.LightStr"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 955575715612460,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "for",
+													"objectClass": "System",
+													"sid": 724048511603371,
+													"parameters": {
+														"name": "\"i_H\"",
+														"start-index": "-Light.LightStr",
+														"end-index": "Light.LightStr"
+													}
+												}
+											],
+											"actions": [],
+											"sid": 854713673056564,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 281737263211347,
+															"parameters": {
+																"first-value": "abs(loopindex(\"i_W\"))+abs(loopindex(\"i_H\"))",
+																"comparison": 2,
+																"second-value": "Light.LightStr"
+															}
+														},
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 254380651471278,
+															"parameters": {
+																"first-value": "abs(loopindex(\"i_H\"))",
+																"comparison": 2,
+																"second-value": "Light.LightStr-1"
+															}
+														},
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 648306870373801,
+															"parameters": {
+																"first-value": "abs(loopindex(\"i_W\"))",
+																"comparison": 2,
+																"second-value": "Light.LightStr-1"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "set-tile",
+															"objectClass": "tilemap_LightShadow",
+															"sid": 147110225467726,
+															"parameters": {
+																"tile-x": "tilemap_LightShadow.PositionToTileX(Light.X)+loopindex(\"i_W\")",
+																"tile-y": "tilemap_LightShadow.PositionToTileX(Light.Y)+loopindex(\"i_H\")",
+																"tile": "7",
+																"state": "normal"
+															}
+														}
+													],
+													"sid": 325062962539872,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "compare-two-values",
+																	"objectClass": "System",
+																	"sid": 449269906343597,
+																	"parameters": {
+																		"first-value": "abs(loopindex(\"i_W\"))+abs(loopindex(\"i_H\"))",
+																		"comparison": 2,
+																		"second-value": "round(Light.LightStr/2)+3"
+																	}
+																},
+																{
+																	"id": "compare-two-values",
+																	"objectClass": "System",
+																	"sid": 718870172815196,
+																	"parameters": {
+																		"first-value": "abs(loopindex(\"i_H\"))",
+																		"comparison": 2,
+																		"second-value": "round(Light.LightStr/2)+2"
+																	}
+																},
+																{
+																	"id": "compare-two-values",
+																	"objectClass": "System",
+																	"sid": 206679920175427,
+																	"parameters": {
+																		"first-value": "abs(loopindex(\"i_W\"))",
+																		"comparison": 2,
+																		"second-value": "round(Light.LightStr/2)+2"
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"id": "set-tile",
+																	"objectClass": "tilemap_LightShadow",
+																	"sid": 363965800246790,
+																	"parameters": {
+																		"tile-x": "tilemap_LightShadow.PositionToTileX(Light.X)+loopindex(\"i_W\")",
+																		"tile-y": "tilemap_LightShadow.PositionToTileX(Light.Y)+loopindex(\"i_H\")",
+																		"tile": "0",
+																		"state": "normal"
+																	}
+																}
+															],
+															"sid": 883951017291204
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 847174112272935
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ ActiveSkill Icons",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for",
+							"objectClass": "System",
+							"sid": 623931340670623,
+							"parameters": {
+								"name": "\"i_ActiveSkills\"",
+								"start-index": "1",
+								"end-index": "9"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 570518966704481,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-comparison",
+									"objectClass": "System",
+									"sid": 635410696384832,
+									"parameters": {
+										"object": "SkillIcon_medium",
+										"expression": "SkillIcon_medium.Type",
+										"comparison": 0,
+										"value": "\"CreateChar_PreviewPower\"&loopindex(\"i_ActiveSkills\")"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 731265162558082,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 156357486935981,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "1"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 435126186365304,
+											"parameters": {
+												"animation": "myplayer__Skill1",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 979232857784093
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 168831461809908
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 829699030781115,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "2"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 116882125871988,
+											"parameters": {
+												"animation": "myplayer__Skill2",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 314658816365505
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 626877104945787
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 907615516660059,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "3"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 144366106010369,
+											"parameters": {
+												"animation": "myplayer__Skill3",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 548200184895401
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 453664932772681
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 932023867866566,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "4"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 996140182025038,
+											"parameters": {
+												"animation": "myplayer__Skill4",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 682486698988063
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 794919124982866
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 761117052215891,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "5"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 190953617895416,
+											"parameters": {
+												"animation": "myplayer__Skill5",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 613495234853356
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 695142813982140
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 798245330065244,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "6"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 205207946978371,
+											"parameters": {
+												"animation": "myplayer__Skill6",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 425594189487966
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 137273993139978
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 763183859948673,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "7"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 879953652268351,
+											"parameters": {
+												"animation": "myplayer__Skill7",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 912807259793846
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 198562639700567
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 345182573169764,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "8"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 674969364823038,
+											"parameters": {
+												"animation": "myplayer__Skill8",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 844449067905098
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 121130231754468
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 198681747891877,
+											"parameters": {
+												"first-value": "loopindex(\"i_ActiveSkills\")",
+												"comparison": 0,
+												"second-value": "9"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-animation",
+											"objectClass": "SkillIcon_medium",
+											"sid": 800530629509158,
+											"parameters": {
+												"animation": "myplayer__Skill9",
+												"from": "current-frame"
+											}
+										}
+									],
+									"sid": 972536330808745
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 960523946222851
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ Grid Graph",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-tick",
+							"objectClass": "System",
+							"sid": 630782209384276
+						}
+					],
+					"actions": [
+						{
+							"id": "set-position",
+							"objectClass": "vfx_TileHoverSelection",
+							"sid": 736511776860375,
+							"parameters": {
+								"x": "(GridGraph.PositionToTileX(Controls_Desktop.X)*32)+14",
+								"y": "(GridGraph.PositionToTileY(Controls_Desktop.Y)*32)+18"
+							}
+						}
+					],
+					"sid": 713497656880724
+				}
+			],
+			"sid": 387561155387885
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "vfx_ Particles",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-created",
+							"objectClass": "Particle_Shape",
+							"sid": 268091028367338
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation-frame",
+							"objectClass": "Particle_Shape",
+							"sid": 648995948720767,
+							"parameters": {
+								"frame-number": "floor(random(0, 8))"
+							}
+						},
+						{
+							"id": "set-angle",
+							"objectClass": "Particle_Shape",
+							"sid": 183624410026319,
+							"parameters": {
+								"angle": "random(0, 360)"
+							}
+						}
+					],
+					"sid": 420496238444978,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "random_num_for_color",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 465205528609996
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 620047927435061,
+									"parameters": {
+										"variable": "random_num_for_color",
+										"value": "round(random(20, 40))"
+									}
+								},
+								{
+									"id": "set-default-color",
+									"objectClass": "Particle_Shape",
+									"sid": 928955683154186,
+									"parameters": {
+										"color": "rgbEx(random_num_for_color, random_num_for_color, random_num_for_color)"
+									}
+								}
+							],
+							"sid": 380268718903114
+						}
+					]
+				}
+			],
+			"sid": 705315335272020
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-two-values",
+					"objectClass": "System",
+					"sid": 310217018595494,
+					"parameters": {
+						"first-value": "LayoutName",
+						"comparison": 0,
+						"second-value": "\"001\""
+					}
+				}
+			],
+			"actions": [],
+			"sid": 263803438057107,
+			"disabled": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 180418554548541,
+							"parameters": {
+								"interval-seconds": "random(1, 8.25)"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "shake",
+							"objectClass": "Camera",
+							"sid": 746671656046170,
+							"behaviorType": "ScrollTo",
+							"parameters": {
+								"magnitude": "random(4, 8)",
+								"duration": "random(1.5, 3)",
+								"mode": "reducing-magnitude"
+							}
+						},
+						{
+							"id": "play-by-name",
+							"objectClass": "Audio",
+							"sid": 368612610219131,
+							"parameters": {
+								"folder": "sounds",
+								"audio-file-name": "\"Crash_\"&floor(random(1,10))",
+								"loop": "not-looping",
+								"volume": "0",
+								"tag-optional": "\"SFX\""
+							}
+						}
+					],
+					"sid": 781980151687995,
+					"disabled": true
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "is-overlapping-another-object",
+					"objectClass": "PathTarget",
+					"sid": 875288991712285,
+					"parameters": {
+						"object": "asset_Monster"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-default-color",
+					"objectClass": "PathTarget",
+					"sid": 813974197252230,
+					"parameters": {
+						"color": "rgbEx255(255, 0, 0)"
+					}
+				}
+			],
+			"sid": 922812304732780
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "else",
+					"objectClass": "System",
+					"sid": 576402054358533
+				}
+			],
+			"actions": [
+				{
+					"id": "set-default-color",
+					"objectClass": "PathTarget",
+					"sid": 773822506574942,
+					"parameters": {
+						"color": "rgbEx255(255, 255, 255)"
+					}
+				}
+			],
+			"sid": 999015582567583
+		},
+		{
+			"functionName": "VFX-Dialogs-RefreshPortraits",
+			"functionDescription": "",
+			"functionCategory": "VFX, Dialogs",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 113371384642318
+		}
+	],
+	"sid": 478894933030428
+}

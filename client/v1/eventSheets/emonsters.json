@@ -1,0 +1,868 @@
+{
+	"name": "eMonsters",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "monsters__RESPAWN_MIN",
+			"type": "number",
+			"initialValue": "30",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 551319399265901
+		},
+		{
+			"eventType": "variable",
+			"name": "monsters__RESPAWN_MAX",
+			"type": "number",
+			"initialValue": "60",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 196980883746064
+		},
+		{
+			"eventType": "variable",
+			"name": "monsters__RespawnCd",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 475706842449752
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-instance-variable",
+					"objectClass": "Netpeer",
+					"sid": 882123609641818,
+					"parameters": {
+						"instance-variable": "AssocActorNr",
+						"comparison": 0,
+						"value": "Photon.MyActorNr"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 971102561361949,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "has-los-to-object",
+							"objectClass": "MonsterLeader",
+							"sid": 428838010324435,
+							"behaviorType": "InteractRange",
+							"parameters": {
+								"object": "Netpeer",
+								"image-point": "0"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 264466784113147,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterLeader",
+									"sid": 527721993776477,
+									"parameters": {
+										"child": "DialogBox",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-visible",
+									"objectClass": "DialogBox",
+									"sid": 580114020553071,
+									"parameters": {
+										"visibility": "visible"
+									}
+								}
+							],
+							"sid": 125879211469772
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterLeader",
+									"sid": 737107081883095,
+									"parameters": {
+										"child": "TextDialog",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-visible",
+									"objectClass": "DialogBox",
+									"sid": 777980969897981,
+									"parameters": {
+										"visibility": "visible"
+									}
+								}
+							],
+							"sid": 346175961177564
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 388477579784964
+						}
+					],
+					"actions": [],
+					"sid": 828804728452868,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterLeader",
+									"sid": 970186062217083,
+									"parameters": {
+										"child": "DialogBox",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-visible",
+									"objectClass": "DialogBox",
+									"sid": 998231171487052,
+									"parameters": {
+										"visibility": "invisible"
+									}
+								}
+							],
+							"sid": 919120308201235
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "MonsterLeader",
+									"sid": 156283795010844,
+									"parameters": {
+										"child": "TextDialog",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-visible",
+									"objectClass": "DialogBox",
+									"sid": 354887975212338,
+									"parameters": {
+										"visibility": "invisible"
+									}
+								}
+							],
+							"sid": 105690741888101
+						}
+					]
+				}
+			]
+		},
+		{
+			"functionName": "Monsters-Cooldown-Set",
+			"functionDescription": "",
+			"functionCategory": "Monsters, Cooldown",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pValue",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 399340401572889
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 717640251809233,
+					"parameters": {
+						"variable": "monsters__RespawnCd",
+						"value": "pValue"
+					}
+				},
+				{
+					"id": "raiseevent17",
+					"objectClass": "Photon",
+					"sid": 605351902037449,
+					"parameters": {
+						"code0": "202",
+						"data1": "monsters__RespawnCd",
+						"interestgroup2": "0",
+						"cache11": "donotcache",
+						"receivers15": "others",
+						"targetactors16": "\"\"",
+						"webforward19": "no"
+					}
+				}
+			],
+			"sid": 625392478626910
+		},
+		{
+			"functionName": "Monsters-Cooldown-Update",
+			"functionDescription": "",
+			"functionCategory": "Monsters, Cooldown",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "subtract-from-eventvar",
+					"objectClass": "System",
+					"sid": 756273010098763,
+					"parameters": {
+						"variable": "monsters__RespawnCd",
+						"value": "1"
+					}
+				},
+				{
+					"id": "raiseevent17",
+					"objectClass": "Photon",
+					"sid": 435209282385256,
+					"parameters": {
+						"code0": "202",
+						"data1": "monsters__RespawnCd",
+						"interestgroup2": "0",
+						"cache11": "donotcache",
+						"receivers15": "others",
+						"targetactors16": "\"\"",
+						"webforward19": "no"
+					}
+				}
+			],
+			"sid": 755220849246923,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 749205210903650,
+							"parameters": {
+								"variable": "monsters__RespawnCd",
+								"comparison": 0,
+								"value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "Monsters-TestSpawn",
+							"sid": 960806883735278
+						},
+						{
+							"callFunction": "Monsters-Cooldown-Set",
+							"sid": 501934725903746,
+							"parameters": [
+								"round(random(monsters__RESPAWN_MIN, monsters__RESPAWN_MAX))"
+							]
+						}
+					],
+					"sid": 147720551644177
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "set-text",
+					"objectClass": "TextIndicator_nextspawn",
+					"sid": 646657911254827,
+					"parameters": {
+						"text": "monsters__RespawnCd"
+					}
+				}
+			],
+			"sid": 836193250936814
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 445535420272304
+				},
+				{
+					"id": "compare-two-values",
+					"objectClass": "System",
+					"sid": 671029842940216,
+					"parameters": {
+						"first-value": "Photon.MyActorNr",
+						"comparison": 0,
+						"second-value": "Photon.MasterActorNr"
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "Monsters-TestSpawn",
+					"sid": 388136525147563
+				},
+				{
+					"callFunction": "Monsters-Cooldown-Set",
+					"sid": 511823874835880,
+					"parameters": [
+						"round(random(monsters__RESPAWN_MIN, monsters__RESPAWN_MAX))"
+					]
+				}
+			],
+			"sid": 972678205556444
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 229520290027437,
+					"parameters": {
+						"variable": "network_RoomMaster"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-enabled",
+					"objectClass": "MonsterLeader",
+					"sid": 257026406085910,
+					"behaviorType": "Move",
+					"parameters": {
+						"state": "enabled"
+					}
+				}
+			],
+			"sid": 751777189628912,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "onactorjoin15",
+							"objectClass": "Photon",
+							"sid": 199668503477855
+						},
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 863824096905792,
+							"parameters": {
+								"first-value": "Photon.ActorNr",
+								"comparison": 1,
+								"second-value": "Photon.MyActorNr"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 988124119712411,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each",
+									"objectClass": "System",
+									"sid": 192134567791831,
+									"parameters": {
+										"object": "MonsterLeader"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "raiseevent17",
+									"objectClass": "Photon",
+									"sid": 621763346435147,
+									"parameters": {
+										"code0": "200",
+										"data1": "MonsterLeader.X&\"|\"&MonsterLeader.Y",
+										"interestgroup2": "0",
+										"cache11": "donotcache",
+										"receivers15": "others",
+										"targetactors16": "\"\"&Photon.ActorNr",
+										"webforward19": "no"
+									}
+								}
+							],
+							"sid": 861739634710481
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 584831047923676,
+							"parameters": {
+								"first-value": "MonsterLeader.Count",
+								"comparison": 2,
+								"second-value": "3"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 300702325165959,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "every-x-seconds",
+									"objectClass": "System",
+									"sid": 982598198911383,
+									"parameters": {
+										"interval-seconds": "1.1"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Monsters-Cooldown-Update",
+									"sid": 248406818779881
+								}
+							],
+							"sid": 838073114713099
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 802559109982576,
+							"parameters": {
+								"interval-seconds": "0.2"
+							}
+						},
+						{
+							"id": "for-each",
+							"objectClass": "System",
+							"sid": 722101482065480,
+							"parameters": {
+								"object": "MonsterLeader"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "raiseevent17",
+							"objectClass": "Photon",
+							"sid": 556481959464190,
+							"parameters": {
+								"code0": "201",
+								"data1": "MonsterLeader.MonsterGroupID&\"|\"&MonsterLeader.X&\"|\"&MonsterLeader.Y",
+								"interestgroup2": "0",
+								"cache11": "donotcache",
+								"receivers15": "others",
+								"targetactors16": "\"\"",
+								"webforward19": "no"
+							}
+						}
+					],
+					"sid": 227694274029444
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each",
+							"objectClass": "System",
+							"sid": 147770438060860,
+							"parameters": {
+								"object": "MonsterLeader"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 614269325844315,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "every-x-seconds",
+									"objectClass": "System",
+									"sid": 166206299944444,
+									"parameters": {
+										"interval-seconds": "random(2, 5)"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-angle-of-motion",
+									"objectClass": "MonsterLeader",
+									"sid": 855884581573421,
+									"behaviorType": "Move",
+									"parameters": {
+										"angle": "Self.Move.AngleOfMotion + choose(-45, 15, 0, 15, 45)"
+									}
+								}
+							],
+							"sid": 630057564749984
+						}
+					]
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "else",
+					"objectClass": "System",
+					"sid": 514784414128315
+				}
+			],
+			"actions": [
+				{
+					"id": "set-enabled",
+					"objectClass": "MonsterLeader",
+					"sid": 473480288640938,
+					"behaviorType": "Move",
+					"parameters": {
+						"state": "disabled"
+					}
+				}
+			],
+			"sid": 347067420003020
+		},
+		{
+			"functionName": "Monsters-TestSpawn",
+			"functionDescription": "",
+			"functionCategory": "Monsters",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 195572619775349,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "random_x",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "X-coordinate at which to spawn the Monster. Chosen randomly.",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 542594795942541
+				},
+				{
+					"eventType": "variable",
+					"name": "random_y",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "Y-coordinate at which to spawn the Monster. Chosen randomly.",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 479546109126459
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 281671046731180,
+							"parameters": {
+								"variable": "random_x",
+								"value": "random(0, LayoutWidth)"
+							}
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 316262815585145,
+							"parameters": {
+								"variable": "random_y",
+								"value": "random(0, LayoutHeight)"
+							}
+						}
+					],
+					"sid": 575894547249088,
+					"children": [
+						{
+							"eventType": "comment",
+							"text": "Test the random coordinates to see if there is already a solid there."
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 995399284374253,
+									"parameters": {
+										"first-value": "Functions.Main_CheckPosition(random_x,random_y)",
+										"comparison": 0,
+										"second-value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"type": "comment",
+									"text": "If the way is clear."
+								},
+								{
+									"id": "raiseevent17",
+									"objectClass": "Photon",
+									"sid": 339644653263087,
+									"parameters": {
+										"code0": "200",
+										"data1": "random_x&\"|\"&random_y",
+										"interestgroup2": "0",
+										"cache11": "donotcache",
+										"receivers15": "all",
+										"targetactors16": "\"\"",
+										"webforward19": "no"
+									}
+								}
+							],
+							"sid": 489046980042057
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 233036052540839,
+									"parameters": {
+										"first-value": "Functions.Main_CheckPosition(random_x,random_y)",
+										"comparison": 0,
+										"second-value": "1"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Monsters-TestSpawn",
+									"sid": 928812051459405
+								}
+							],
+							"sid": 403995088520704
+						}
+					]
+				}
+			]
+		},
+		{
+			"functionName": "Monsters-Create",
+			"functionDescription": "Spawn a Monster Leader.",
+			"functionCategory": "Monsters",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pX",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 755511154737565
+				},
+				{
+					"name": "pY",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 924159190622862
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "create-object",
+					"objectClass": "System",
+					"sid": 114112874964278,
+					"parameters": {
+						"object-to-create": "MonsterLeader",
+						"layer": "\"Monsters\"",
+						"x": "pX",
+						"y": "pY"
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "MonsterLeader",
+					"sid": 936242289364552,
+					"parameters": {
+						"instance-variable": "MonsterGroupID",
+						"value": "MonsterLeader.Count"
+					}
+				},
+				{
+					"id": "spawn-another-object",
+					"objectClass": "MonsterLeader",
+					"sid": 195691103248583,
+					"parameters": {
+						"object": "TextValue_monstergr",
+						"layer": "\"UI\"",
+						"image-point": "0"
+					}
+				},
+				{
+					"id": "spawn-another-object",
+					"objectClass": "MonsterLeader",
+					"sid": 407871743276007,
+					"parameters": {
+						"object": "DialogBox",
+						"layer": "\"UI\"",
+						"image-point": "0"
+					}
+				},
+				{
+					"id": "spawn-another-object",
+					"objectClass": "MonsterLeader",
+					"sid": 712617292059463,
+					"parameters": {
+						"object": "TextDialog",
+						"layer": "\"UI\"",
+						"image-point": "0"
+					}
+				},
+				{
+					"id": "add-child",
+					"objectClass": "MonsterLeader",
+					"sid": 644756073285027,
+					"parameters": {
+						"child": "TextValue_monstergr",
+						"transform-x": true,
+						"transform-y": true,
+						"transform-w": false,
+						"transform-h": false,
+						"transform-a": false,
+						"transform-z-elevation": false,
+						"destroy-with-parent": true
+					}
+				},
+				{
+					"id": "add-child",
+					"objectClass": "MonsterLeader",
+					"sid": 610904897786753,
+					"parameters": {
+						"child": "DialogBox",
+						"transform-x": true,
+						"transform-y": true,
+						"transform-w": false,
+						"transform-h": false,
+						"transform-a": false,
+						"transform-z-elevation": false,
+						"destroy-with-parent": true
+					}
+				},
+				{
+					"id": "add-child",
+					"objectClass": "MonsterLeader",
+					"sid": 145985949849039,
+					"parameters": {
+						"child": "TextDialog",
+						"transform-x": true,
+						"transform-y": true,
+						"transform-w": false,
+						"transform-h": false,
+						"transform-a": false,
+						"transform-z-elevation": false,
+						"destroy-with-parent": true
+					}
+				},
+				{
+					"id": "set-text",
+					"objectClass": "TextValue_monstergr",
+					"sid": 271112856388656,
+					"parameters": {
+						"text": "MonsterLeader.MonsterGroupID"
+					}
+				},
+				{
+					"id": "set-text",
+					"objectClass": "TextDialog",
+					"sid": 505603537580434,
+					"parameters": {
+						"text": "\"[b]\"&MonsterLeader.GroupType&\"[/b]\"&newline&MonsterLeader.GroupDescriptor"
+					}
+				}
+			],
+			"sid": 308921850719069,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 736978982557864,
+							"parameters": {
+								"variable": "network_RoomMaster"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-angle-of-motion",
+							"objectClass": "MonsterLeader",
+							"sid": 623216183170809,
+							"behaviorType": "Move",
+							"parameters": {
+								"angle": "random(-180,180)"
+							}
+						},
+						{
+							"id": "set-speed",
+							"objectClass": "MonsterLeader",
+							"sid": 796683479375287,
+							"behaviorType": "Move",
+							"parameters": {
+								"speed": "random(4, 7)\n"
+							}
+						}
+					],
+					"sid": 302117703712336
+				}
+			]
+		}
+	],
+	"sid": 527755237893097
+}

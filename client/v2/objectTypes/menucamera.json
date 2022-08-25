@@ -1,0 +1,60 @@
+{
+	"name": "MenuCamera",
+	"plugin-id": "Sprite",
+	"sid": 136069295586333,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "DefaultLayoutX",
+			"type": "number",
+			"desc": "Y-coordinate of the camera at the start of the layout. Used on the \"Create\" layout.",
+			"sid": 176621883298654
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "scrollto",
+			"name": "ScrollTo",
+			"sid": 935539672019733
+		},
+		{
+			"behaviorId": "Sin",
+			"name": "HSine",
+			"sid": 552454989128214
+		},
+		{
+			"behaviorId": "Sin",
+			"name": "VSine",
+			"sid": 272548319915208
+		}
+	],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 32,
+						"height": 32,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 2966355,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 387357432059384,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

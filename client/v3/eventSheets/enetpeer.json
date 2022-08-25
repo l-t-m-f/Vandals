@@ -1,0 +1,1006 @@
+{
+	"name": "eNetpeer",
+	"events": [
+		{
+			"eventType": "comment",
+			"text": "Netpeer Events"
+		},
+		{
+			"eventType": "variable",
+			"name": "refresh_count",
+			"type": "number",
+			"initialValue": "-1",
+			"comment": "",
+			"isStatic": true,
+			"isConstant": false,
+			"sid": 558227298502677
+		},
+		{
+			"functionName": "Server-Netpeer-RequestCharCipher",
+			"functionDescription": "",
+			"functionCategory": "Server, Netpeer",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pCharSlot",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 584475438850311
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 336854043274356,
+					"parameters": {
+						"variable": "server__data_NextSecret",
+						"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+					}
+				},
+				{
+					"callFunction": "Server-AJAX-Prep",
+					"sid": 438856412493980,
+					"parameters": [
+						"\"RequestCharCipher\"",
+						"\"char/requestcharcipher.php?\"",
+						"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&UN=\"&server__data_Username&\"&CS=\"&pCharSlot"
+					]
+				}
+			],
+			"sid": 250272557738074
+		},
+		{
+			"functionName": "Server-Character-UpdateCipher",
+			"functionDescription": "",
+			"functionCategory": "Server, Character",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 263278031788534,
+					"parameters": {
+						"variable": "server__data_NextSecret",
+						"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+					}
+				},
+				{
+					"callFunction": "Server-AJAX-Prep",
+					"sid": 671973852470824,
+					"parameters": [
+						"\"UpdateCharCipher\"",
+						"\"char/updatecharcipher.php?\"",
+						"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&UN=\"&server__data_Username&\"&CP=\"&Photon.PropertyOfActorByNr(Photon.MyActorNr, \"Cipher\")"
+					]
+				}
+			],
+			"sid": 391559465783170
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-completed",
+					"objectClass": "AJAX",
+					"sid": 903714528140462,
+					"parameters": {
+						"tag": "\"RequestCharCipher\""
+					}
+				}
+			],
+			"actions": [
+				{
+					"type": "comment",
+					"text": "Reconstruct the database cipher in the client and label it with the photon ActorNr."
+				},
+				{
+					"id": "setpropertyofactorbynr102",
+					"objectClass": "Photon",
+					"sid": 912567902927248,
+					"parameters": {
+						"actornr0": "Photon.MyActorNr",
+						"propname1": "\"Cipher\"",
+						"value2": "AJAX.LastData",
+						"webforward5": "no",
+						"checkandset8": "no",
+						"expectedvalue9": "0"
+					}
+				},
+				{
+					"callFunction": "Debug-Console-Log",
+					"sid": 438561894880260,
+					"parameters": [
+						"Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)"
+					]
+				},
+				{
+					"id": "go-to-layout",
+					"objectClass": "System",
+					"sid": 323747582612983,
+					"parameters": {
+						"layout": "GameInit"
+					}
+				}
+			],
+			"sid": 999919179281045
+		},
+		{
+			"functionName": "Netpeer-JoinGame",
+			"functionDescription": "",
+			"functionCategory": "Netpeer",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "raiseevent17",
+					"objectClass": "Photon",
+					"sid": 612931397735325,
+					"parameters": {
+						"code0": "1",
+						"data1": "Photon.MyActorNr&\"|\"&tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Photon.MyActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 1, \"@\"), 0, \"#\")&\"|\"&tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Photon.MyActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 1, \"@\"), 1, \"#\")&\"|\"&tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Photon.MyActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 2, \"@\"), 1, \"#\")&\"|\"&tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Photon.MyActorNr, \"Cipher\"), K_BROWSER), 3, \"|\"), 0, \"@\")",
+						"interestgroup2": "0",
+						"cache11": "donotcache",
+						"receivers15": "all",
+						"targetactors16": "\"\"",
+						"webforward19": "no"
+					}
+				}
+			],
+			"sid": 556678607543101
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "onevent3",
+					"objectClass": "Photon",
+					"sid": 530540544518123,
+					"parameters": {
+						"code0": "1"
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "Netpeer-Create",
+					"sid": 458922246520957,
+					"parameters": [
+						"int(tokenat(Photon.EventData, 0, \"|\"))",
+						"int(tokenat(Photon.EventData, 1, \"|\"))",
+						"int(tokenat(Photon.EventData, 2, \"|\"))",
+						"tokenat(Photon.EventData, 3, \"|\")",
+						"tokenat(Photon.EventData, 4, \"|\")"
+					]
+				}
+			],
+			"sid": 505566940274656
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "for-each",
+					"objectClass": "System",
+					"sid": 140953631200120,
+					"parameters": {
+						"object": "Netpeer"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-solid-collision-filter",
+					"objectClass": "Netpeer",
+					"sid": 121137697204351,
+					"parameters": {
+						"mode": "exclusive",
+						"tags": "\"Monsters\""
+					}
+				}
+			],
+			"sid": 382410831115590
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "netpeer_ Init",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "onactorjoin15",
+							"objectClass": "Photon",
+							"sid": 477070115942011
+						},
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 608985581368359,
+							"parameters": {
+								"first-value": "Photon.ActorNr",
+								"comparison": 1,
+								"second-value": "Photon.MyActorNr"
+							}
+						}
+					],
+					"actions": [
+						{
+							"type": "comment",
+							"text": "Create your netpeer for others"
+						},
+						{
+							"id": "raiseevent17",
+							"objectClass": "Photon",
+							"sid": 116654516625705,
+							"parameters": {
+								"code0": "1",
+								"data1": "Photon.MyActorNr&\"|\"&tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Photon.MyActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 1, \"@\"), 0, \"#\")&\"|\"&tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Photon.MyActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 1, \"@\"), 1, \"#\")&\"|\"&tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Photon.MyActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 2, \"@\"), 1, \"#\")&\"|\"&tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Photon.MyActorNr, \"Cipher\"), K_BROWSER), 3, \"|\"), 0, \"@\")",
+								"interestgroup2": "0",
+								"cache11": "donotcache",
+								"receivers15": "others",
+								"targetactors16": "\"\"&Photon.ActorNr",
+								"webforward19": "no"
+							}
+						}
+					],
+					"sid": 172625436366286
+				}
+			],
+			"sid": 819137338079582
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "netpeer_ Crypto",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "Load crypto"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 595290303497668,
+							"parameters": {
+								"interval-seconds": "0.1"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 144349843531450,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-comparison",
+									"objectClass": "System",
+									"sid": 395186035541031,
+									"parameters": {
+										"object": "Netpeer",
+										"expression": "Netpeer.AssocActorNr",
+										"comparison": 0,
+										"value": "Photon.MyActorNr"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 595588032201323,
+							"children": [
+								{
+									"eventType": "variable",
+									"name": "temp",
+									"type": "string",
+									"initialValue": "",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 202749509527359
+								},
+								{
+									"eventType": "variable",
+									"name": "to_replace",
+									"type": "string",
+									"initialValue": "",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 843120231206617
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 393829044480545,
+											"parameters": {
+												"variable": "temp",
+												"value": "Photon.PropertyOfActorByNr(Photon.MyActorNr, \"Cipher\")"
+											}
+										},
+										{
+											"type": "comment",
+											"text": "update position"
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 500265617418456,
+											"parameters": {
+												"variable": "to_replace",
+												"value": "tokenat(tokenat(Functions.Enigma_Decrypt(temp, K_BROWSER), 2, \"|\"), 1, \"@\")"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 820582327165422,
+											"parameters": {
+												"variable": "temp",
+												"value": "Functions.Enigma_Encrypt(replace(Functions.Enigma_Decrypt(temp, K_BROWSER), to_replace, round(Netpeer.X)&\"#\"&round(Netpeer.Y)), K_BROWSER)"
+											}
+										},
+										{
+											"type": "comment",
+											"text": "update animation"
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 673943060415697,
+											"parameters": {
+												"variable": "to_replace",
+												"value": "tokenat(tokenat(Functions.Enigma_Decrypt(temp, K_BROWSER), 2, \"|\"), 2, \"@\")"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 805814305893694,
+											"parameters": {
+												"variable": "temp",
+												"value": "Functions.Enigma_Encrypt(replace(Functions.Enigma_Decrypt(temp, K_BROWSER), to_replace, Netpeer.MoveDir&\"#\"&Netpeer.LastMoveDir), K_BROWSER)"
+											}
+										},
+										{
+											"id": "setpropertyofactorbynr102",
+											"objectClass": "Photon",
+											"sid": 562879803838757,
+											"parameters": {
+												"actornr0": "Photon.MyActorNr",
+												"propname1": "\"Cipher\"",
+												"value2": "temp",
+												"webforward5": "no",
+												"checkandset8": "no",
+												"expectedvalue9": "0"
+											}
+										}
+									],
+									"sid": 770204800865669
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Unload crypto"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 979719475242834,
+							"parameters": {
+								"interval-seconds": "1/main__FRAME_PER_SEC"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 450826116072891,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each",
+									"objectClass": "System",
+									"sid": 583302946315011,
+									"parameters": {
+										"object": "Netpeer"
+									}
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Netpeer",
+									"sid": 961897988847291,
+									"parameters": {
+										"instance-variable": "AssocActorNr",
+										"comparison": 1,
+										"value": "Photon.MyActorNr"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-position",
+									"objectClass": "Netpeer",
+									"sid": 175814451522625,
+									"parameters": {
+										"x": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 1, \"@\"), 0, \"#\"))",
+										"y": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 1, \"@\"), 1, \"#\"))"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Netpeer",
+									"sid": 453935701588114,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 2, \"@\"), 0, \"#\")"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Netpeer",
+									"sid": 757825429120509,
+									"parameters": {
+										"instance-variable": "LastMoveDir",
+										"value": "tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\"), K_BROWSER), 2, \"|\"), 2, \"@\"), 1, \"#\")"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Netpeer",
+									"sid": 948646793982305,
+									"parameters": {
+										"instance-variable": "AnimatorCore",
+										"value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\"), K_BROWSER), 3, \"|\"), 0, \"@\")"
+									}
+								}
+							],
+							"sid": 488596058881776,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-children",
+											"objectClass": "Netpeer",
+											"sid": 280625083094729,
+											"parameters": {
+												"child": "Spritefont_special_NameDisplay",
+												"which": "own"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Spritefont_special_NameDisplay",
+											"sid": 540041619777269,
+											"parameters": {
+												"text": "tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfActorByNr(Netpeer.AssocActorNr, \"Cipher\"), K_BROWSER), 1, \"|\")"
+											}
+										}
+									],
+									"sid": 698007194461130
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 344128712830525
+		},
+		{
+			"functionName": "Netpeer-CreateExtra",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "spawn-another-object",
+					"objectClass": "Netpeer",
+					"sid": 406349775417261,
+					"parameters": {
+						"object": "TextValue_netpeer",
+						"layer": "\"UI\"",
+						"image-point": "0",
+						"create-hierarchy": false
+					}
+				},
+				{
+					"id": "spawn-another-object",
+					"objectClass": "Netpeer",
+					"sid": 652045991113932,
+					"parameters": {
+						"object": "Spritefont_special_EnergyDisplay",
+						"layer": "\"UI\"",
+						"image-point": "0",
+						"create-hierarchy": false
+					}
+				},
+				{
+					"id": "spawn-another-object",
+					"objectClass": "Netpeer",
+					"sid": 341093310193587,
+					"parameters": {
+						"object": "Spritefont_special_NameDisplay",
+						"layer": "\"UI\"",
+						"image-point": "0",
+						"create-hierarchy": false
+					}
+				},
+				{
+					"id": "spawn-another-object",
+					"objectClass": "Netpeer",
+					"sid": 143072369939458,
+					"parameters": {
+						"object": "UI_Healthbar",
+						"layer": "\"UI\"",
+						"image-point": "0",
+						"create-hierarchy": false
+					}
+				},
+				{
+					"id": "set-y",
+					"objectClass": "UI_Healthbar",
+					"sid": 746103594953941,
+					"parameters": {
+						"y": "Self.Y - ui__HEALTH_BAR_PIXEL_HEIGHT"
+					}
+				},
+				{
+					"id": "spawn-another-object",
+					"objectClass": "Netpeer",
+					"sid": 359349087752848,
+					"parameters": {
+						"object": "UI_HealthbarFiller",
+						"layer": "\"UI\"",
+						"image-point": "0",
+						"create-hierarchy": false
+					}
+				},
+				{
+					"id": "set-position",
+					"objectClass": "UI_HealthbarFiller",
+					"sid": 653856068678717,
+					"parameters": {
+						"x": "Self.X - 16",
+						"y": "Self.Y - ui__HEALTH_BAR_PIXEL_HEIGHT"
+					}
+				},
+				{
+					"id": "spawn-another-object",
+					"objectClass": "Netpeer",
+					"sid": 324944411960455,
+					"parameters": {
+						"object": "UI_EnergyBar",
+						"layer": "\"UI\"",
+						"image-point": "0",
+						"create-hierarchy": false
+					}
+				},
+				{
+					"id": "set-y",
+					"objectClass": "UI_EnergyBar",
+					"sid": 135985885157658,
+					"parameters": {
+						"y": "Self.Y - ui__ENERGY_BAR_PIXEL_HEIGHT"
+					}
+				},
+				{
+					"id": "spawn-another-object",
+					"objectClass": "Netpeer",
+					"sid": 607145727144017,
+					"parameters": {
+						"object": "UI_EnergyBarFiller",
+						"layer": "\"UI\"",
+						"image-point": "0",
+						"create-hierarchy": false
+					}
+				},
+				{
+					"id": "set-position",
+					"objectClass": "UI_EnergyBarFiller",
+					"sid": 428781902366726,
+					"parameters": {
+						"x": "Self.X - 16",
+						"y": "Self.Y - ui__ENERGY_BAR_PIXEL_HEIGHT"
+					}
+				},
+				{
+					"id": "add-child",
+					"objectClass": "Netpeer",
+					"sid": 163975162860756,
+					"parameters": {
+						"child": "UI_Healthbar",
+						"transform-x": true,
+						"transform-y": true,
+						"transform-w": false,
+						"transform-h": true,
+						"transform-a": true,
+						"transform-z-elevation": true,
+						"destroy-with-parent": false
+					}
+				},
+				{
+					"id": "add-child",
+					"objectClass": "Netpeer",
+					"sid": 735273418942121,
+					"parameters": {
+						"child": "UI_HealthbarFiller",
+						"transform-x": true,
+						"transform-y": true,
+						"transform-w": false,
+						"transform-h": true,
+						"transform-a": true,
+						"transform-z-elevation": true,
+						"destroy-with-parent": false
+					}
+				},
+				{
+					"id": "add-child",
+					"objectClass": "Netpeer",
+					"sid": 555017835758549,
+					"parameters": {
+						"child": "UI_EnergyBar",
+						"transform-x": true,
+						"transform-y": true,
+						"transform-w": false,
+						"transform-h": true,
+						"transform-a": true,
+						"transform-z-elevation": true,
+						"destroy-with-parent": false
+					}
+				},
+				{
+					"id": "add-child",
+					"objectClass": "Netpeer",
+					"sid": 736879516978667,
+					"parameters": {
+						"child": "UI_EnergyBarFiller",
+						"transform-x": true,
+						"transform-y": true,
+						"transform-w": false,
+						"transform-h": true,
+						"transform-a": true,
+						"transform-z-elevation": true,
+						"destroy-with-parent": false
+					}
+				},
+				{
+					"id": "set-default-color",
+					"objectClass": "Spritefont_special_NameDisplay",
+					"sid": 809535138219987,
+					"parameters": {
+						"color": "rgbEx(random(30, 90), random(30, 90), random(30, 90))"
+					}
+				},
+				{
+					"id": "add-child",
+					"objectClass": "Netpeer",
+					"sid": 167677361094081,
+					"parameters": {
+						"child": "TextValue_netpeer",
+						"transform-x": true,
+						"transform-y": true,
+						"transform-w": false,
+						"transform-h": false,
+						"transform-a": false,
+						"transform-z-elevation": false,
+						"destroy-with-parent": true
+					}
+				},
+				{
+					"id": "add-child",
+					"objectClass": "Netpeer",
+					"sid": 491527642046864,
+					"parameters": {
+						"child": "Spritefont_special_EnergyDisplay",
+						"transform-x": true,
+						"transform-y": true,
+						"transform-w": false,
+						"transform-h": false,
+						"transform-a": false,
+						"transform-z-elevation": false,
+						"destroy-with-parent": true
+					}
+				},
+				{
+					"id": "add-child",
+					"objectClass": "Netpeer",
+					"sid": 814547686140889,
+					"parameters": {
+						"child": "Spritefont_special_NameDisplay",
+						"transform-x": true,
+						"transform-y": true,
+						"transform-w": false,
+						"transform-h": false,
+						"transform-a": false,
+						"transform-z-elevation": false,
+						"destroy-with-parent": true
+					}
+				}
+			],
+			"sid": 128314403990596
+		},
+		{
+			"functionName": "Netpeer-Create",
+			"functionDescription": "Spawns a Netpeer copy.",
+			"functionCategory": "Netpeer",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pAssocActorNr",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "Photon actor number to be associated to this Netpeer.",
+					"sid": 680655660642476
+				},
+				{
+					"name": "pX",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "X-coordinate at which to spawn this Netpeer.",
+					"sid": 810244279078708
+				},
+				{
+					"name": "pY",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "Y-coordinate at which to spawn this Netpeer.",
+					"sid": 366776810933710
+				},
+				{
+					"name": "pInitialDirection",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "Initial direction this character is facing.",
+					"sid": 332481255739764
+				},
+				{
+					"name": "pAnimator",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "Initial direction this character is facing.",
+					"sid": 205821740559708
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "create-object",
+					"objectClass": "System",
+					"sid": 510309357733492,
+					"parameters": {
+						"object-to-create": "Netpeer",
+						"layer": "\"Netpeers\"",
+						"x": "pX",
+						"y": "pY",
+						"create-hierarchy": false
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "Netpeer",
+					"sid": 682287343447299,
+					"parameters": {
+						"instance-variable": "AssocActorNr",
+						"value": "pAssocActorNr"
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "Netpeer",
+					"sid": 383911695063044,
+					"parameters": {
+						"instance-variable": "AnimatorCore",
+						"value": "pAnimator"
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "Netpeer",
+					"sid": 940988157683165,
+					"parameters": {
+						"instance-variable": "LastMoveDir",
+						"value": "pInitialDirection"
+					}
+				},
+				{
+					"id": "spawn-another-object",
+					"objectClass": "Netpeer",
+					"sid": 617763111889872,
+					"parameters": {
+						"object": "asset_OverworldPC",
+						"layer": "\"Assets_YasZ\"",
+						"image-point": "0",
+						"create-hierarchy": false
+					}
+				},
+				{
+					"id": "add-child",
+					"objectClass": "Netpeer",
+					"sid": 244490385484488,
+					"parameters": {
+						"child": "asset_OverworldPC",
+						"transform-x": true,
+						"transform-y": true,
+						"transform-w": true,
+						"transform-h": true,
+						"transform-a": true,
+						"transform-z-elevation": false,
+						"destroy-with-parent": true
+					}
+				}
+			],
+			"sid": 526668407329708,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 466613824970704,
+							"parameters": {
+								"variable": "pAssocActorNr",
+								"comparison": 0,
+								"value": "Photon.MyActorNr"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-boolean-instvar",
+							"objectClass": "Netpeer",
+							"sid": 109712698731423,
+							"parameters": {
+								"instance-variable": "LightActive",
+								"value": "true"
+							}
+						},
+						{
+							"id": "set-enabled",
+							"objectClass": "Netpeer",
+							"sid": 524874696673629,
+							"behaviorType": "Pathfinder",
+							"parameters": {
+								"set": "enabled"
+							}
+						},
+						{
+							"id": "set-enabled",
+							"objectClass": "Netpeer",
+							"sid": 523582086012115,
+							"behaviorType": "GridMove",
+							"parameters": {
+								"state": "enabled"
+							}
+						},
+						{
+							"id": "set-position-to-another-object",
+							"objectClass": "Camera",
+							"sid": 201514545250952,
+							"parameters": {
+								"object": "Netpeer",
+								"image-point-optional": "0"
+							}
+						},
+						{
+							"id": "signal",
+							"objectClass": "System",
+							"sid": 205414402126140,
+							"parameters": {
+								"tag": "\"MyPlayerSpawned\""
+							}
+						}
+					],
+					"sid": 363477158842702
+				}
+			]
+		},
+		{
+			"functionName": "Server-RefreshClientState",
+			"functionDescription": "",
+			"functionCategory": "Server",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 621009661213275,
+					"parameters": {
+						"variable": "server__data_NextSecret",
+						"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+					}
+				},
+				{
+					"callFunction": "Server-AJAX-Prep",
+					"sid": 916471225919225,
+					"parameters": [
+						"\"RefreshClientState\"&refresh_count",
+						"\"char/refresh.php?\"",
+						"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&UN=\"&server__data_Username&\"&CHI=\"&myplayer__CharHashID"
+					]
+				}
+			],
+			"sid": 694387967677071
+		},
+		{
+			"functionName": "Netpeer-Delete",
+			"functionDescription": "Delete a specifieced Netpeer.",
+			"functionCategory": "Netpeer",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pAssocActorNr",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "Photon actor number to be associated to this Netpeer.",
+					"sid": 398377784251205
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 952618736416410,
+					"parameters": {
+						"object": "Netpeer",
+						"expression": "Netpeer.AssocActorNr",
+						"comparison": 0,
+						"value": "pAssocActorNr"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "destroy",
+					"objectClass": "Netpeer",
+					"sid": 435462857781146
+				}
+			],
+			"sid": 936111815699799
+		}
+	],
+	"sid": 296676705989437
+}

@@ -1,0 +1,45 @@
+{
+	"name": "InputField",
+	"plugin-id": "NinePatch",
+	"sid": 710137738774415,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "FieldName",
+			"type": "string",
+			"desc": "Type of field.",
+			"sid": 130935353560679
+		},
+		{
+			"name": "Active",
+			"type": "boolean",
+			"desc": "True (1) when this field is active and listening to typed keys.",
+			"sid": 474978420966721
+		},
+		{
+			"name": "OutOfFocus",
+			"type": "boolean",
+			"desc": "True (1) if this InputField cannot be active due to another layer showing above it.",
+			"sid": 167170522820425
+		},
+		{
+			"name": "AllowsSpaceChars",
+			"type": "boolean",
+			"desc": "True (1) if the input field allows the \"Space\" character.",
+			"sid": 574137694646686
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"image": {
+		"width": 180,
+		"height": 50,
+		"originX": 0.49444444444444446,
+		"originY": 0.5,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 3769986,
+		"useCollisionPoly": true
+	}
+}

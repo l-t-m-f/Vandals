@@ -1,0 +1,42 @@
+{
+	"name": "tilemap_LightShadow",
+	"plugin-id": "Tilemap",
+	"sid": 566474355765883,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [
+		{
+			"effectId": "polkadot",
+			"name": "PolkaDot"
+		},
+		{
+			"effectId": "warpripple",
+			"name": "WarpRipple"
+		},
+		{
+			"effectId": "hexpixellate",
+			"name": "HexagonalPixellate"
+		},
+		{
+			"effectId": "scanlines",
+			"name": "ScanLines"
+		},
+		{
+			"effectId": "darken",
+			"name": "Darken"
+		}
+	],
+	"image": {
+		"width": 256,
+		"height": 64,
+		"originX": 0.5,
+		"originY": 0.5,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 8492972,
+		"useCollisionPoly": true
+	},
+	"tile-collision-polys": {}
+}

@@ -1,0 +1,12 @@
+{
+	"name": "Controls_Mobile",
+	"plugin-id": "Touch",
+	"sid": 424773617419417,
+	"singleglobal-inst": {
+		"type": "Controls_Mobile",
+		"properties": {
+			"use-mouse-input": true
+		},
+		"uid": 4
+	}
+}

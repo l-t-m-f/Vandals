@@ -1,0 +1,37 @@
+{
+	"name": "assetMonster",
+	"plugin-id": "Sprite",
+	"sid": 964088862913614,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 32,
+						"height": 32,
+						"originX": 0.53125,
+						"originY": 0.53125,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 689098,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 922533851877763,
+				"name": "WallGuard",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

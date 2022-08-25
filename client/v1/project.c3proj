@@ -1,0 +1,772 @@
+{
+	"projectFormatVersion": 1,
+	"savedWithRelease": 22500,
+	"name": "Vandals",
+	"runtime": "c3",
+	"useWorker": "auto",
+	"bundleAddons": false,
+	"usedAddons": [
+		{
+			"type": "plugin",
+			"id": "Sprite",
+			"name": "Sprite",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Arr",
+			"name": "Array",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Dictionary",
+			"name": "Dictionary",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "NinePatch",
+			"name": "9-patch",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "AJAX",
+			"name": "AJAX",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Audio",
+			"name": "Audio",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Mouse",
+			"name": "Mouse",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Touch",
+			"name": "Touch",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Massive_Cube_Forge",
+			"name": "Forge",
+			"author": "Massive_Cube",
+			"version": "0.3.0.0",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Keyboard",
+			"name": "Keyboard",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "LocalStorage",
+			"name": "Local storage",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Photon",
+			"name": "Photon",
+			"author": "Chadori",
+			"version": "2.0.3.8",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "PlatformInfo",
+			"name": "Platform info",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Text",
+			"name": "Text",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Tilemap",
+			"name": "Tilemap",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Button",
+			"name": "Button",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "TextBox",
+			"name": "Text input",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Spritefont2",
+			"name": "Sprite font",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Particles",
+			"name": "Particles",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Sin",
+			"name": "Sine",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "scrollto",
+			"name": "Scroll To",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Fade",
+			"name": "Fade",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Bullet",
+			"name": "Bullet",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "bound",
+			"name": "Bound to layout",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "LOS",
+			"name": "Line of sight",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "TileMovement",
+			"name": "Tile movement",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Pathfinding",
+			"name": "Pathfinding",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Flash",
+			"name": "Flash",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Rotate",
+			"name": "Rotate",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "solid",
+			"name": "Solid",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "DragnDrop",
+			"name": "Drag & Drop",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "effect",
+			"id": "water",
+			"name": "Water",
+			"author": "Viktor Korsun",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "effect",
+			"id": "radialblur",
+			"name": "Radial blur",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "effect",
+			"id": "inverse",
+			"name": "Inverse",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
+			"type": "effect",
+			"id": "lighten",
+			"name": "Lighten",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		}
+	],
+	"uniqueId": "nrvpx3n2emq",
+	"objectTypes": {
+		"items": [
+			"TextValue_node",
+			"TextValue_netpeer",
+			"UIBar",
+			"TextIndicator_host",
+			"TextIndicator_map",
+			"TextValue_monstergr",
+			"TextIndicator_nextspawn",
+			"TextDialog",
+			"TextValue_create_attribute",
+			"asset_kindportrait",
+			"VFXCradleMapOverlay",
+			"DragNDrop_DropOff",
+			"DisplayTooltip",
+			"Sizeable_Tooltip",
+			"shadow",
+			"asset_kindportrait_ingame",
+			"assetMonster",
+			"asset_Decor"
+		],
+		"subfolders": [
+			{
+				"items": [
+					"Menu",
+					"InputField",
+					"Checkbox",
+					"Button",
+					"FieldSelector",
+					"HexSockegt",
+					"Logo",
+					"MenuCamera",
+					"Menu2",
+					"Sizeable_Popup"
+				],
+				"subfolders": [
+					{
+						"items": [
+							"asset_connect_Minigoo_temp",
+							"asset_connect_Mushroom_temp"
+						],
+						"subfolders": [],
+						"name": "Connect"
+					},
+					{
+						"items": [
+							"asset_createchar_CradleMap",
+							"asset_createchar_SkillPortrait_m",
+							"asset_createchar_AttributePortrait_m",
+							"asset_createchar_AttributePortrait_xl",
+							"asset_createchar_WheelKindPortrait",
+							"asset_createchar_WheelKindPortrait_spotlight",
+							"asset_createchar_AttributePortrait_s",
+							"asset_createchar_AttributePortrait_l",
+							"asset_createchar_CradlePortrait_l",
+							"asset_createchar_HexPortrait_m",
+							"asset_createchar_HexPortrait_l",
+							"mem_KindWheel",
+							"data_KindsInfo",
+							"asset_createchar_CradlePortrait",
+							"asset_createchar_HexPortrait_s",
+							"asset_createchar_HexPortrait_xl",
+							"data_AttributesInfo",
+							"data_CradlesInfo",
+							"asset_createchar_BloodSplatterBG",
+							"asset_createchar_CradleIndicatingArrow",
+							"data_HexesInfo",
+							"mem_HexSelection",
+							"data_SkillsInfo"
+						],
+						"subfolders": [],
+						"name": "CreateChar"
+					},
+					{
+						"items": [
+							"CaptchaDictionary",
+							"CaptchaLetter"
+						],
+						"subfolders": [],
+						"name": "Register"
+					},
+					{
+						"items": [],
+						"subfolders": [],
+						"name": "LoadChar"
+					}
+				],
+				"name": "Menus"
+			},
+			{
+				"items": [
+					"AJAX",
+					"Audio",
+					"Controls_Desktop",
+					"Controls_Mobile",
+					"Cursor",
+					"Forge",
+					"Keyboard",
+					"LocalStorage",
+					"Photon",
+					"PlatformInfo"
+				],
+				"subfolders": [],
+				"name": "Key"
+			},
+			{
+				"items": [
+					"Chatbox",
+					"ChatBoxCursor",
+					"ChatBoxData",
+					"ChatBoxInput",
+					"ChatBoxText",
+					"DialogBox",
+					"MapEdge",
+					"MapPlot",
+					"Minimap",
+					"MinimapBoundary",
+					"MinimapIndicator",
+					"Monster",
+					"MonsterLeader",
+					"Netpeer",
+					"PathNode",
+					"PathTarget",
+					"CollisionChecker",
+					"Camera",
+					"NPC"
+				],
+				"subfolders": [],
+				"name": "Game"
+			},
+			{
+				"items": [
+					"EnigmaTest_DString",
+					"EnigmaTest_EString",
+					"EnigmaTestButton",
+					"EnigmaTestInput",
+					"SPRITESHEET_a01",
+					"TestSolid"
+				],
+				"subfolders": [],
+				"name": "Debug"
+			},
+			{
+				"items": [
+					"SpriteFont_FixedHeader",
+					"SpriteFont_FixedHeader_artsyXL",
+					"SpriteFont_Variant",
+					"SpriteFont_Variant2",
+					"SpriteFont_Variant4"
+				],
+				"subfolders": [],
+				"name": "Spritefonts"
+			},
+			{
+				"items": [
+					"VFX_createchar_specialHeartPortrait"
+				],
+				"subfolders": [
+					{
+						"items": [
+							"Particle_Shape"
+						],
+						"subfolders": [],
+						"name": "Particle Assets"
+					},
+					{
+						"items": [
+							"ParticleSpawner_Shapes"
+						],
+						"subfolders": [],
+						"name": "Particle Spawners"
+					}
+				],
+				"name": "VFX"
+			}
+		]
+	},
+	"autosaveData": null,
+	"containers": [],
+	"families": {
+		"items": [
+			"GridConform",
+			"Solid",
+			"DragDrop"
+		],
+		"subfolders": []
+	},
+	"layouts": {
+		"items": [
+			"INDEX"
+		],
+		"subfolders": [
+			{
+				"items": [
+					"GameInit",
+					"EnigmaTest"
+				],
+				"subfolders": [],
+				"name": "Dev"
+			},
+			{
+				"items": [],
+				"subfolders": [
+					{
+						"items": [
+							"000",
+							"001",
+							"002",
+							"003"
+						],
+						"subfolders": [],
+						"name": "a_TutorialWall"
+					}
+				],
+				"name": "Maps"
+			},
+			{
+				"items": [
+					"Connect",
+					"CreateChar",
+					"Register",
+					"LoadChar"
+				],
+				"subfolders": [],
+				"name": "Menus"
+			}
+		]
+	},
+	"eventSheets": {
+		"items": [
+			"KEYCHAIN"
+		],
+		"subfolders": [
+			{
+				"items": [
+					"eConnect",
+					"eCreateChar",
+					"eLoadChar",
+					"eRegister"
+				],
+				"subfolders": [],
+				"name": "Menu"
+			},
+			{
+				"items": [
+					"eMain",
+					"eInit",
+					"eMonsters",
+					"eMyPlayer",
+					"ePhotonCloud"
+				],
+				"subfolders": [],
+				"name": "Game"
+			},
+			{
+				"items": [
+					"eControls",
+					"eEnigma",
+					"eDebug",
+					"eServer",
+					"eUI",
+					"eVFX"
+				],
+				"subfolders": [],
+				"name": "Meta"
+			}
+		]
+	},
+	"rootFileFolders": {
+		"script": {
+			"items": [],
+			"subfolders": []
+		},
+		"sound": {
+			"items": [],
+			"subfolders": []
+		},
+		"music": {
+			"items": [
+				{
+					"name": "2_Tinkertank.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 225448896323385
+				},
+				{
+					"name": "1_Intro.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 165865578348162
+				},
+				{
+					"name": "3_Fever.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 362809854550033
+				},
+				{
+					"name": "4_TheRobotMarch.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 590229060655969
+				},
+				{
+					"name": "5_SkeletonHouse.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 503522731515401
+				}
+			],
+			"subfolders": []
+		},
+		"video": {
+			"items": [],
+			"subfolders": []
+		},
+		"font": {
+			"items": [
+				{
+					"name": "8-bit-pusab.ttf",
+					"type": "application/font-sfnt",
+					"sid": 427597563893290
+				},
+				{
+					"name": "Pixelfy.ttf",
+					"type": "application/font-sfnt",
+					"sid": 229359124790217
+				}
+			],
+			"subfolders": []
+		},
+		"icon": {
+			"items": [
+				{
+					"name": "icon-16.png",
+					"type": "image/png",
+					"sid": 829344197616227,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-32.png",
+					"type": "image/png",
+					"sid": 853367039219253,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-64.png",
+					"type": "image/png",
+					"sid": 438911824507060,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-128.png",
+					"type": "image/png",
+					"sid": 865828422350433,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-512.png",
+					"type": "image/png",
+					"sid": 469419781659382,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "loading-logo.png",
+					"type": "image/png",
+					"sid": 463377850277738,
+					"icon-info": {
+						"purpose": "loading-logo"
+					}
+				},
+				{
+					"name": "icon-256.png",
+					"type": "image/png",
+					"sid": 733063053539077,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				}
+			],
+			"subfolders": []
+		},
+		"general": {
+			"items": [
+				{
+					"name": "CaptchaDictionary.json",
+					"type": "application/json",
+					"sid": 389690830616740
+				},
+				{
+					"name": "LOCAL_DATAREF_KINDS.json",
+					"type": "application/json",
+					"sid": 445235238293278
+				},
+				{
+					"name": "LOCAL_DATAREF_ATTRIBUTES.json",
+					"type": "application/json",
+					"sid": 776526615415637
+				},
+				{
+					"name": "LOCAL_DATAREF_CRADLES.json",
+					"type": "application/json",
+					"sid": 766348506389134
+				},
+				{
+					"name": "LOCAL_DATAREF_HEXES.json",
+					"type": "application/json",
+					"sid": 591460883801236
+				},
+				{
+					"name": "LOCAL_DATAREF_SKILLS.json",
+					"type": "application/json",
+					"sid": 246764321330703
+				}
+			],
+			"subfolders": []
+		}
+	},
+	"timelines": {
+		"items": [],
+		"subfolders": [
+			{
+				"items": [],
+				"subfolders": []
+			}
+		]
+	},
+	"properties": {
+		"description": "",
+		"version": "a0.1",
+		"author": "Émile Fréchette",
+		"authorEmail": "info@emile.kiwi",
+		"authorWebsite": "emile.kiwi",
+		"appId": "",
+		"pixelRounding": true,
+		"useLoaderLayout": false,
+		"fullscreenMode": "letterbox-scale",
+		"fullscreenQuality": "high",
+		"viewportFit": "auto",
+		"backgroundColor": [
+			0.1411764705882353,
+			0.1411764705882353,
+			0.1411764705882353,
+			0
+		],
+		"splashColor": [
+			1,
+			1,
+			1,
+			0
+		],
+		"useThemeColor": false,
+		"themeColor": [
+			1,
+			1,
+			1,
+			0
+		],
+		"useHighDpi": true,
+		"orientations": "landscape",
+		"enableWebGL": true,
+		"gpuPreference": "high-performance",
+		"framerateMode": "vsync",
+		"compositingMode": "standard",
+		"sampling": "nearest",
+		"downscaling": "medium",
+		"maxSpriteSheetSize": 2048,
+		"loaderStyle": "splash",
+		"preloadSounds": true,
+		"clearBackground": true,
+		"enhancedAccelerationPrecision": true,
+		"cordovaiOSScheme": "app"
+	},
+	"viewportWidth": 1280,
+	"viewportHeight": 720,
+	"firstLayout": "Connect"
+}

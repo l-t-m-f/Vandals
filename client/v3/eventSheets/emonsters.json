@@ -1,0 +1,4222 @@
+{
+	"name": "eMonsters",
+	"events": [
+		{
+			"eventType": "comment",
+			"text": "Vandals"
+		},
+		{
+			"eventType": "comment",
+			"text": "Monsters Events"
+		},
+		{
+			"eventType": "variable",
+			"name": "monsters__TimerIsOn",
+			"type": "boolean",
+			"initialValue": "false",
+			"comment": "True (1) when the monsters' respawn timer is activated. This is False (0) when there is already the maximum amount of monsters on a map.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 915985249997433
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-boolean-eventvar",
+					"objectClass": "System",
+					"sid": 799686500826577,
+					"parameters": {
+						"variable": "main__MapLoaded"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 726856917444972,
+			"children": [
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "monsters_ Everyone",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "comment",
+							"text": "Unload MonstersCipher"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "every-x-seconds",
+									"objectClass": "System",
+									"sid": 366869019900434,
+									"parameters": {
+										"interval-seconds": "0.5"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Monsters-Cipher-Unload",
+									"sid": 677369147686994
+								}
+							],
+							"sid": 699256659654625
+						},
+						{
+							"eventType": "comment",
+							"text": "Destroy signal coming from other peers"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "onevent3",
+									"objectClass": "Photon",
+									"sid": 696925105106871,
+									"parameters": {
+										"code0": "14"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 596409222650281,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-by-comparison",
+											"objectClass": "System",
+											"sid": 691637798996305,
+											"parameters": {
+												"object": "Monster",
+												"expression": "Monster.MonsterHashID",
+												"comparison": 0,
+												"value": "Functions.Enigma_Decrypt(Photon.EventData, K_BROWSER)"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "destroy",
+											"objectClass": "Monster",
+											"sid": 522505963949803
+										}
+									],
+									"sid": 510442264327667
+								}
+							]
+						},
+						{
+							"eventType": "comment",
+							"text": "Damage trigger resolution"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-completed",
+									"objectClass": "AJAX",
+									"sid": 806369400478028,
+									"parameters": {
+										"tag": "\"Monsters_Damage\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Debug-Console-Log",
+									"sid": 499231468304193,
+									"parameters": [
+										"\"AJAX Says: \"&Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)"
+									]
+								}
+							],
+							"sid": 668905032861504,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-by-comparison",
+											"objectClass": "System",
+											"sid": 887017129255401,
+											"parameters": {
+												"object": "Monster",
+												"expression": "Monster.MonsterHashID",
+												"comparison": 0,
+												"value": "tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 1, \"|\")"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 717487121428728,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 605587968446274,
+													"parameters": {
+														"first-value": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 0, \"|\"))",
+														"comparison": 0,
+														"second-value": "0"
+													}
+												},
+												{
+													"id": "pick-children",
+													"objectClass": "Monster",
+													"sid": 133450502560637,
+													"parameters": {
+														"child": "asset_Monster",
+														"which": "own"
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "VFX-Flashing-FlashAsset",
+													"sid": 293719338293657,
+													"parameters": [
+														"asset_Monster.UID",
+														true,
+														"0.5"
+													]
+												},
+												{
+													"callFunction": "Monsters-Cipher-Update",
+													"sid": 173522729830445,
+													"parameters": [
+														"\"Health\"",
+														false,
+														"Monster.MonsterHashID",
+														"\"NULL\"",
+														"Functions.Enigma_Encrypt(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 2, \"|\"), K_BROWSER)"
+													]
+												}
+											],
+											"sid": 719341959642146
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 929445542840663
+												},
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 686478832699486,
+													"parameters": {
+														"first-value": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 0, \"|\"))",
+														"comparison": 0,
+														"second-value": "1"
+													}
+												},
+												{
+													"id": "pick-children",
+													"objectClass": "Monster",
+													"sid": 280529507770602,
+													"parameters": {
+														"child": "asset_Monster",
+														"which": "own"
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "VFX-Flashing-FlashAsset",
+													"sid": 779091640061023,
+													"parameters": [
+														"asset_Monster.UID",
+														true,
+														"0.2"
+													]
+												},
+												{
+													"id": "wait",
+													"objectClass": "System",
+													"sid": 425570106238935,
+													"parameters": {
+														"seconds": "0.2"
+													}
+												},
+												{
+													"id": "destroy",
+													"objectClass": "Monster",
+													"sid": 949185416584097
+												},
+												{
+													"callFunction": "Monsters-Server-PushCipher",
+													"sid": 891073466405162
+												},
+												{
+													"callFunction": "Monsters-Server-ReturnSpawnState",
+													"sid": 499545776063356
+												},
+												{
+													"id": "raiseevent17",
+													"objectClass": "Photon",
+													"sid": 583364616924324,
+													"parameters": {
+														"code0": "14",
+														"data1": "Functions.Enigma_Encrypt(Monster.MonsterHashID, K_BROWSER)",
+														"interestgroup2": "0",
+														"cache11": "donotcache",
+														"receivers15": "others",
+														"targetactors16": "\"\"",
+														"webforward19": "no"
+													}
+												}
+											],
+											"sid": 508341832607967
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 828164001397898
+												},
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 579391141001154,
+													"parameters": {
+														"first-value": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 0, \"|\"))",
+														"comparison": 0,
+														"second-value": "2"
+													}
+												},
+												{
+													"id": "pick-children",
+													"objectClass": "Monster",
+													"sid": 792397842375355,
+													"parameters": {
+														"child": "asset_Monster",
+														"which": "own"
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "VFX-Flashing-FlashAsset",
+													"sid": 877369815482051,
+													"parameters": [
+														"asset_Monster.UID",
+														true,
+														"0.2"
+													]
+												},
+												{
+													"id": "wait",
+													"objectClass": "System",
+													"sid": 677267829696509,
+													"parameters": {
+														"seconds": "0.2"
+													}
+												},
+												{
+													"id": "destroy",
+													"objectClass": "Monster",
+													"sid": 571818472015679
+												},
+												{
+													"callFunction": "Monsters-Server-PushCipher",
+													"sid": 985427410775083
+												},
+												{
+													"callFunction": "Monsters-Server-ReturnSpawnState",
+													"sid": 319327162279931
+												},
+												{
+													"id": "raiseevent17",
+													"objectClass": "Photon",
+													"sid": 189388572834456,
+													"parameters": {
+														"code0": "14",
+														"data1": "Functions.Enigma_Encrypt(Monster.MonsterHashID, K_BROWSER)",
+														"interestgroup2": "0",
+														"cache11": "donotcache",
+														"receivers15": "others",
+														"targetactors16": "\"\"",
+														"webforward19": "no"
+													}
+												}
+											],
+											"sid": 982561737163070
+										}
+									]
+								}
+							]
+						}
+					],
+					"sid": 371962066636757
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "monsters_ PeerOnly",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 188390504529614,
+									"parameters": {
+										"variable": "photonCloud_RoomMaster"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "set-enabled",
+									"objectClass": "Monster",
+									"sid": 793137155490738,
+									"behaviorType": "Move",
+									"parameters": {
+										"state": "disabled"
+									}
+								}
+							],
+							"sid": 145709862934599,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "Load monsters from the cipher made available by the host"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "trigger-once-while-true",
+											"objectClass": "System",
+											"sid": 655113266035955
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Monsters-Cipher-SpawnAllGroups",
+											"sid": 983097819465566,
+											"parameters": [
+												"int(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), 0, \"|\"))"
+											]
+										}
+									],
+									"sid": 203741307616096
+								},
+								{
+									"eventType": "comment",
+									"text": "Sync for display"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "every-x-seconds",
+											"objectClass": "System",
+											"sid": 153085653797751,
+											"parameters": {
+												"interval-seconds": "1/main__FRAME_PER_SEC"
+											}
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Monsters-Cipher-SyncDisplay",
+											"sid": 688527994955372
+										}
+									],
+									"sid": 792847090996223
+								}
+							]
+						}
+					],
+					"sid": 834570487374736
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "monsters_ HostOnly",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 300788107077258,
+									"parameters": {
+										"variable": "photonCloud_RoomMaster"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-enabled",
+									"objectClass": "MonsterLeader",
+									"sid": 144580109886102,
+									"behaviorType": "Move",
+									"parameters": {
+										"state": "enabled"
+									}
+								}
+							],
+							"sid": 911429258713882,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "Request initial cipher"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "trigger-once-while-true",
+											"objectClass": "System",
+											"sid": 945860810836452
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Monsters-Server-ReturnSpawnState",
+											"sid": 813300668728665
+										}
+									],
+									"sid": 868482371163548,
+									"isOrBlock": true
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-speed",
+											"objectClass": "MonsterLeader",
+											"sid": 844915906632552,
+											"behaviorType": "Move",
+											"parameters": {
+												"comparison": 4,
+												"speed": "5"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-boolean-instvar",
+											"objectClass": "MonsterLeader",
+											"sid": 555094420429124,
+											"parameters": {
+												"instance-variable": "Idly",
+												"value": "false"
+											}
+										}
+									],
+									"sid": 824351893883142
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 313181805688326
+										}
+									],
+									"actions": [
+										{
+											"id": "set-boolean-instvar",
+											"objectClass": "MonsterLeader",
+											"sid": 111002055031590,
+											"parameters": {
+												"instance-variable": "Idly",
+												"value": "true"
+											}
+										}
+									],
+									"sid": 131160870256133
+								},
+								{
+									"eventType": "comment",
+									"text": "Update the cipher's display data"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "every-x-seconds",
+											"objectClass": "System",
+											"sid": 872073936521045,
+											"parameters": {
+												"interval-seconds": "0.2"
+											}
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Monsters-Cipher-Update",
+											"sid": 212364036476502,
+											"parameters": [
+												"\"Position\"",
+												true,
+												"\"NULL\"",
+												"\"NULL\"",
+												"\"\""
+											]
+										}
+									],
+									"sid": 277588005527738
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "every-x-seconds",
+											"objectClass": "System",
+											"sid": 599490154952420,
+											"parameters": {
+												"interval-seconds": "1"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 986254414074001,
+									"children": [
+										{
+											"eventType": "comment",
+											"text": "Bind unbinded monsters"
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "is-pinned",
+													"objectClass": "MonsterFollower",
+													"sid": 382637078035485,
+													"behaviorType": "Pin",
+													"isInverted": true
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "Monsters-GameObject-Bind",
+													"sid": 938879582237481
+												},
+												{
+													"callFunction": "Debug-Console-Log",
+													"sid": 916648053275245,
+													"disabled": true,
+													"parameters": [
+														"\"1\""
+													]
+												}
+											],
+											"sid": 140868659870780
+										},
+										{
+											"eventType": "comment",
+											"text": "Push the cipher to the server"
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 529644469912918,
+													"parameters": {
+														"first-value": "Monster.Count",
+														"comparison": 4,
+														"second-value": "0"
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "Monsters-Server-PushCipher",
+													"sid": 844475701531610
+												}
+											],
+											"sid": 855379578737818
+										},
+										{
+											"eventType": "comment",
+											"text": "Refresh timer"
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-boolean-eventvar",
+													"objectClass": "System",
+													"sid": 274628809776411,
+													"parameters": {
+														"variable": "monsters__TimerIsOn"
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "Monsters-Server-RefreshRespawnTimer",
+													"sid": 906179456094427
+												}
+											],
+											"sid": 193071034746210
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "every-x-seconds",
+											"objectClass": "System",
+											"sid": 168465530646840,
+											"parameters": {
+												"interval-seconds": "random(0.8,4.4)"
+											}
+										},
+										{
+											"id": "for-each",
+											"objectClass": "System",
+											"sid": 715511041709167,
+											"parameters": {
+												"object": "Monster"
+											}
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Monsters-GameObject-ChangeAngle",
+											"sid": 704121158308066,
+											"parameters": [
+												"Monster.UID"
+											]
+										}
+									],
+									"sid": 257042628413224
+								},
+								{
+									"eventType": "comment",
+									"text": "Privileged resolutions"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "on-completed",
+											"objectClass": "AJAX",
+											"sid": 270868519941964,
+											"parameters": {
+												"tag": "\"Monsters_ReturnSpawnState\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Debug-Console-Log",
+											"sid": 778005349711805,
+											"parameters": [
+												"\"AJAX Spawn State : \"&Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)"
+											]
+										}
+									],
+									"sid": 274917180110584,
+									"children": [
+										{
+											"eventType": "variable",
+											"name": "spawnstate",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "Shortname for accessing the spawnState value.",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 294483454949052
+										},
+										{
+											"eventType": "variable",
+											"name": "respawntimer",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "Shortname for accessing the RespawnTimer value.",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 235666385344182
+										},
+										{
+											"eventType": "variable",
+											"name": "groupcount",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "Shortname for accessing the GroupCount value.",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 852987362407965
+										},
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"type": "comment",
+													"text": "Shortnames"
+												}
+											],
+											"sid": 992562319449408,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [],
+													"actions": [
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 600000662954364,
+															"parameters": {
+																"variable": "spawnstate",
+																"value": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 0, \"|\"))"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 759503568365468,
+															"parameters": {
+																"variable": "respawntimer",
+																"value": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 1, \"|\"))"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 920986571084706,
+															"parameters": {
+																"variable": "groupcount",
+																"value": "int(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 2, \"|\"))"
+															}
+														}
+													],
+													"sid": 385542707336304
+												}
+											]
+										},
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "setpropertyofmyroom103",
+													"objectClass": "Photon",
+													"sid": 747121346107438,
+													"parameters": {
+														"propname0": "\"RespawnTimer\"",
+														"value1": "respawntimer",
+														"webforward4": "no",
+														"checkandset7": "no",
+														"expectedvalue8": "0"
+													}
+												}
+											],
+											"sid": 186071594319667,
+											"children": [
+												{
+													"eventType": "comment",
+													"text": "Reset the cipher"
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "pick-all",
+															"objectClass": "System",
+															"sid": 278936532079701,
+															"parameters": {
+																"object": "Monster"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "destroy",
+															"objectClass": "Monster",
+															"sid": 727851423205416
+														},
+														{
+															"id": "setpropertyofmyroom103",
+															"objectClass": "Photon",
+															"sid": 429416469678196,
+															"parameters": {
+																"propname0": "\"MonstersCipher\"",
+																"value1": "Functions.Enigma_Encrypt(\"\", K_BROWSER)",
+																"webforward4": "no",
+																"checkandset7": "no",
+																"expectedvalue8": "0"
+															}
+														}
+													],
+													"sid": 826785773397797
+												},
+												{
+													"eventType": "variable",
+													"name": "temp_data",
+													"type": "string",
+													"initialValue": "NULL",
+													"comment": "Temporary data holder for concatenation.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 699607244262812
+												},
+												{
+													"eventType": "block",
+													"conditions": [],
+													"actions": [],
+													"sid": 892087704465161,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "compare-eventvar",
+																	"objectClass": "System",
+																	"sid": 141989281817336,
+																	"parameters": {
+																		"variable": "spawnstate",
+																		"comparison": 0,
+																		"value": "1"
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"id": "set-boolean-eventvar",
+																	"objectClass": "System",
+																	"sid": 540981357680896,
+																	"parameters": {
+																		"variable": "monsters__TimerIsOn",
+																		"value": "true"
+																	}
+																}
+															],
+															"sid": 191704582999798
+														},
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "else",
+																	"objectClass": "System",
+																	"sid": 791913546530914
+																}
+															],
+															"actions": [
+																{
+																	"id": "set-boolean-eventvar",
+																	"objectClass": "System",
+																	"sid": 996903808987674,
+																	"parameters": {
+																		"variable": "monsters__TimerIsOn",
+																		"value": "false"
+																	}
+																}
+															],
+															"sid": 490700399344142
+														},
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "compare-eventvar",
+																	"objectClass": "System",
+																	"sid": 833063357901380,
+																	"parameters": {
+																		"variable": "groupcount",
+																		"comparison": 4,
+																		"value": "0"
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 803786083823149,
+																	"parameters": {
+																		"variable": "temp_data",
+																		"value": "\"\""
+																	}
+																}
+															],
+															"sid": 214806865312954,
+															"children": [
+																{
+																	"eventType": "comment",
+																	"text": "Loop through all the existing tokens of the AJAX data, ignoring the first 3, and store them into the temp variable. Then, reencode the shortened data."
+																},
+																{
+																	"eventType": "block",
+																	"conditions": [
+																		{
+																			"id": "for",
+																			"objectClass": "System",
+																			"sid": 702246228270783,
+																			"parameters": {
+																				"name": "\"i_DataToken\"",
+																				"start-index": "2",
+																				"end-index": "tokencount(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), \"|\")"
+																			}
+																		}
+																	],
+																	"actions": [
+																		{
+																			"id": "set-eventvar-value",
+																			"objectClass": "System",
+																			"sid": 411205041088979,
+																			"parameters": {
+																				"variable": "temp_data",
+																				"value": "temp_data&tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), loopindex(\"i_DataToken\"), \"|\")&\"|\""
+																			}
+																		}
+																	],
+																	"sid": 152261679350654
+																},
+																{
+																	"eventType": "block",
+																	"conditions": [],
+																	"actions": [
+																		{
+																			"id": "wait-for-previous-actions",
+																			"objectClass": "System",
+																			"sid": 384906372432263
+																		},
+																		{
+																			"type": "comment",
+																			"text": "Don't forget to remove last \"|\" char"
+																		},
+																		{
+																			"id": "set-eventvar-value",
+																			"objectClass": "System",
+																			"sid": 766399645491409,
+																			"parameters": {
+																				"variable": "temp_data",
+																				"value": "mid(temp_data, 0, len(temp_data)-1)"
+																			}
+																		},
+																		{
+																			"id": "setpropertyofmyroom103",
+																			"objectClass": "Photon",
+																			"sid": 685073567888883,
+																			"parameters": {
+																				"propname0": "\"MonstersCipher\"",
+																				"value1": "Functions.Enigma_Encrypt(temp_data, K_BROWSER)",
+																				"webforward4": "no",
+																				"checkandset7": "no",
+																				"expectedvalue8": "0"
+																			}
+																		},
+																		{
+																			"callFunction": "Debug-Console-Log",
+																			"sid": 545653152551731,
+																			"parameters": [
+																				"\"Monsters Photon cipher property updated to : \"&Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER)"
+																			]
+																		},
+																		{
+																			"type": "comment",
+																			"text": "Spawn the groups"
+																		},
+																		{
+																			"callFunction": "Monsters-Cipher-SpawnAllGroups",
+																			"sid": 173253494545774,
+																			"parameters": [
+																				"groupcount"
+																			]
+																		}
+																	],
+																	"sid": 203381354175327
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "on-completed",
+											"objectClass": "AJAX",
+											"sid": 920491351296660,
+											"parameters": {
+												"tag": "\"Monsters_RefreshRespawnTimer\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "setpropertyofmyroom103",
+											"objectClass": "Photon",
+											"sid": 869729895012715,
+											"parameters": {
+												"propname0": "\"RespawnTimer\"",
+												"value1": "AJAX.LastData",
+												"webforward4": "no",
+												"checkandset7": "no",
+												"expectedvalue8": "0"
+											}
+										}
+									],
+									"sid": 835120927216220,
+									"children": [
+										{
+											"eventType": "comment",
+											"text": "If the timer is returned as zero (0), request monster creation."
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 865421374197434,
+													"parameters": {
+														"first-value": "int(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER))",
+														"comparison": 0,
+														"second-value": "0"
+													}
+												}
+											],
+											"actions": [],
+											"sid": 630651168730099,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "pick-random-instance",
+															"objectClass": "System",
+															"sid": 932349872504612,
+															"parameters": {
+																"object": "MobSpawner"
+															}
+														}
+													],
+													"actions": [
+														{
+															"callFunction": "Monsters-Server-CreateRequest",
+															"sid": 567853718997774,
+															"parameters": [
+																"Functions.Enigma_Encrypt(\"\"&GridGraph.PositionToTileX(MobSpawner.X), K_BROWSER)",
+																"Functions.Enigma_Encrypt(\"\"&GridGraph.PositionToTileY(MobSpawner.Y), K_BROWSER)"
+															]
+														}
+													],
+													"sid": 451490756489877
+												}
+											]
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "on-completed",
+											"objectClass": "AJAX",
+											"sid": 928283280383278,
+											"parameters": {
+												"tag": "\"Monsters_RequestCreate\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Debug-Console-Log",
+											"sid": 185706190569321,
+											"parameters": [
+												"\"AJAX CreateRequest return data : \"&Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)"
+											]
+										}
+									],
+									"sid": 549735185130627,
+									"children": [
+										{
+											"eventType": "comment",
+											"text": "Checks if the server has signaled that the monster limit is reached. (\"MAX\" token.)"
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 433337295273722,
+													"parameters": {
+														"first-value": "Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)",
+														"comparison": 0,
+														"second-value": "\"MAX\""
+													}
+												}
+											],
+											"actions": [],
+											"sid": 495420197236385
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 132054242979846
+												},
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 944467902562396,
+													"parameters": {
+														"first-value": "Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)",
+														"comparison": 0,
+														"second-value": "\"MAX\""
+													},
+													"isInverted": true
+												}
+											],
+											"actions": [],
+											"sid": 241728106385728,
+											"children": [
+												{
+													"eventType": "variable",
+													"name": "grouphashid",
+													"type": "string",
+													"initialValue": "NULL",
+													"comment": "Shortname for accessing the MonsterGroupHashID value.",
+													"isStatic": false,
+													"isConstant": false,
+													"sid": 936937616547436
+												},
+												{
+													"eventType": "block",
+													"conditions": [],
+													"actions": [
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 526992656250961,
+															"parameters": {
+																"variable": "grouphashid",
+																"value": "tokenat(tokenat(Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER), 0, \"|\"), 1, \"@\")"
+															}
+														},
+														{
+															"type": "comment",
+															"text": "Increment the MonsterCount token of the Photon cipher property (\"|\" token 0)"
+														},
+														{
+															"id": "setpropertyofmyroom103",
+															"objectClass": "Photon",
+															"sid": 361217455389246,
+															"parameters": {
+																"propname0": "\"MonstersCipher\"",
+																"value1": "Functions.Enigma_Encrypt(replace(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), 0, \"|\"), \"\"&int(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), 0, \"|\"))+1), K_BROWSER)",
+																"webforward4": "no",
+																"checkandset7": "no",
+																"expectedvalue8": "0"
+															}
+														},
+														{
+															"callFunction": "Debug-Console-Log",
+															"sid": 971953879382358,
+															"parameters": [
+																"\"Monsters Photon cipher property updated to : \"&Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER)"
+															]
+														},
+														{
+															"id": "setpropertyofmyroom103",
+															"objectClass": "Photon",
+															"sid": 909127223850163,
+															"parameters": {
+																"propname0": "\"MonstersCipher\"",
+																"value1": "Functions.Enigma_Encrypt((Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER)&\"|\"&Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)), K_BROWSER)",
+																"webforward4": "no",
+																"checkandset7": "no",
+																"expectedvalue8": "0"
+															}
+														},
+														{
+															"callFunction": "Debug-Console-Log",
+															"sid": 727870196626540,
+															"parameters": [
+																"\"Monsters Photon cipher property updated to : \"&Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER)"
+															]
+														},
+														{
+															"type": "comment",
+															"text": "Spawn the monster"
+														},
+														{
+															"callFunction": "Monsters-Cipher-SpawnGroup",
+															"sid": 595568418576933,
+															"parameters": [
+																"grouphashid"
+															]
+														}
+													],
+													"sid": 204959516356704
+												}
+											]
+										}
+									]
+								}
+							],
+							"isOrBlock": true
+						}
+					],
+					"sid": 150147340978062
+				}
+			]
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "monsters_ Cipher Function",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "Monsters-Cipher-Update",
+					"functionDescription": "Push an update from the host client to the cipher. Potentially push manual string of encrypted data. Otherwise, rely on internal logic of the program to fetch values (like coordinates) and update the cipher.",
+					"functionCategory": "Monsters, Cipher",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pUpdateType",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"sid": 395994519806592
+						},
+						{
+							"name": "pUpdateAll",
+							"type": "boolean",
+							"initialValue": "false",
+							"comment": "",
+							"sid": 400096757187962
+						},
+						{
+							"name": "pMonsterHashID",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"sid": 404786342293102
+						},
+						{
+							"name": "pMonsterGroupHashID",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"sid": 256209235750100
+						},
+						{
+							"name": "pEncryptedValue",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"sid": 678593047089315
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 491376161852511,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "leader_status",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 538053393277719
+						},
+						{
+							"eventType": "variable",
+							"name": "animator",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 168848309282051
+						},
+						{
+							"eventType": "variable",
+							"name": "group_size",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 288086960304132
+						},
+						{
+							"eventType": "variable",
+							"name": "hashid",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 416433373149796
+						},
+						{
+							"eventType": "variable",
+							"name": "group_hashid",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 522747799927595
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 700806102568564,
+									"parameters": {
+										"variable": "pUpdateAll"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 766129904825534,
+							"children": [
+								{
+									"eventType": "variable",
+									"name": "temp",
+									"type": "string",
+									"initialValue": "",
+									"comment": "",
+									"isStatic": true,
+									"isConstant": false,
+									"sid": 213430118218415
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 601421126539843,
+											"parameters": {
+												"variable": "pUpdateType",
+												"comparison": 0,
+												"value": "\"Position\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 793110863929091,
+									"children": [
+										{
+											"eventType": "variable",
+											"name": "spawn_x",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 276450011672034
+										},
+										{
+											"eventType": "variable",
+											"name": "spawn_y",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 699421167062224
+										},
+										{
+											"eventType": "variable",
+											"name": "x",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 830908145301295
+										},
+										{
+											"eventType": "variable",
+											"name": "y",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 717883190333660
+										},
+										{
+											"eventType": "variable",
+											"name": "move_dir",
+											"type": "string",
+											"initialValue": "NULL",
+											"comment": "",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 488723601887113
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "for-each",
+													"objectClass": "System",
+													"sid": 612974996308938,
+													"parameters": {
+														"object": "MonsterLeader"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 164807830961637,
+													"parameters": {
+														"variable": "group_hashid",
+														"value": "MonsterLeader.MonsterGroupHashID"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 306491357085600,
+													"parameters": {
+														"variable": "spawn_x",
+														"value": "GridGraph.PositionToTileX(MonsterLeader.X)"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 431644698536193,
+													"parameters": {
+														"variable": "spawn_y",
+														"value": "GridGraph.PositionToTileY(MonsterLeader.Y)"
+													}
+												}
+											],
+											"sid": 806224664813632,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "for",
+															"objectClass": "System",
+															"sid": 933180815388277,
+															"parameters": {
+																"name": "\"i_DataToken\"",
+																"start-index": "1",
+																"end-index": "tokencount(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), \"|\")"
+															}
+														}
+													],
+													"actions": [],
+													"sid": 433556771891564,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "compare-two-values",
+																	"objectClass": "System",
+																	"sid": 506711707785843,
+																	"parameters": {
+																		"first-value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 1, \"@\")",
+																		"comparison": 0,
+																		"second-value": "group_hashid"
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 808978395464795,
+																	"parameters": {
+																		"variable": "temp",
+																		"value": "replace(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 2, \"@\"), spawn_x&\"#\"&spawn_y)"
+																	}
+																},
+																{
+																	"id": "setpropertyofmyroom103",
+																	"objectClass": "Photon",
+																	"sid": 890661666399306,
+																	"parameters": {
+																		"propname0": "\"MonstersCipher\"",
+																		"value1": "Functions.Enigma_Encrypt(replace(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), temp), K_BROWSER)",
+																		"webforward4": "no",
+																		"checkandset7": "no",
+																		"expectedvalue8": "0"
+																	}
+																}
+															],
+															"sid": 344762003509234
+														}
+													]
+												}
+											]
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "for-each",
+													"objectClass": "System",
+													"sid": 505168753237814,
+													"parameters": {
+														"object": "Monster"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 538440620208861,
+													"parameters": {
+														"variable": "hashid",
+														"value": "Monster.MonsterHashID"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 848420485210677,
+													"parameters": {
+														"variable": "x",
+														"value": "Monster.X"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 642413104629718,
+													"parameters": {
+														"variable": "y",
+														"value": "Monster.Y"
+													}
+												}
+											],
+											"sid": 354237972511658,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "for",
+															"objectClass": "System",
+															"sid": 509349842200544,
+															"parameters": {
+																"name": "\"i_DataToken\"",
+																"start-index": "1",
+																"end-index": "tokencount(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), \"|\")"
+															}
+														}
+													],
+													"actions": [],
+													"sid": 744602907869640,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "compare-two-values",
+																	"objectClass": "System",
+																	"sid": 201458943990444,
+																	"parameters": {
+																		"first-value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 0, \"@\")",
+																		"comparison": 0,
+																		"second-value": "hashid"
+																	}
+																},
+																{
+																	"id": "pick-children",
+																	"objectClass": "Monster",
+																	"sid": 304651662089262,
+																	"parameters": {
+																		"child": "asset_Monster",
+																		"which": "own"
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"id": "set-eventvar-value",
+																	"objectClass": "System",
+																	"sid": 480493718421073,
+																	"parameters": {
+																		"variable": "temp",
+																		"value": "replace(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 4, \"@\"), x&\"#\"&y&\"#\"&asset_Monster.AnimationName)"
+																	}
+																},
+																{
+																	"id": "setpropertyofmyroom103",
+																	"objectClass": "Photon",
+																	"sid": 330749037935716,
+																	"parameters": {
+																		"propname0": "\"MonstersCipher\"",
+																		"value1": "Functions.Enigma_Encrypt(replace(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), temp), K_BROWSER)",
+																		"webforward4": "no",
+																		"checkandset7": "no",
+																		"expectedvalue8": "0"
+																	}
+																}
+															],
+															"sid": 200377522172118
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 161119824465055
+								},
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 794017092365526,
+									"parameters": {
+										"variable": "pUpdateAll"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [],
+							"sid": 347217605115801,
+							"children": [
+								{
+									"eventType": "variable",
+									"name": "temp",
+									"type": "string",
+									"initialValue": "",
+									"comment": "",
+									"isStatic": true,
+									"isConstant": false,
+									"sid": 966701187817317
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 530935140847396,
+											"parameters": {
+												"variable": "pUpdateType",
+												"comparison": 0,
+												"value": "\"Health\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 884262723716210,
+									"children": [
+										{
+											"eventType": "variable",
+											"name": "current_health",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 165734551816173
+										},
+										{
+											"eventType": "variable",
+											"name": "max_health",
+											"type": "number",
+											"initialValue": "-1",
+											"comment": "",
+											"isStatic": false,
+											"isConstant": false,
+											"sid": 305252434171847
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "for",
+													"objectClass": "System",
+													"sid": 989712164236298,
+													"parameters": {
+														"name": "\"i_DataToken\"",
+														"start-index": "0",
+														"end-index": "tokencount(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), \"|\")"
+													}
+												}
+											],
+											"actions": [],
+											"sid": 156257727248630,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 366994075506401,
+															"parameters": {
+																"first-value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 0, \"@\")",
+																"comparison": 0,
+																"second-value": "pMonsterHashID"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 399296441268051,
+															"parameters": {
+																"variable": "max_health",
+																"value": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 3, \"@\"), 1, \"#\"))"
+															}
+														},
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 528864094743142,
+															"parameters": {
+																"variable": "temp",
+																"value": "replace(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 3, \"@\"), Functions.Enigma_Decrypt(\"\"&pEncryptedValue, K_BROWSER)&\"#\"&max_health)"
+															}
+														},
+														{
+															"id": "setpropertyofmyroom103",
+															"objectClass": "Photon",
+															"sid": 420805393037756,
+															"parameters": {
+																"propname0": "\"MonstersCipher\"",
+																"value1": "Functions.Enigma_Encrypt(replace(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), temp), K_BROWSER)",
+																"webforward4": "no",
+																"checkandset7": "no",
+																"expectedvalue8": "0"
+															}
+														},
+														{
+															"callFunction": "Debug-Console-Log",
+															"sid": 502110252548903,
+															"parameters": [
+																"\"Health updated for monster \" & pMonsterHashID"
+															]
+														}
+													],
+													"sid": 613217931988339
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"functionName": "Monsters-Cipher-Unload",
+					"functionDescription": "Unload the Photon room property \"MonstersCipher\"'s data to refresh the display of the client.",
+					"functionCategory": "Monsters, Cipher",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 579262246013035,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "monsters_LocalGroupCount",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 974197371024664
+						},
+						{
+							"eventType": "variable",
+							"name": "monsters_UnloadingIndex",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 340723506347718
+						},
+						{
+							"eventType": "variable",
+							"name": "monsters_UnloadingGroupSize",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 878253379530074
+						},
+						{
+							"eventType": "variable",
+							"name": "monsters_UnloadingHashID",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 665934049714646
+						},
+						{
+							"eventType": "variable",
+							"name": "monsters_UnloadingCurrentHealth",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 890725416793733
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 755733908973790,
+									"parameters": {
+										"variable": "monsters_LocalGroupCount",
+										"value": "int(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), 0, \"|\"))"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 811349526087667,
+									"parameters": {
+										"variable": "monsters_UnloadingIndex",
+										"value": "1"
+									}
+								}
+							],
+							"sid": 471750039380309
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 840698988742701,
+									"parameters": {
+										"name": "\"i_UnloadingMonsterGroup\"",
+										"start-index": "1",
+										"end-index": "monsters_LocalGroupCount"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 452063498939812,
+									"parameters": {
+										"variable": "monsters_UnloadingGroupSize",
+										"value": "int(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), monsters_UnloadingIndex, \"|\"), 0, \"@\"))"
+									}
+								},
+								{
+									"callFunction": "Debug-Console-Log",
+									"sid": 457455456321261,
+									"parameters": [
+										"\"Unloading monster data at index \" & monsters_UnloadingIndex"
+									]
+								},
+								{
+									"id": "add-to-eventvar",
+									"objectClass": "System",
+									"sid": 133494591176746,
+									"parameters": {
+										"variable": "monsters_UnloadingIndex",
+										"value": "1"
+									}
+								}
+							],
+							"sid": 120360736753786,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 545389463692461,
+											"parameters": {
+												"name": "\"i_UnloadingMonster\"",
+												"start-index": "0",
+												"end-index": "monsters_UnloadingGroupSize"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 961634734615140,
+											"parameters": {
+												"variable": "monsters_UnloadingHashID",
+												"value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), monsters_UnloadingIndex, \"|\"), 0, \"@\")"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 706649220493080,
+											"parameters": {
+												"variable": "monsters_UnloadingCurrentHealth",
+												"value": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), monsters_UnloadingIndex, \"|\"), 3, \"@\"), 0, \"#\"))"
+											}
+										},
+										{
+											"callFunction": "Debug-Console-Log",
+											"sid": 459667876702172,
+											"disabled": true,
+											"parameters": [
+												"\"Unloading monster \" &monsters_UnloadingHashID"
+											]
+										},
+										{
+											"callFunction": "Debug-Console-Log",
+											"sid": 253413208215263,
+											"disabled": true,
+											"parameters": [
+												"\"Unloading monster \" & loopindex(\"i_UnloadingMonster\")"
+											]
+										},
+										{
+											"id": "add-to-eventvar",
+											"objectClass": "System",
+											"sid": 741848413876127,
+											"parameters": {
+												"variable": "monsters_UnloadingIndex",
+												"value": "1"
+											}
+										}
+									],
+									"sid": 720098505082412,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "pick-by-comparison",
+													"objectClass": "System",
+													"sid": 397143426943759,
+													"parameters": {
+														"object": "Monster",
+														"expression": "Monster.MonsterHashID",
+														"comparison": 0,
+														"value": "monsters_UnloadingHashID"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-instvar-value",
+													"objectClass": "Monster",
+													"sid": 198642934602885,
+													"parameters": {
+														"instance-variable": "CurrentHealth",
+														"value": "monsters_UnloadingCurrentHealth"
+													}
+												}
+											],
+											"sid": 427826077561855
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"functionName": "Monsters-Cipher-SyncDisplay",
+					"functionDescription": "Load display data from the MonstersCipher Photon property and actualized peer clients.",
+					"functionCategory": "Monsters, Cipher",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 114385726022998,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "hashid",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 485244372587471
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each",
+									"objectClass": "System",
+									"sid": 199472825273949,
+									"parameters": {
+										"object": "Monster"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 977060887544588,
+									"parameters": {
+										"variable": "hashid",
+										"value": "Monster.MonsterHashID"
+									}
+								}
+							],
+							"sid": 780342544767550,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 617491905198493,
+											"parameters": {
+												"name": "\"i_DataToken\"",
+												"start-index": "1",
+												"end-index": "tokencount(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), \"|\")"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 480516581000475,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 783590756942317,
+													"parameters": {
+														"first-value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 0, \"@\")",
+														"comparison": 0,
+														"second-value": "hashid"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-position",
+													"objectClass": "Monster",
+													"sid": 824621614505301,
+													"parameters": {
+														"x": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 4, \"@\"), 0, \"#\"))",
+														"y": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 4, \"@\"), 1, \"#\"))"
+													}
+												}
+											],
+											"sid": 734079228162449,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "pick-children",
+															"objectClass": "Monster",
+															"sid": 236931646591993,
+															"parameters": {
+																"child": "asset_Monster",
+																"which": "own"
+															}
+														},
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 274664350807314,
+															"parameters": {
+																"first-value": "asset_Monster.AnimationName",
+																"comparison": 1,
+																"second-value": "tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 4, \"@\"), 2, \"#\")"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "set-animation",
+															"objectClass": "asset_Monster",
+															"sid": 909649813381990,
+															"parameters": {
+																"animation": "tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 4, \"@\"), 2, \"#\")",
+																"from": "current-frame"
+															}
+														},
+														{
+															"callFunction": "Debug-Console-Log",
+															"sid": 377330943902641,
+															"parameters": [
+																"\"AnimSet\""
+															]
+														}
+													],
+													"sid": 879930906647447,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [],
+															"actions": [
+																{
+																	"id": "set-visible",
+																	"objectClass": "asset_Monster",
+																	"sid": 373456542613349,
+																	"parameters": {
+																		"visibility": "visible"
+																	}
+																}
+															],
+															"sid": 295696840966870
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"functionName": "Monsters-Cipher-SpawnGroup",
+					"functionDescription": "Spawn a monster group based on the property corresponding to the hashID.",
+					"functionCategory": "Monsters",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pGroupHashID_toSpawn",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"sid": 396054983757949
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 658299902212378,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "current_index",
+							"type": "number",
+							"initialValue": "1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 359799618525770
+						},
+						{
+							"eventType": "variable",
+							"name": "group_size",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 848308695293722
+						},
+						{
+							"eventType": "variable",
+							"name": "group_hashid",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 799773061446388
+						},
+						{
+							"eventType": "variable",
+							"name": "spawn_x",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 704257326249085
+						},
+						{
+							"eventType": "variable",
+							"name": "spawn_y",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 339594407301702
+						},
+						{
+							"eventType": "variable",
+							"name": "hashid",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 666349417532571
+						},
+						{
+							"eventType": "variable",
+							"name": "leader_status",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 641731972151176
+						},
+						{
+							"eventType": "variable",
+							"name": "animator",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 911609264257956
+						},
+						{
+							"eventType": "variable",
+							"name": "current_health",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 569210857911525
+						},
+						{
+							"eventType": "variable",
+							"name": "max_health",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 340036728922056
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 241230924903199,
+									"parameters": {
+										"name": "\"i_DataToken\"",
+										"start-index": "1",
+										"end-index": "tokencount(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), \"|\")"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 512641509158028,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 356095522905750,
+											"parameters": {
+												"first-value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 1, \"@\")",
+												"comparison": 0,
+												"second-value": "pGroupHashID_toSpawn"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 881887303703722,
+											"parameters": {
+												"variable": "group_size",
+												"value": "int(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 0, \"@\"))"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 529491428270784,
+											"parameters": {
+												"variable": "group_hashid",
+												"value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 1, \"@\")"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 279038018228070,
+											"parameters": {
+												"variable": "spawn_x",
+												"value": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 2, \"@\"), 0, \"#\"))"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 838065517013791,
+											"parameters": {
+												"variable": "spawn_y",
+												"value": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\"), \"|\"), 2, \"@\"), 1, \"#\"))"
+											}
+										}
+									],
+									"sid": 943697941773425,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "for",
+													"objectClass": "System",
+													"sid": 631088411484511,
+													"parameters": {
+														"name": "\"i_Monster\"",
+														"start-index": "1",
+														"end-index": "1+group_size"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 938519300112561,
+													"parameters": {
+														"variable": "hashid",
+														"value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\")+loopindex(\"i_Monster\"), \"|\"), 0, \"@\")"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 945678169592114,
+													"parameters": {
+														"variable": "leader_status",
+														"value": "int(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\")+loopindex(\"i_Monster\"), \"|\"), 1, \"@\"))"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 264258811276593,
+													"parameters": {
+														"variable": "animator",
+														"value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\")+loopindex(\"i_Monster\"), \"|\"), 2, \"@\")"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 423924930662966,
+													"parameters": {
+														"variable": "current_health",
+														"value": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\")+loopindex(\"i_Monster\"), \"|\"), 3, \"@\"), 0, \"#\"))"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 951595619444706,
+													"parameters": {
+														"variable": "max_health",
+														"value": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), loopindex(\"i_DataToken\")+loopindex(\"i_Monster\"), \"|\"), 3, \"@\"), 1, \"#\"))"
+													}
+												}
+											],
+											"sid": 321541670328633,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 323418560794917,
+															"parameters": {
+																"first-value": "leader_status",
+																"comparison": 0,
+																"second-value": "0"
+															}
+														}
+													],
+													"actions": [
+														{
+															"callFunction": "Monsters-GameObject-CreateGame",
+															"sid": 747291856238843,
+															"parameters": [
+																false,
+																"-1",
+																"group_hashid",
+																"hashid",
+																"animator",
+																"spawn_x",
+																"spawn_y",
+																"current_health",
+																"max_health"
+															]
+														}
+													],
+													"sid": 565267077727802
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "else",
+															"objectClass": "System",
+															"sid": 570609213698728
+														},
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 467160019445264,
+															"parameters": {
+																"first-value": "leader_status",
+																"comparison": 0,
+																"second-value": "1"
+															}
+														}
+													],
+													"actions": [
+														{
+															"callFunction": "Monsters-GameObject-CreateGame",
+															"sid": 389269632406647,
+															"parameters": [
+																true,
+																"group_size",
+																"group_hashid",
+																"hashid",
+																"animator",
+																"spawn_x",
+																"spawn_y",
+																"current_health",
+																"max_health"
+															]
+														}
+													],
+													"sid": 549065107096213
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"functionName": "Monsters-Cipher-SpawnAllGroups",
+					"functionDescription": "Spawn all monster groups corresponding to the current state of the \"Monsters cipher\".",
+					"functionCategory": "Monsters",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pGroupCount",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"sid": 531735211593448
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 507360229983428,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "current_index",
+							"type": "number",
+							"initialValue": "1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 228461715404396
+						},
+						{
+							"eventType": "variable",
+							"name": "group_size",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 894507285602471
+						},
+						{
+							"eventType": "variable",
+							"name": "group_hashid",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 839101915118402
+						},
+						{
+							"eventType": "variable",
+							"name": "spawn_x",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 142642842012517
+						},
+						{
+							"eventType": "variable",
+							"name": "spawn_y",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 913785871306790
+						},
+						{
+							"eventType": "variable",
+							"name": "hashid",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 434696239851442
+						},
+						{
+							"eventType": "variable",
+							"name": "leader_status",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 127186879382916
+						},
+						{
+							"eventType": "variable",
+							"name": "animator",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 714447318119770
+						},
+						{
+							"eventType": "variable",
+							"name": "current_health",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 868140557474903
+						},
+						{
+							"eventType": "variable",
+							"name": "max_health",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 961910758446131
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 313990213041603,
+									"parameters": {
+										"name": "\"i_MonsterGroup\"",
+										"start-index": "1",
+										"end-index": "pGroupCount"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 199215740220434,
+									"parameters": {
+										"variable": "group_size",
+										"value": "int(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), current_index, \"|\"), 0, \"@\"))"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 217649279776563,
+									"parameters": {
+										"variable": "group_hashid",
+										"value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), current_index, \"|\"), 1, \"@\")"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 347581058792940,
+									"parameters": {
+										"variable": "spawn_x",
+										"value": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), current_index, \"|\"), 2, \"@\"), 0, \"#\"))"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 770881149080279,
+									"parameters": {
+										"variable": "spawn_y",
+										"value": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), current_index, \"|\"), 2, \"@\"), 1, \"#\"))"
+									}
+								}
+							],
+							"sid": 733281572269049,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 970705388061232,
+											"parameters": {
+												"name": "\"i_Monster\"",
+												"start-index": "1",
+												"end-index": "1+group_size"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 644716194655615,
+											"parameters": {
+												"variable": "hashid",
+												"value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), current_index+loopindex(\"i_Monster\"), \"|\"), 0, \"@\")"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 545506263596129,
+											"parameters": {
+												"variable": "leader_status",
+												"value": "int(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), current_index+loopindex(\"i_Monster\"), \"|\"), 1, \"@\"))"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 117251208073558,
+											"parameters": {
+												"variable": "animator",
+												"value": "tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), current_index+loopindex(\"i_Monster\"), \"|\"), 2, \"@\")"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 151662295198474,
+											"parameters": {
+												"variable": "current_health",
+												"value": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), current_index+loopindex(\"i_Monster\"), \"|\"), 3, \"@\"), 0, \"#\"))"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 431166464221643,
+											"parameters": {
+												"variable": "max_health",
+												"value": "int(tokenat(tokenat(tokenat(Functions.Enigma_Decrypt(Photon.PropertyOfMyRoom(\"MonstersCipher\"), K_BROWSER), current_index+loopindex(\"i_Monster\"), \"|\"), 3, \"@\"), 1, \"#\"))"
+											}
+										}
+									],
+									"sid": 585871390790855,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 810953883498196,
+													"parameters": {
+														"variable": "leader_status",
+														"comparison": 0,
+														"value": "0"
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "Monsters-GameObject-CreateGame",
+													"sid": 948888121100762,
+													"parameters": [
+														false,
+														"group_size",
+														"group_hashid",
+														"hashid",
+														"animator",
+														"spawn_x",
+														"spawn_y",
+														"current_health",
+														"max_health"
+													]
+												}
+											],
+											"sid": 365354570339130
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 654906497871643
+												},
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 193901843393857,
+													"parameters": {
+														"variable": "leader_status",
+														"comparison": 0,
+														"value": "1"
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "Monsters-GameObject-CreateGame",
+													"sid": 671076288129442,
+													"parameters": [
+														true,
+														"group_size",
+														"group_hashid",
+														"hashid",
+														"animator",
+														"spawn_x",
+														"spawn_y",
+														"current_health",
+														"max_health"
+													]
+												}
+											],
+											"sid": 697436356180385
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "add-to-eventvar",
+											"objectClass": "System",
+											"sid": 720687411910927,
+											"parameters": {
+												"variable": "current_index",
+												"value": "2+group_size"
+											}
+										}
+									],
+									"sid": 100066074923003
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 624692900106912
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "monsters_ GameObject Function",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "Monsters-GameObject-CreateGame",
+					"functionDescription": "Create a physical monster object.",
+					"functionCategory": "Monsters, GameObject",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pLeader",
+							"type": "boolean",
+							"initialValue": "false",
+							"comment": "True (1) if creating a leader",
+							"sid": 315354569450537
+						},
+						{
+							"name": "pFollowerCount",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"sid": 971607484187585
+						},
+						{
+							"name": "pMonsterGroupHashID",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Hash ID to associate with the created monster group.",
+							"sid": 987126220701046
+						},
+						{
+							"name": "pMonsterHashID",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"sid": 651700311018918
+						},
+						{
+							"name": "pAnimatorCore",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Animator core to set the MonsterLeader to.",
+							"sid": 285944100287048
+						},
+						{
+							"name": "pSpawnX",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"sid": 525517918433019
+						},
+						{
+							"name": "pSpawnY",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"sid": 854615636580534
+						},
+						{
+							"name": "pCurrentHealth",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"sid": 407955826798055
+						},
+						{
+							"name": "pMaxHealth",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"sid": 250372257922570
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 449117401983543,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 541977201714447,
+									"parameters": {
+										"variable": "pLeader"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "create-object",
+									"objectClass": "System",
+									"sid": 631785542755466,
+									"parameters": {
+										"object-to-create": "MonsterLeader",
+										"layer": "\"Monsters\"",
+										"x": "GridGraph.TileToPositionX(pSpawnX)",
+										"y": "GridGraph.TileToPositionY(pSpawnY)",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 867500759456855,
+									"parameters": {
+										"instance-variable": "MonsterGroupHashID",
+										"value": "pMonsterGroupHashID"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 188081634734298,
+									"parameters": {
+										"instance-variable": "MonsterHashID",
+										"value": "pMonsterHashID"
+									}
+								},
+								{
+									"id": "set-boolean-instvar",
+									"objectClass": "MonsterLeader",
+									"sid": 824031056773650,
+									"parameters": {
+										"instance-variable": "Leader",
+										"value": "true"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 837768806352765,
+									"parameters": {
+										"instance-variable": "FollowerCount",
+										"value": "pFollowerCount"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 765525486655633,
+									"parameters": {
+										"instance-variable": "AnimatorCore",
+										"value": "pAnimatorCore"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 824224192076779,
+									"disabled": true,
+									"parameters": {
+										"instance-variable": "CurrentHealth",
+										"value": "pCurrentHealth"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 507699667150000,
+									"parameters": {
+										"instance-variable": "MaxHealth",
+										"value": "pMaxHealth"
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterLeader",
+									"sid": 733483721077012,
+									"parameters": {
+										"object": "asset_Monster",
+										"layer": "\"Assets_YasZ\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterLeader",
+									"sid": 216353354595391,
+									"parameters": {
+										"child": "asset_Monster",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": true,
+										"transform-h": true,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterLeader",
+									"sid": 731226036490875,
+									"parameters": {
+										"object": "debugtext_MonsterGroupInfo",
+										"layer": "\"UI\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterLeader",
+									"sid": 934731669169423,
+									"parameters": {
+										"child": "debugtext_MonsterGroupInfo",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": false,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterLeader",
+									"sid": 655611351606297,
+									"parameters": {
+										"object": "UI_Healthbar",
+										"layer": "\"UI\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterLeader",
+									"sid": 491426079032506,
+									"parameters": {
+										"object": "UI_HealthbarFiller",
+										"layer": "\"UI\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "set-y",
+									"objectClass": "UI_Healthbar",
+									"sid": 558719492920268,
+									"parameters": {
+										"y": "Self.Y-ui__HEALTH_BAR_PIXEL_HEIGHT"
+									}
+								},
+								{
+									"id": "set-y",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 545560884537942,
+									"parameters": {
+										"y": "Self.Y-ui__HEALTH_BAR_PIXEL_HEIGHT"
+									}
+								},
+								{
+									"id": "set-x",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 102672614173952,
+									"parameters": {
+										"x": "Self.X-16"
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterLeader",
+									"sid": 762804252801987,
+									"parameters": {
+										"child": "UI_Healthbar",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterLeader",
+									"sid": 802537686757173,
+									"parameters": {
+										"child": "UI_HealthbarFiller",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								}
+							],
+							"sid": 924698229474688,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 794274018315916,
+											"parameters": {
+												"variable": "photonCloud_RoomMaster"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-angle-of-motion",
+											"objectClass": "MonsterLeader",
+											"sid": 740874738879222,
+											"behaviorType": "Move",
+											"parameters": {
+												"angle": "random(0,360)"
+											}
+										},
+										{
+											"id": "set-speed",
+											"objectClass": "MonsterLeader",
+											"sid": 585641538190071,
+											"behaviorType": "Move",
+											"parameters": {
+												"speed": "random(4, 7)\n"
+											}
+										},
+										{
+											"id": "raiseevent17",
+											"objectClass": "Photon",
+											"sid": 885179127492066,
+											"parameters": {
+												"code0": "60",
+												"data1": "MonsterLeader.MonsterHashID",
+												"interestgroup2": "0",
+												"cache11": "donotcache",
+												"receivers15": "others",
+												"targetactors16": "\"\"",
+												"webforward19": "no"
+											}
+										}
+									],
+									"sid": 347187981850689
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 148049798175744
+								},
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 382714506079860,
+									"parameters": {
+										"variable": "pLeader"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "create-object",
+									"objectClass": "System",
+									"sid": 481182506807687,
+									"parameters": {
+										"object-to-create": "MonsterFollower",
+										"layer": "\"Monsters\"",
+										"x": "GridGraph.TileToPositionX(pSpawnX+choose(-1,1))",
+										"y": "GridGraph.TileToPositionY(pSpawnY+choose(-1,1))",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 790781108690666,
+									"parameters": {
+										"instance-variable": "MonsterGroupHashID",
+										"value": "pMonsterGroupHashID"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 757654973855154,
+									"parameters": {
+										"instance-variable": "MonsterHashID",
+										"value": "pMonsterHashID"
+									}
+								},
+								{
+									"id": "set-boolean-instvar",
+									"objectClass": "MonsterFollower",
+									"sid": 666866578584987,
+									"parameters": {
+										"instance-variable": "Leader",
+										"value": "false"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 485622868868313,
+									"parameters": {
+										"instance-variable": "FollowerCount",
+										"value": "pFollowerCount"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 957595028848364,
+									"parameters": {
+										"instance-variable": "AnimatorCore",
+										"value": "pAnimatorCore"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 146295818380183,
+									"disabled": true,
+									"parameters": {
+										"instance-variable": "CurrentHealth",
+										"value": "pCurrentHealth"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterFollower",
+									"sid": 573441074812658,
+									"parameters": {
+										"instance-variable": "MaxHealth",
+										"value": "pMaxHealth"
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterFollower",
+									"sid": 883137470080080,
+									"parameters": {
+										"object": "asset_Monster",
+										"layer": "\"Assets_YasZ\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterFollower",
+									"sid": 259816320101169,
+									"parameters": {
+										"child": "asset_Monster",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": true,
+										"transform-h": true,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterFollower",
+									"sid": 628194252092425,
+									"parameters": {
+										"object": "UI_Healthbar",
+										"layer": "\"UI\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "MonsterFollower",
+									"sid": 613441200074138,
+									"parameters": {
+										"object": "UI_HealthbarFiller",
+										"layer": "\"UI\"",
+										"image-point": "0",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "set-y",
+									"objectClass": "UI_Healthbar",
+									"sid": 983970487769517,
+									"parameters": {
+										"y": "Self.Y-16"
+									}
+								},
+								{
+									"id": "set-y",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 154948248158361,
+									"parameters": {
+										"y": "Self.Y-16"
+									}
+								},
+								{
+									"id": "set-x",
+									"objectClass": "UI_HealthbarFiller",
+									"sid": 938933121143117,
+									"parameters": {
+										"x": "Self.X-16"
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterFollower",
+									"sid": 133652937344780,
+									"parameters": {
+										"child": "UI_Healthbar",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "MonsterFollower",
+									"sid": 643917011030235,
+									"parameters": {
+										"child": "UI_HealthbarFiller",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								}
+							],
+							"sid": 623307338833719
+						}
+					]
+				},
+				{
+					"functionName": "Monsters-GameObject-Bind",
+					"functionDescription": "Bind existing monsters according to their GroupHashID parentage.",
+					"functionCategory": "Monsters, GameObject",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 137231890349283,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each",
+									"objectClass": "System",
+									"sid": 456136087917637,
+									"parameters": {
+										"object": "MonsterLeader"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 585016575046506,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-by-comparison",
+											"objectClass": "System",
+											"sid": 966526321953106,
+											"parameters": {
+												"object": "MonsterFollower",
+												"expression": "MonsterFollower.MonsterGroupHashID",
+												"comparison": 0,
+												"value": "MonsterLeader.MonsterGroupHashID"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "add-child",
+											"objectClass": "MonsterLeader",
+											"sid": 530605302951087,
+											"parameters": {
+												"child": "MonsterFollower",
+												"transform-x": false,
+												"transform-y": false,
+												"transform-w": false,
+												"transform-h": false,
+												"transform-a": false,
+												"transform-z-elevation": false,
+												"destroy-with-parent": false
+											}
+										},
+										{
+											"id": "set-pin-distance",
+											"objectClass": "MonsterFollower",
+											"sid": 435987526063121,
+											"behaviorType": "Pin",
+											"parameters": {
+												"distance": "64"
+											}
+										},
+										{
+											"id": "pin-to-object-distance",
+											"objectClass": "MonsterFollower",
+											"sid": 824852133780605,
+											"behaviorType": "Pin",
+											"parameters": {
+												"pin-to": "MonsterLeader",
+												"mode": "rope-style"
+											}
+										}
+									],
+									"sid": 285749634769889
+								}
+							]
+						}
+					]
+				},
+				{
+					"functionName": "Monsters-GameObject-ChangeAngle",
+					"functionDescription": "",
+					"functionCategory": "Monsters, GameObject",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pUID",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"sid": 361062796923083
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [
+						{
+							"id": "pick-by-unique-id",
+							"objectClass": "MonsterLeader",
+							"sid": 959173421501129,
+							"parameters": {
+								"unique-id": "pUID"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-speed",
+							"objectClass": "MonsterLeader",
+							"sid": 592224794794000,
+							"behaviorType": "Move",
+							"parameters": {
+								"speed": "random(1,3)"
+							}
+						},
+						{
+							"id": "set-angle-of-motion",
+							"objectClass": "MonsterLeader",
+							"sid": 316249770493482,
+							"behaviorType": "Move",
+							"parameters": {
+								"angle": "Self.Move.AngleOfMotion + choose(-90, -45, -15, 0, 15, 45, 90)"
+							}
+						}
+					],
+					"sid": 739108539607032,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 980660998088263,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 4,
+										"second-value": "-135"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 315662070462839,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 2,
+										"second-value": "-45"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 249261853091140,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "\"Up\""
+									}
+								}
+							],
+							"sid": 560902350865260,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-children",
+											"objectClass": "MonsterLeader",
+											"sid": 322476904114479,
+											"parameters": {
+												"child": "MonsterFollower",
+												"which": "own"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-instvar-value",
+											"objectClass": "MonsterFollower",
+											"sid": 212698443233055,
+											"parameters": {
+												"instance-variable": "MoveDir",
+												"value": "\"Up\""
+											}
+										}
+									],
+									"sid": 497563194280809
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 189714012516784,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 3,
+										"second-value": "-135"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 925416913978874,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 4,
+										"second-value": "-180"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 141966527688992,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "\"Left\""
+									}
+								}
+							],
+							"sid": 758457302381478,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-children",
+											"objectClass": "MonsterLeader",
+											"sid": 988225316652824,
+											"parameters": {
+												"child": "MonsterFollower",
+												"which": "own"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-instvar-value",
+											"objectClass": "MonsterFollower",
+											"sid": 523679763345530,
+											"parameters": {
+												"instance-variable": "MoveDir",
+												"value": "\"Left\""
+											}
+										}
+									],
+									"sid": 614282779809762
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 228926928618648,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 3,
+										"second-value": "180"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 465490531059463,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 4,
+										"second-value": "135"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 613532523779815,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "\"Left\""
+									}
+								}
+							],
+							"sid": 270885145985993,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-children",
+											"objectClass": "MonsterLeader",
+											"sid": 904925671792118,
+											"parameters": {
+												"child": "MonsterFollower",
+												"which": "own"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-instvar-value",
+											"objectClass": "MonsterFollower",
+											"sid": 719729821077183,
+											"parameters": {
+												"instance-variable": "MoveDir",
+												"value": "\"Left\""
+											}
+										}
+									],
+									"sid": 877309766022792
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 846927828546839,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 3,
+										"second-value": "135"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 938141782174879,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 5,
+										"second-value": "45"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 676552002580156,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "\"Down\""
+									}
+								}
+							],
+							"sid": 664564626739166,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-children",
+											"objectClass": "MonsterLeader",
+											"sid": 741394345913999,
+											"parameters": {
+												"child": "MonsterFollower",
+												"which": "own"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-instvar-value",
+											"objectClass": "MonsterFollower",
+											"sid": 587292343839859,
+											"parameters": {
+												"instance-variable": "MoveDir",
+												"value": "\"Down\""
+											}
+										}
+									],
+									"sid": 539958693478412
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 797370097783242,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 5,
+										"second-value": "-45"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 534069308877064,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 2,
+										"second-value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 812290323137159,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "\"Right\""
+									}
+								}
+							],
+							"sid": 602576350819583,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-children",
+											"objectClass": "MonsterLeader",
+											"sid": 935336968514298,
+											"parameters": {
+												"child": "MonsterFollower",
+												"which": "own"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-instvar-value",
+											"objectClass": "MonsterFollower",
+											"sid": 976495361702170,
+											"parameters": {
+												"instance-variable": "MoveDir",
+												"value": "\"Right\""
+											}
+										}
+									],
+									"sid": 554110576518665
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 426042716192231,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 5,
+										"second-value": "0"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 669317838050256,
+									"parameters": {
+										"first-value": "MonsterLeader.Move.AngleOfMotion",
+										"comparison": 2,
+										"second-value": "45"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "MonsterLeader",
+									"sid": 488598545442968,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "\"Right\""
+									}
+								}
+							],
+							"sid": 478413277821036,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-children",
+											"objectClass": "MonsterLeader",
+											"sid": 508539862179799,
+											"parameters": {
+												"child": "MonsterFollower",
+												"which": "own"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-instvar-value",
+											"objectClass": "MonsterFollower",
+											"sid": 810560929043197,
+											"parameters": {
+												"instance-variable": "MoveDir",
+												"value": "\"Right\""
+											}
+										}
+									],
+									"sid": 143577162200206
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 358116541549485
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "monsters_ Server Functions",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "Monsters-Server-ReturnSpawnState",
+					"functionDescription": "Request the spawn data from the php frontdesk.",
+					"functionCategory": "Monsters, Server",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"type": "comment",
+							"text": "Request a spawnState at the php Frontdesk. The spawnState will be accompanied by a spawn data cipher to create monsters that have been already spawned."
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 731619669767739,
+							"parameters": {
+								"variable": "server__data_NextSecret",
+								"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+							}
+						},
+						{
+							"type": "comment",
+							"text": "APPID and BK as usual (BK only for logging the user sessionkey)"
+						},
+						{
+							"type": "comment",
+							"text": "MHI = MapHashID"
+						},
+						{
+							"callFunction": "Server-AJAX-Prep",
+							"sid": 137182435464311,
+							"parameters": [
+								"\"Monsters_ReturnSpawnState\"",
+								"\"monsters/returnspawnstate.php?\"",
+								"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&MHI=\"&main__CurMapHashID"
+							]
+						}
+					],
+					"sid": 839901853897735
+				},
+				{
+					"functionName": "Monsters-Server-RefreshRespawnTimer",
+					"functionDescription": "Request the respawn timer from the php frontdesk.",
+					"functionCategory": "Monsters, Server",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 381640444775398,
+							"parameters": {
+								"variable": "server__data_NextSecret",
+								"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+							}
+						},
+						{
+							"type": "comment",
+							"text": "APPID and BK as usual (BK only for logging the user sessionkey)"
+						},
+						{
+							"type": "comment",
+							"text": "MHI = MapHashID"
+						},
+						{
+							"callFunction": "Server-AJAX-Prep",
+							"sid": 553403402142907,
+							"parameters": [
+								"\"Monsters_RefreshRespawnTimer\"",
+								"\"monsters/refreshrespawntimer.php?\"",
+								"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&MHI=\"&main__CurMapHashID"
+							]
+						}
+					],
+					"sid": 455900952322678
+				},
+				{
+					"functionName": "Monsters-Server-PushCipher",
+					"functionDescription": "Push the current MonstersCipher Photon property back to the php frontdesk.",
+					"functionCategory": "Monsters, Server",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 145162359383519,
+							"parameters": {
+								"variable": "server__data_NextSecret",
+								"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+							}
+						},
+						{
+							"type": "comment",
+							"text": "APPID and BK as usual (BK only for logging the user sessionkey)"
+						},
+						{
+							"type": "comment",
+							"text": "MHI = MapHashID, GPC= GroupsPositionsComposite"
+						},
+						{
+							"callFunction": "Server-AJAX-Prep",
+							"sid": 847061341664070,
+							"parameters": [
+								"\"Monsters_UpdateCipher\"",
+								"\"monsters/updatecipher.php?\"",
+								"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&MHI=\"&main__CurMapHashID&\"&MC=\"&Photon.PropertyOfMyRoom(\"MonstersCipher\")"
+							]
+						}
+					],
+					"sid": 652074783374554
+				},
+				{
+					"functionName": "Monsters-Server-CreateRequest",
+					"functionDescription": "Checks with the server if a new monster group can be spawned and return a signal to the client accordingly.",
+					"functionCategory": "Monsters, Server",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pX",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Encrypted X-coordinate to spawn the monster at.",
+							"sid": 104603013632765
+						},
+						{
+							"name": "pY",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Encrypted Y-coordinate to spawn the monster at.",
+							"sid": 832873920516957
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 167306752310186,
+							"parameters": {
+								"variable": "server__data_NextSecret",
+								"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+							}
+						},
+						{
+							"callFunction": "Server-AJAX-Prep",
+							"sid": 618461324935942,
+							"parameters": [
+								"\"Monsters_RequestCreate\"",
+								"\"monsters/requestcreate.php?\"",
+								"\"APPID=\"&server__data_NextSecret&\"&MHI=\"&main__CurMapHashID&\"&X=\"&pX&\"&Y=\"&pY"
+							]
+						}
+					],
+					"sid": 555678948825950
+				},
+				{
+					"functionName": "Monsters-Server-DamageRequest",
+					"functionDescription": "Request to deal damage to a monster to the php frontdesk and return a signal to the client accordingly.",
+					"functionCategory": "Monsters, Server",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "p_e_MonsterGroupHashIDe",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"sid": 193408403052272
+						},
+						{
+							"name": "p_e_MonsterHashIDe",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"sid": 237438216480751
+						},
+						{
+							"name": "p_e_DamageValue",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "",
+							"sid": 262034013548843
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 655643482516353,
+							"parameters": {
+								"variable": "server__data_NextSecret",
+								"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+							}
+						},
+						{
+							"callFunction": "Server-AJAX-Prep",
+							"sid": 689761947537942,
+							"parameters": [
+								"\"Monsters_Damage\"",
+								"\"monsters/damage.php?\"",
+								"\"APPID=\"&server__data_NextSecret&\"&MHI=\"&main__CurMapHashID&\"&MGHI=\"&p_e_MonsterGroupHashIDe&\"&MHI2=\"&p_e_MonsterHashIDe&\"&DV=\"&p_e_DamageValue"
+							]
+						}
+					],
+					"sid": 237970224036606
+				}
+			],
+			"sid": 347782962299284
+		}
+	],
+	"sid": 527755237893097
+}

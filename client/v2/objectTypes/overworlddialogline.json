@@ -1,0 +1,31 @@
+{
+	"name": "OverworldDialogLine",
+	"plugin-id": "Spritefont2",
+	"sid": 867651956307253,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Flash",
+			"name": "Flash",
+			"sid": 828730480857984
+		},
+		{
+			"behaviorId": "Sin",
+			"name": "Sine",
+			"sid": 974981615997820
+		}
+	],
+	"effectTypes": [],
+	"image": {
+		"width": 256,
+		"height": 384,
+		"originX": 0.5,
+		"originY": 0.5,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 1407609,
+		"useCollisionPoly": true
+	}
+}

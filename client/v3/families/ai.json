@@ -1,0 +1,18 @@
+{
+	"name": "AI",
+	"plugin-id": "Sprite",
+	"sid": 321966872359502,
+	"instanceVariables": [
+		{
+			"name": "AITypeID",
+			"type": "number",
+			"desc": "",
+			"sid": 832133484684346
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"members": [
+		"MonsterLeader"
+	]
+}

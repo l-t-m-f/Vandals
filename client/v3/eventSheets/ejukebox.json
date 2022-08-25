@@ -1,0 +1,431 @@
+{
+	"name": "eJukebox",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "jukebox__CurrentTrackName",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "Name of the song currently playing.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 232049710179445
+		},
+		{
+			"eventType": "variable",
+			"name": "jukebox__CurrentTrackCode",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 367459410641577
+		},
+		{
+			"functionName": "Function-Jukebox-PlayMusic",
+			"functionDescription": "Plays a specific pMusicTrackName. Optionally (pWithFade == 1) fade out any previous audio tagged \"Music\" and fade in pMusicTrackName over pFadeDuration second. Volume of the newly played track is defined by pDbAdjust.",
+			"functionCategory": "Jukebox",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pMusicTrackName",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "Name of the music track to play.",
+					"sid": 860760983466279
+				},
+				{
+					"name": "pDbAdjust",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "Decibel adjustment to bring to the volume of the track.",
+					"sid": 203882447245659
+				},
+				{
+					"name": "pWithFade",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "True (1) if the jukebox should fade a previous Music. Otherwise will cut abruptly.",
+					"sid": 943086653865430
+				},
+				{
+					"name": "pFadeDuration",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "Duration of the fade if there is one (pWithFade == 1).",
+					"sid": 150194892875797
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 782096394150226,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 751239033026288,
+							"parameters": {
+								"first-value": "jukebox__CurrentTrackName",
+								"comparison": 1,
+								"second-value": "pMusicTrackName"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "stop",
+							"objectClass": "Audio",
+							"sid": 954458044310785,
+							"parameters": {
+								"tag": "\"Music\""
+							}
+						}
+					],
+					"sid": 595976512034670,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 381359654130070,
+									"parameters": {
+										"variable": "pWithFade"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 428951942972919,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 212533054869629,
+											"parameters": {
+												"variable": "jukebox__CurrentTrackCode",
+												"comparison": 0,
+												"value": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "fade-volume",
+											"objectClass": "Audio",
+											"sid": 612247194860454,
+											"parameters": {
+												"tag": "\"Music1\"",
+												"db": "-100",
+												"duration": "pFadeDuration",
+												"ending": "stop"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 591583217783748,
+											"parameters": {
+												"variable": "jukebox__CurrentTrackName",
+												"value": "pMusicTrackName"
+											}
+										},
+										{
+											"id": "play-at-object-by-name",
+											"objectClass": "Audio",
+											"sid": 937780962581712,
+											"parameters": {
+												"folder": "music",
+												"audio-file-name": "jukebox__CurrentTrackName",
+												"loop": "looping",
+												"volume": "-100",
+												"object": "GlobalSpeaker",
+												"inner-angle": "360",
+												"outer-angle": "360",
+												"outer-gain": "0",
+												"tag-optional": "\"Music\"&jukebox__CurrentTrackCode"
+											}
+										},
+										{
+											"id": "fade-volume",
+											"objectClass": "Audio",
+											"sid": 730058626206450,
+											"parameters": {
+												"tag": "\"Music\"&jukebox__CurrentTrackCode",
+												"db": "pDbAdjust",
+												"duration": "pFadeDuration",
+												"ending": "keep-playing"
+											}
+										},
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 467384954561345,
+											"parameters": {
+												"seconds": "pFadeDuration"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 654164624867702,
+											"parameters": {
+												"variable": "jukebox__CurrentTrackCode",
+												"value": "1"
+											}
+										}
+									],
+									"sid": 187363142768256
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 412234274307091
+										},
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 152212294514661,
+											"parameters": {
+												"variable": "jukebox__CurrentTrackCode",
+												"comparison": 0,
+												"value": "1"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "fade-volume",
+											"objectClass": "Audio",
+											"sid": 179523560377841,
+											"parameters": {
+												"tag": "\"Music0\"",
+												"db": "-100",
+												"duration": "pFadeDuration",
+												"ending": "stop"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 326532370205403,
+											"parameters": {
+												"variable": "jukebox__CurrentTrackName",
+												"value": "pMusicTrackName"
+											}
+										},
+										{
+											"id": "play-at-object-by-name",
+											"objectClass": "Audio",
+											"sid": 926564140586090,
+											"parameters": {
+												"folder": "music",
+												"audio-file-name": "jukebox__CurrentTrackName",
+												"loop": "looping",
+												"volume": "-100",
+												"object": "GlobalSpeaker",
+												"inner-angle": "360",
+												"outer-angle": "360",
+												"outer-gain": "0",
+												"tag-optional": "\"Music\"&jukebox__CurrentTrackCode"
+											}
+										},
+										{
+											"id": "fade-volume",
+											"objectClass": "Audio",
+											"sid": 174190076170399,
+											"parameters": {
+												"tag": "\"Music\"&jukebox__CurrentTrackCode",
+												"db": "pDbAdjust",
+												"duration": "pFadeDuration",
+												"ending": "keep-playing"
+											}
+										},
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 261778203810835,
+											"parameters": {
+												"seconds": "pFadeDuration"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 287140340420629,
+											"parameters": {
+												"variable": "jukebox__CurrentTrackCode",
+												"value": "0"
+											}
+										}
+									],
+									"sid": 646077927972840
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 907341887989676
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 451874920298162,
+									"parameters": {
+										"variable": "jukebox__CurrentTrackName",
+										"value": "pMusicTrackName"
+									}
+								},
+								{
+									"id": "play-at-object-by-name",
+									"objectClass": "Audio",
+									"sid": 394464124460720,
+									"parameters": {
+										"folder": "music",
+										"audio-file-name": "jukebox__CurrentTrackName",
+										"loop": "looping",
+										"volume": "-100",
+										"object": "GlobalSpeaker",
+										"inner-angle": "360",
+										"outer-angle": "360",
+										"outer-gain": "0",
+										"tag-optional": "\"Music\""
+									}
+								}
+							],
+							"sid": 193521587240601
+						}
+					]
+				}
+			]
+		},
+		{
+			"functionName": "Function-Jukebox-PlaySFX",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pSFXName",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "Name of the SFX to play.",
+					"sid": 859520711393620
+				},
+				{
+					"name": "pSFXTag",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "Tag of the SFX to play.",
+					"sid": 387726501302044
+				},
+				{
+					"name": "pDbAdjust",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "Decibel adjustment to bring to the volume of the SFX.",
+					"sid": 885124720437352
+				},
+				{
+					"name": "pHasVar",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "True (1) if the SFX has variants.",
+					"sid": 858993793384965
+				},
+				{
+					"name": "pVarMin",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "Minimum number of variants in case pHasVar == 1.",
+					"sid": 876503589474816
+				},
+				{
+					"name": "pVarMax",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "Maximum number of variants in case pHasVar == 1.",
+					"sid": 899442944565418
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 778372849831763,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 111196473073266,
+							"parameters": {
+								"variable": "pHasVar"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "play-by-name",
+							"objectClass": "Audio",
+							"sid": 355440753790993,
+							"parameters": {
+								"folder": "sounds",
+								"audio-file-name": "pSFXName&floor(random(pVarMin, pVarMax))",
+								"loop": "not-looping",
+								"volume": "pDbAdjust",
+								"tag-optional": "pSFXTag"
+							}
+						}
+					],
+					"sid": 801385269945803
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 609387959603507
+						}
+					],
+					"actions": [
+						{
+							"id": "play-by-name",
+							"objectClass": "Audio",
+							"sid": 124906532748975,
+							"parameters": {
+								"folder": "sounds",
+								"audio-file-name": "pSFXName",
+								"loop": "not-looping",
+								"volume": "pDbAdjust",
+								"tag-optional": "pSFXTag"
+							}
+						}
+					],
+					"sid": 264775769319777
+				}
+			]
+		}
+	],
+	"sid": 950366509546892
+}

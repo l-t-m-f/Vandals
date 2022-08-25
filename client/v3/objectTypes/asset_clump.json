@@ -1,0 +1,44 @@
+{
+	"name": "asset_clump",
+	"plugin-id": "Sprite",
+	"sid": 273123732936534,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 64,
+						"height": 64,
+						"originX": 0,
+						"originY": 1,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 8151028,
+						"useCollisionPoly": true,
+						"imagePoints": [
+							{
+								"name": "YasZ",
+								"x": 0.5,
+								"y": 0.640625
+							}
+						],
+						"duration": 1
+					}
+				],
+				"sid": 493799885663296,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

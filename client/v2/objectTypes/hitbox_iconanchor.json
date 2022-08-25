@@ -1,0 +1,69 @@
+{
+	"name": "hitbox_IconAnchor",
+	"plugin-id": "Sprite",
+	"sid": 988815904615087,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "DropOffName",
+			"type": "string",
+			"desc": "",
+			"sid": 244840246735632
+		},
+		{
+			"name": "DropOffID",
+			"type": "number",
+			"desc": "",
+			"sid": 124323888386097
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 64,
+						"height": 64,
+						"originX": 0,
+						"originY": 0,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 7255702,
+						"collisionPoly": {
+							"points": [
+								0.015625,
+								0.015625,
+								1,
+								0.015625,
+								1,
+								1,
+								0.015625,
+								1
+							]
+						},
+						"useCollisionPoly": true,
+						"imagePoints": [
+							{
+								"name": "Attach",
+								"x": 0.125,
+								"y": 0.875
+							}
+						],
+						"duration": 1
+					}
+				],
+				"sid": 437254953691994,
+				"name": "Animation 1",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

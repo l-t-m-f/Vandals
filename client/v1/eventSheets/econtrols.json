@@ -1,0 +1,3770 @@
+{
+	"name": "eControls",
+	"events": [
+		{
+			"eventType": "comment",
+			"text": "Controls Events"
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "controls_ Buttons",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "Drag n Dropping"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-drop",
+							"objectClass": "DragDrop",
+							"sid": 428674240602334,
+							"behaviorType": "DragDrop"
+						}
+					],
+					"actions": [],
+					"sid": 951538424149059,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-comparison",
+									"objectClass": "System",
+									"sid": 850673620602102,
+									"parameters": {
+										"object": "DragNDrop_DropOff",
+										"expression": "DragNDrop_DropOff.DropOffName",
+										"comparison": 0,
+										"value": "DragDrop.DropOffName"
+									}
+								}
+							],
+							"actions": [
+								{
+									"type": "comment",
+									"text": "When dropping a DragDrop object, it will snap to any DropOff that shares DropOffName value with it."
+								}
+							],
+							"sid": 972509594627215,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "is-overlapping-another-object",
+											"objectClass": "DragDrop",
+											"sid": 340865235554189,
+											"parameters": {
+												"object": "DragNDrop_DropOff"
+											}
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Controls-Buttons-ActivateDragNDropButton",
+											"sid": 749249834032574,
+											"parameters": [
+												"DragNDrop_DropOff.UID",
+												"DragNDrop_DropOff.DropOffName",
+												"DragNDrop_DropOff.DropOffID",
+												"DragDrop.UID"
+											]
+										}
+									],
+									"sid": 371463281849418
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 383788776190520
+										}
+									],
+									"actions": [
+										{
+											"id": "set-position",
+											"objectClass": "DragDrop",
+											"sid": 836740890092182,
+											"parameters": {
+												"x": "Self.DefaultX",
+												"y": "Self.DefaultY"
+											}
+										}
+									],
+									"sid": 596596760924254,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "DragDrop",
+													"sid": 651267754986057,
+													"parameters": {
+														"instance-variable": "DropOffName",
+														"comparison": 0,
+														"value": "\"HexSelection\""
+													}
+												}
+											],
+											"actions": [],
+											"sid": 306895078379995,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "for-each-element",
+															"objectClass": "mem_HexSelection",
+															"sid": 780077581698226,
+															"parameters": {
+																"axes": "x"
+															}
+														}
+													],
+													"actions": [],
+													"sid": 262007917149462,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "compare-at-x",
+																	"objectClass": "mem_HexSelection",
+																	"sid": 796815789802544,
+																	"parameters": {
+																		"x": "mem_HexSelection.CurX",
+																		"comparison": 0,
+																		"value": "DragDrop.ReferenceName"
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"id": "set-at-x",
+																	"objectClass": "mem_HexSelection",
+																	"sid": 883845453188868,
+																	"parameters": {
+																		"x": "Self.CurX",
+																		"value": "\"NULL\""
+																	}
+																}
+															],
+															"sid": 647060036369065
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Button Logic"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each",
+							"objectClass": "System",
+							"sid": 214494610493650,
+							"parameters": {
+								"object": "Button"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 785340386735354,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-boolean-instance-variable-set",
+									"objectClass": "Button",
+									"sid": 748342060054308,
+									"parameters": {
+										"instance-variable": "Active"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 772213307800713,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "cursor-is-over-object",
+											"objectClass": "Controls_Desktop",
+											"sid": 432595903558928,
+											"parameters": {
+												"object": "Button"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 199026076260043,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "mouse-button-is-down",
+													"objectClass": "Controls_Desktop",
+													"sid": 989324575984983,
+													"parameters": {
+														"mouse-button": "left"
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Button",
+													"sid": 828435001239063,
+													"parameters": {
+														"instance-variable": "ButtonState",
+														"comparison": 1,
+														"value": "3"
+													}
+												},
+												{
+													"id": "trigger-once-while-true",
+													"objectClass": "System",
+													"sid": 152395583201425
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "Controls-Buttons-ActivateButton",
+													"sid": 770189975888515,
+													"parameters": [
+														"Button.UID",
+														"Button.ActivationEffect"
+													]
+												}
+											],
+											"sid": 342606039149218
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 352292761899236
+												},
+												{
+													"id": "mouse-button-is-down",
+													"objectClass": "Controls_Desktop",
+													"sid": 261144202432224,
+													"parameters": {
+														"mouse-button": "left"
+													},
+													"isInverted": true
+												}
+											],
+											"actions": [],
+											"sid": 238101591058505,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-instance-variable",
+															"objectClass": "Button",
+															"sid": 674607057376218,
+															"parameters": {
+																"instance-variable": "ButtonState",
+																"comparison": 1,
+																"value": "3"
+															}
+														}
+													],
+													"actions": [
+														{
+															"callFunction": "UI-Buttons-ChangeState",
+															"sid": 263300173009797,
+															"parameters": [
+																"Button.UID",
+																"2"
+															]
+														}
+													],
+													"sid": 940446141534368
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-instance-variable",
+															"objectClass": "Button",
+															"sid": 900292883700889,
+															"parameters": {
+																"instance-variable": "ActivationEffect",
+																"comparison": 0,
+																"value": "\"CreateChar_DisplayAttributeDetails\""
+															}
+														}
+													],
+													"actions": [
+														{
+															"callFunction": "Controls-Buttons-ActivateButton",
+															"sid": 925974565569182,
+															"parameters": [
+																"Button.UID",
+																"Button.ActivationEffect"
+															]
+														}
+													],
+													"sid": 934267604629676
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "else",
+															"objectClass": "System",
+															"sid": 374998682014803
+														},
+														{
+															"id": "compare-instance-variable",
+															"objectClass": "Button",
+															"sid": 686311301353083,
+															"parameters": {
+																"instance-variable": "ActivationEffect",
+																"comparison": 0,
+																"value": "\"CreateChar_DisplayCradleDetails\""
+															}
+														}
+													],
+													"actions": [
+														{
+															"callFunction": "Controls-Buttons-ActivateButton",
+															"sid": 345041802679530,
+															"parameters": [
+																"Button.UID",
+																"Button.ActivationEffect"
+															]
+														}
+													],
+													"sid": 144000575662330
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "else",
+															"objectClass": "System",
+															"sid": 996711401322717
+														},
+														{
+															"id": "compare-instance-variable",
+															"objectClass": "Button",
+															"sid": 777193294967718,
+															"parameters": {
+																"instance-variable": "ActivationEffect",
+																"comparison": 0,
+																"value": "\"CreateChar_DisplayHexDetails\""
+															}
+														}
+													],
+													"actions": [
+														{
+															"callFunction": "Controls-Buttons-ActivateButton",
+															"sid": 265610058954481,
+															"parameters": [
+																"Button.UID",
+																"Button.ActivationEffect"
+															]
+														}
+													],
+													"sid": 150155093222314
+												}
+											]
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 458235968338440
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "UI-Buttons-ChangeState",
+											"sid": 881425046799207,
+											"parameters": [
+												"Button.UID",
+												"1"
+											]
+										}
+									],
+									"sid": 308528433723314
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 337967219500668
+								},
+								{
+									"id": "is-boolean-instance-variable-set",
+									"objectClass": "Button",
+									"sid": 703895844692830,
+									"parameters": {
+										"instance-variable": "Active"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Buttons-ChangeState",
+									"sid": 956347307382947,
+									"parameters": [
+										"Button.UID",
+										"0"
+									]
+								}
+							],
+							"sid": 952675131051303
+						}
+					]
+				},
+				{
+					"functionName": "Controls-Buttons-ResetAll",
+					"functionDescription": "Reset all buttons of a specific ActivationEffect to \"Active\".",
+					"functionCategory": "Controls, Buttons",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pActivationEffect",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Effect of this button's activation.",
+							"sid": 606356726255026
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 316087545674275,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-comparison",
+									"objectClass": "System",
+									"sid": 365618169134804,
+									"parameters": {
+										"object": "Button",
+										"expression": "Button.ActivationEffect",
+										"comparison": 0,
+										"value": "pActivationEffect"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-boolean-instvar",
+									"objectClass": "Button",
+									"sid": 213289115605796,
+									"parameters": {
+										"instance-variable": "Active",
+										"value": "true"
+									}
+								}
+							],
+							"sid": 731050924144789
+						}
+					]
+				},
+				{
+					"functionName": "Controls-Buttons-ActivateButton",
+					"functionDescription": "Activate a button's effect(s).",
+					"functionCategory": "Controls, Buttons",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pUID",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "UID of the button to activate.",
+							"sid": 387763786314024
+						},
+						{
+							"name": "pActivationEffect",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Effect of this button's activation.",
+							"sid": 763151320914680
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [
+						{
+							"id": "pick-by-unique-id",
+							"objectClass": "Button",
+							"sid": 567415336366924,
+							"parameters": {
+								"unique-id": "pUID"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "UI-Buttons-ChangeState",
+							"sid": 501717676127696,
+							"parameters": [
+								"Button.UID",
+								"3"
+							]
+						},
+						{
+							"id": "wait",
+							"objectClass": "System",
+							"sid": 718388439230553,
+							"parameters": {
+								"seconds": "0.15"
+							}
+						},
+						{
+							"id": "set-active",
+							"objectClass": "Button",
+							"sid": 522065229505389,
+							"behaviorType": "RumbleH",
+							"parameters": {
+								"state": "active"
+							}
+						},
+						{
+							"id": "set-active",
+							"objectClass": "Button",
+							"sid": 583210080237655,
+							"behaviorType": "RumbleV",
+							"parameters": {
+								"state": "active"
+							}
+						}
+					],
+					"sid": 697770764276939,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 638054918443381,
+									"parameters": {
+										"variable": "pActivationEffect",
+										"comparison": 0,
+										"value": "\"NULL\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Debug-Console-LogError",
+									"sid": 187062062120481
+								}
+							],
+							"sid": 801893297124763
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 532641699941065
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 598716281688891,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"Connect\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Server-LoadSession",
+									"sid": 527062659180532
+								}
+							],
+							"sid": 725958595326484
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 248018491153378
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 802377393322521,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"Clear\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Menu-InputFields-Clear",
+									"sid": 743028867294895,
+									"parameters": [
+										"Button.AssocField"
+									]
+								}
+							],
+							"sid": 106496757258138
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 241471661629265
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 769374122695887,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"Help\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Menu-Popups-Display",
+									"sid": 622591149019974,
+									"parameters": [
+										"1"
+									]
+								}
+							],
+							"sid": 154427284186268
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 591600000695458
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 889868207709743,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"ClosePopup\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Menu-Popups-Hide",
+									"sid": 554592374270899,
+									"parameters": [
+										"Button.AssocPopup"
+									]
+								}
+							],
+							"sid": 162750188535126
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 497331681895118
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 225101549581519,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"GoToRegister\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Menu-Popups-Hide",
+									"sid": 902114449031271,
+									"parameters": [
+										"1"
+									]
+								},
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 857753173494817,
+									"parameters": {
+										"layout": "Register"
+									}
+								}
+							],
+							"sid": 637993594480913
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 651278788251053
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 768029951761585,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"ReturnToMenu\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 327629109958117,
+									"parameters": {
+										"layout": "Connect"
+									}
+								}
+							],
+							"sid": 456907548121642
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 641793815689802
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 558065123785692,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"Register\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Register-CheckCaptcha",
+									"sid": 167067916187147
+								}
+							],
+							"sid": 601144954948738
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 926494496362002
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 544930520403438,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"SendAlias\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Server-RegisterAlias",
+									"sid": 151598589655397
+								}
+							],
+							"sid": 928256606838355
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 449558724615420
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 181171306554966,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"CreateChar_PreviousSlide\""
+									}
+								}
+							],
+							"actions": [],
+							"sid": 859875257647729,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 757944402281136,
+											"parameters": {
+												"variable": "createchar__MenuCamera_GoToX",
+												"comparison": 4,
+												"value": "672"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "subtract-from-eventvar",
+											"objectClass": "System",
+											"sid": 838632208976953,
+											"parameters": {
+												"variable": "createchar__MenuCamera_GoToX",
+												"value": "1280"
+											}
+										}
+									],
+									"sid": 926702371868399
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 150857160322924
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 325632935535774,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"CreateChar_NextSlide\""
+									}
+								}
+							],
+							"actions": [],
+							"sid": 489716850389295,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 415627479897864,
+											"parameters": {
+												"variable": "createchar__MenuCamera_GoToX",
+												"comparison": 2,
+												"value": "5792"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "add-to-eventvar",
+											"objectClass": "System",
+											"sid": 256749248213802,
+											"parameters": {
+												"variable": "createchar__MenuCamera_GoToX",
+												"value": "1280"
+											}
+										}
+									],
+									"sid": 352436527452603
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "Button",
+											"sid": 969142902243073,
+											"parameters": {
+												"instance-variable": "AssocCreateCharMenuSlide",
+												"comparison": 0,
+												"value": "1"
+											}
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Server-SetChar",
+											"sid": 342902905828818
+										}
+									],
+									"sid": 569527966598460
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 776254013408825
+										},
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "Button",
+											"sid": 812759633708410,
+											"parameters": {
+												"instance-variable": "AssocCreateCharMenuSlide",
+												"comparison": 0,
+												"value": "4"
+											}
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Server-SendHexSelection",
+											"sid": 173369067781028
+										}
+									],
+									"sid": 280583165574888
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 118698279102867
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 354057599424615,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"CreateChar_KindWheel_MoveRight\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "CreateChar-KindWheel-MoveRight",
+									"sid": 645843556824074
+								}
+							],
+							"sid": 167773090062286
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 522608161835258
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 332684291501336,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"CreateChar_KindWheel_MoveLeft\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "CreateChar-KindWheel-MoveLeft",
+									"sid": 640637485453060
+								}
+							],
+							"sid": 895115252316243
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 275046774532295
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 255634462494054,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"SpendPoint\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Server-SpendPoint",
+									"sid": 614821039259444,
+									"parameters": [
+										"Button.AssocAttribute"
+									]
+								}
+							],
+							"sid": 751940164191325
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 537275579030284
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 219081086401147,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"UnspendPoint\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Server-UnspendPoint",
+									"sid": 172698460046808,
+									"parameters": [
+										"Button.AssocAttribute"
+									]
+								}
+							],
+							"sid": 351064293264523
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 794539471942024
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 170360432521909,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"CreateChar_ChooseCradle\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Controls-Buttons-ResetAll",
+									"sid": 969971657710233,
+									"parameters": [
+										"pActivationEffect"
+									]
+								},
+								{
+									"callFunction": "Server-ChooseCradle",
+									"sid": 172930950859858,
+									"parameters": [
+										"Button.AssocCradle"
+									]
+								}
+							],
+							"sid": 267812691453566
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 189875848528463
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 488692930602278,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"CreateChar_DisplayAttributeDetails\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 515166706091110,
+									"parameters": {
+										"variable": "ui__LastHoveredAttributeIcon",
+										"value": "Button.AssocAttribute"
+									}
+								}
+							],
+							"sid": 389950717472900
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 455922686106953
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 820820029374073,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"CreateChar_DisplayCradleDetails\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 396832339867043,
+									"parameters": {
+										"variable": "ui__LastHoveredCradleIcon",
+										"value": "Button.AssocCradle"
+									}
+								}
+							],
+							"sid": 474713561402767
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 375491671842192
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 368657522995293,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"CreateChar_DisplayHexDetails\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 956785347330825,
+									"parameters": {
+										"variable": "ui__LastHoveredHexIcon",
+										"value": "Button.AssocHex"
+									}
+								}
+							],
+							"sid": 906260395770354
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 594025479372579
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 455914539167657,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"CompleteCreateChar\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Server-CompleteCreateChar",
+									"sid": 389122969103858
+								}
+							],
+							"sid": 358443176430493
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 703432714059282
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 845508834559703,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"DeleteChar\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Server-DeleteChar",
+									"sid": 748873472202951,
+									"parameters": [
+										"Button.AssocSlot"
+									]
+								}
+							],
+							"sid": 191119459195881
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 393351424334201
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 557392924695067,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"CreateChar\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 939502908436122,
+									"parameters": {
+										"layout": "CreateChar"
+									}
+								}
+							],
+							"sid": 145027814137196
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 533125578794790
+								},
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Button",
+									"sid": 638648562976757,
+									"parameters": {
+										"instance-variable": "ActivationEffect",
+										"comparison": 0,
+										"value": "\"PlayChar\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Server-PlayChar",
+									"sid": 626406182156657,
+									"parameters": [
+										"Button.AssocSlot"
+									]
+								}
+							],
+							"sid": 668268703067359
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 972553422804731
+								},
+								{
+									"id": "wait",
+									"objectClass": "System",
+									"sid": 866105642331417,
+									"parameters": {
+										"seconds": "0.1"
+									}
+								},
+								{
+									"id": "set-active",
+									"objectClass": "Button",
+									"sid": 999226566305276,
+									"behaviorType": "RumbleH",
+									"parameters": {
+										"state": "inactive"
+									}
+								},
+								{
+									"id": "set-active",
+									"objectClass": "Button",
+									"sid": 989473110185113,
+									"behaviorType": "RumbleV",
+									"parameters": {
+										"state": "inactive"
+									}
+								}
+							],
+							"sid": 221614116481376,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "is-boolean-instance-variable-set",
+											"objectClass": "Button",
+											"sid": 737870961374740,
+											"parameters": {
+												"instance-variable": "AutomaticReset"
+											}
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "UI-Buttons-ChangeState",
+											"sid": 543028774178035,
+											"parameters": [
+												"Button.UID",
+												"1"
+											]
+										}
+									],
+									"sid": 939869528042790
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 776171956441744
+										}
+									],
+									"actions": [
+										{
+											"id": "set-boolean-instvar",
+											"objectClass": "Button",
+											"sid": 798899164670686,
+											"parameters": {
+												"instance-variable": "Active",
+												"value": "false"
+											}
+										}
+									],
+									"sid": 450462831261670
+								}
+							]
+						}
+					]
+				},
+				{
+					"functionName": "Controls-Buttons-ActivateDragNDropButton",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pDropOffUID",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"sid": 573162305840161
+						},
+						{
+							"name": "pActivationEffect",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "Effect of this button's activation.",
+							"sid": 148696497711696
+						},
+						{
+							"name": "pExtraID",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"sid": 691424369442425
+						},
+						{
+							"name": "pAttachedUID",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"sid": 340227014765794
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [
+						{
+							"id": "pick-by-unique-id",
+							"objectClass": "DragNDrop_DropOff",
+							"sid": 463160345536933,
+							"parameters": {
+								"unique-id": "pDropOffUID"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 982772746159269,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 266247409744887,
+									"parameters": {
+										"variable": "pActivationEffect",
+										"comparison": 0,
+										"value": "\"HexSelection\""
+									}
+								}
+							],
+							"actions": [],
+							"sid": 457341453081598,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-at-x",
+											"objectClass": "mem_HexSelection",
+											"sid": 845502220781237,
+											"parameters": {
+												"x": "pExtraID-1",
+												"comparison": 0,
+												"value": "\"\""
+											}
+										},
+										{
+											"id": "pick-by-unique-id",
+											"objectClass": "DragDrop",
+											"sid": 818184004963513,
+											"parameters": {
+												"unique-id": "pAttachedUID"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-at-x",
+											"objectClass": "mem_HexSelection",
+											"sid": 177970648695839,
+											"parameters": {
+												"x": "pExtraID-1",
+												"value": "DragDrop.ReferenceName"
+											}
+										},
+										{
+											"id": "set-position",
+											"objectClass": "DragDrop",
+											"sid": 825479646699455,
+											"parameters": {
+												"x": "DragNDrop_DropOff.ImagePointX(\"Attach\")",
+												"y": "DragNDrop_DropOff.ImagePointY(\"Attach\")"
+											}
+										}
+									],
+									"sid": 488251900285973
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 120985032470595
+										}
+									],
+									"actions": [],
+									"sid": 346885618205937,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "pick-by-comparison",
+													"objectClass": "System",
+													"sid": 565756449241297,
+													"parameters": {
+														"object": "DragDrop",
+														"expression": "DragDrop.ReferenceName",
+														"comparison": 0,
+														"value": "mem_HexSelection.At(pExtraID-1)"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-position",
+													"objectClass": "DragDrop",
+													"sid": 114753344024442,
+													"parameters": {
+														"x": "DragDrop.DefaultX",
+														"y": "DragDrop.DefaultY"
+													}
+												}
+											],
+											"sid": 117506983043216
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "pick-by-unique-id",
+													"objectClass": "DragDrop",
+													"sid": 910693642033047,
+													"parameters": {
+														"unique-id": "pAttachedUID"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-at-x",
+													"objectClass": "mem_HexSelection",
+													"sid": 641095442094156,
+													"parameters": {
+														"x": "pExtraID-1",
+														"value": "DragDrop.ReferenceName"
+													}
+												},
+												{
+													"id": "set-position",
+													"objectClass": "DragDrop",
+													"sid": 850789452536144,
+													"parameters": {
+														"x": "DragNDrop_DropOff.ImagePointX(\"Attach\")",
+														"y": "DragNDrop_DropOff.ImagePointY(\"Attach\")"
+													}
+												}
+											],
+											"sid": 217329041829015
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "controls_ Tooltip",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "cursor-is-over-object",
+									"objectClass": "Controls_Desktop",
+									"sid": 716882208273856,
+									"parameters": {
+										"object": "DisplayTooltip"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-position",
+									"objectClass": "Sizeable_Tooltip",
+									"sid": 220429385620807,
+									"parameters": {
+										"x": "lerp(Self.X, DisplayTooltip.X+32, 0.11)",
+										"y": "lerp(Self.Y, DisplayTooltip.Y+32, 0.11)"
+									}
+								}
+							],
+							"sid": 473432622024293,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-opacity",
+											"objectClass": "Sizeable_Tooltip",
+											"sid": 677155627640498,
+											"parameters": {
+												"comparison": 3,
+												"opacity": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-fade-in-time",
+											"objectClass": "Sizeable_Tooltip",
+											"sid": 207721811487660,
+											"behaviorType": "Fade",
+											"parameters": {
+												"fade-in-time": "0.2"
+											}
+										},
+										{
+											"id": "set-wait-time",
+											"objectClass": "Sizeable_Tooltip",
+											"sid": 221282265236616,
+											"behaviorType": "Fade",
+											"parameters": {
+												"wait-time": "0"
+											}
+										},
+										{
+											"id": "set-fade-out-time",
+											"objectClass": "Sizeable_Tooltip",
+											"sid": 855868339611234,
+											"behaviorType": "Fade",
+											"parameters": {
+												"fade-out-time": "0"
+											}
+										},
+										{
+											"id": "restart-fade",
+											"objectClass": "Sizeable_Tooltip",
+											"sid": 444706217433900,
+											"behaviorType": "Fade"
+										}
+									],
+									"sid": 567212046328083
+								},
+								{
+									"eventType": "variable",
+									"name": "temp_kind_id",
+									"type": "number",
+									"initialValue": "-1",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 469716669134657
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each-element",
+											"objectClass": "data_KindsInfo",
+											"sid": 330437131714124,
+											"parameters": {
+												"axes": "xy"
+											}
+										},
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 685652753394195,
+											"parameters": {
+												"first-value": "data_KindsInfo.CurX",
+												"comparison": 0,
+												"second-value": "0"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 213369705822862,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xy",
+													"objectClass": "data_KindsInfo",
+													"sid": 832567089304859,
+													"parameters": {
+														"x": "0",
+														"y": "data_KindsInfo.CurY",
+														"comparison": 0,
+														"value": "createchar_KindWheel"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 862964781415508,
+													"parameters": {
+														"variable": "temp_kind_id",
+														"value": "data_KindsInfo.CurY"
+													}
+												}
+											],
+											"sid": 922007416805546
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 806503901632809
+										}
+									],
+									"sid": 661455998421727,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "for-each-element",
+													"objectClass": "data_SkillsInfo",
+													"sid": 971737121862346,
+													"parameters": {
+														"axes": "xy"
+													}
+												},
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 408518016630541,
+													"parameters": {
+														"first-value": "data_SkillsInfo.CurX",
+														"comparison": 0,
+														"second-value": "0"
+													}
+												}
+											],
+											"actions": [],
+											"sid": 781573823685411,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-at-xy",
+															"objectClass": "data_SkillsInfo",
+															"sid": 978371874464964,
+															"parameters": {
+																"x": "0",
+																"y": "data_SkillsInfo.CurY",
+																"comparison": 0,
+																"value": "data_KindsInfo.At(2+DisplayTooltip.TooltipID, temp_kind_id)"
+															}
+														}
+													],
+													"actions": [],
+													"sid": 458181231030305,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "pick-children",
+																	"objectClass": "Sizeable_Tooltip",
+																	"sid": 682654063911180,
+																	"parameters": {
+																		"child": "SpriteFont_Variant2",
+																		"which": "own"
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"id": "set-text",
+																	"objectClass": "SpriteFont_Variant2",
+																	"sid": 473880392188931,
+																	"parameters": {
+																		"text": "data_SkillsInfo.At(1, data_SkillsInfo.CurY)"
+																	}
+																}
+															],
+															"sid": 944997921751399
+														},
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "pick-children",
+																	"objectClass": "Sizeable_Tooltip",
+																	"sid": 464807339254314,
+																	"parameters": {
+																		"child": "SpriteFont_Variant",
+																		"which": "own"
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"id": "set-text",
+																	"objectClass": "SpriteFont_Variant",
+																	"sid": 378220012120988,
+																	"parameters": {
+																		"text": "data_SkillsInfo.At(2, data_SkillsInfo.CurY)"
+																	}
+																}
+															],
+															"sid": 572957315689091
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "cursor-is-over-object",
+									"objectClass": "Controls_Desktop",
+									"sid": 782196689245231,
+									"parameters": {
+										"object": "DisplayTooltip"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [],
+							"sid": 558833889743463,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-opacity",
+											"objectClass": "Sizeable_Tooltip",
+											"sid": 239406453374451,
+											"parameters": {
+												"comparison": 5,
+												"opacity": "100"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-fade-in-time",
+											"objectClass": "Sizeable_Tooltip",
+											"sid": 741392864436149,
+											"behaviorType": "Fade",
+											"parameters": {
+												"fade-in-time": "0"
+											}
+										},
+										{
+											"id": "set-wait-time",
+											"objectClass": "Sizeable_Tooltip",
+											"sid": 165613223201139,
+											"behaviorType": "Fade",
+											"parameters": {
+												"wait-time": "0"
+											}
+										},
+										{
+											"id": "set-fade-out-time",
+											"objectClass": "Sizeable_Tooltip",
+											"sid": 529606571402542,
+											"behaviorType": "Fade",
+											"parameters": {
+												"fade-out-time": "0.13"
+											}
+										},
+										{
+											"id": "restart-fade",
+											"objectClass": "Sizeable_Tooltip",
+											"sid": 758223008563897,
+											"behaviorType": "Fade"
+										}
+									],
+									"sid": 915071199475159
+								}
+							]
+						}
+					],
+					"sid": 339722736839484
+				}
+			],
+			"sid": 393728818559787
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "controls_ Menu",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "Input Fields - NEW"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each",
+							"objectClass": "System",
+							"sid": 968333222205313,
+							"parameters": {
+								"object": "InputField"
+							}
+						},
+						{
+							"id": "is-boolean-instance-variable-set",
+							"objectClass": "InputField",
+							"sid": 180589873821932,
+							"parameters": {
+								"instance-variable": "OutOfFocus"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "UI-Menu-InputFields-Deactivate",
+							"sid": 542914651028211,
+							"parameters": [
+								"InputField.FieldName"
+							]
+						}
+					],
+					"sid": 560550029169653
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-object-clicked",
+							"objectClass": "Controls_Desktop",
+							"sid": 377863078430595,
+							"parameters": {
+								"mouse-button": "left",
+								"click-type": "clicked",
+								"object-clicked": "InputField"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 527574285857125,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-boolean-instance-variable-set",
+									"objectClass": "InputField",
+									"sid": 272696190945844,
+									"parameters": {
+										"instance-variable": "Active"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Menu-InputFields-Deactivate",
+									"sid": 465695984280061,
+									"parameters": [
+										"InputField.FieldName"
+									]
+								}
+							],
+							"sid": 160676889804893
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-boolean-instance-variable-set",
+									"objectClass": "InputField",
+									"sid": 126811025550144,
+									"parameters": {
+										"instance-variable": "Active"
+									},
+									"isInverted": true
+								},
+								{
+									"id": "is-boolean-instance-variable-set",
+									"objectClass": "InputField",
+									"sid": 642429441552541,
+									"parameters": {
+										"instance-variable": "OutOfFocus"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Menu-InputFields-Activate",
+									"sid": 499471703477158,
+									"parameters": [
+										"InputField.FieldName"
+									]
+								}
+							],
+							"sid": 343363703644030
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-any-key-pressed",
+							"objectClass": "Keyboard",
+							"sid": 885921506612879
+						},
+						{
+							"id": "is-boolean-instance-variable-set",
+							"objectClass": "InputField",
+							"sid": 372688693650848,
+							"parameters": {
+								"instance-variable": "Active"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 137325432214446,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 911491183992610,
+									"parameters": {
+										"first-value": "Keyboard.LastKeyCode",
+										"comparison": 5,
+										"second-value": "48"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 739234292239342,
+									"parameters": {
+										"first-value": "Keyboard.LastKeyCode",
+										"comparison": 3,
+										"second-value": "90"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Menu-InputFields-UpdateContent",
+									"sid": 373403872576454,
+									"parameters": [
+										"InputField.FieldName",
+										"Keyboard.TypedKey"
+									]
+								}
+							],
+							"sid": 148527357545111
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 704214234931165
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 183833589053671,
+									"parameters": {
+										"first-value": "Keyboard.LastKeyCode",
+										"comparison": 5,
+										"second-value": "186"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 505572250587746,
+									"parameters": {
+										"first-value": "Keyboard.LastKeyCode",
+										"comparison": 3,
+										"second-value": "222"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Menu-InputFields-UpdateContent",
+									"sid": 624092890835427,
+									"parameters": [
+										"InputField.FieldName",
+										"Keyboard.TypedKey"
+									]
+								}
+							],
+							"sid": 906843425720696
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 250125761010017
+								},
+								{
+									"id": "key-is-down",
+									"objectClass": "Keyboard",
+									"sid": 851832496408408,
+									"parameters": {
+										"key": 8
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Menu-InputFields-RemoveLastChar",
+									"sid": 700932438058070,
+									"parameters": [
+										"InputField.FieldName"
+									]
+								}
+							],
+							"sid": 390253762740941
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 313348285092120
+								},
+								{
+									"id": "key-is-down",
+									"objectClass": "Keyboard",
+									"sid": 367058978279688,
+									"parameters": {
+										"key": 13
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-ChatBox-SendMessage",
+									"sid": 433129702635551,
+									"disabled": true,
+									"parameters": [
+										"ui__ChatBoxContent"
+									]
+								}
+							],
+							"sid": 483965067545449
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Checkboxes"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-object-clicked",
+							"objectClass": "Controls_Desktop",
+							"sid": 475998802982745,
+							"parameters": {
+								"mouse-button": "left",
+								"click-type": "clicked",
+								"object-clicked": "Checkbox"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 238245534705851,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-boolean-instance-variable-set",
+									"objectClass": "Checkbox",
+									"sid": 912021743630708,
+									"parameters": {
+										"instance-variable": "Checked"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Menu-Checkbox-Deactivate",
+									"sid": 128011324842391,
+									"parameters": [
+										"Checkbox.Type"
+									]
+								}
+							],
+							"sid": 266969129534401
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 235334544069795
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "UI-Menu-Checkbox-Activate",
+									"sid": 487154448050929,
+									"parameters": [
+										"Checkbox.Type"
+									]
+								}
+							],
+							"sid": 373414545422288
+						}
+					]
+				}
+			],
+			"sid": 666149941584354
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "controls_ Game",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 387692340296647,
+							"parameters": {
+								"first-value": "LayoutName",
+								"comparison": 0,
+								"second-value": "\"Connect\""
+							},
+							"isInverted": true
+						},
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 768804386918497,
+							"parameters": {
+								"first-value": "LayoutName",
+								"comparison": 0,
+								"second-value": "\"Init\""
+							},
+							"isInverted": true
+						}
+					],
+					"actions": [],
+					"sid": 468886115248203,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 465019730187411,
+									"parameters": {
+										"variable": "main__Platform",
+										"comparison": 0,
+										"value": "\"Desktop\""
+									}
+								}
+							],
+							"actions": [],
+							"sid": 505883387021844,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "on-any-click",
+											"objectClass": "Controls_Desktop",
+											"sid": 524327474863581
+										},
+										{
+											"id": "cursor-is-over-object",
+											"objectClass": "Controls_Desktop",
+											"sid": 894910115758094,
+											"parameters": {
+												"object": "UIBar"
+											},
+											"isInverted": true
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "Controls-Path-CreateTarget",
+											"sid": 419209544193212,
+											"parameters": [
+												"Controls_Desktop.X",
+												"Controls_Desktop.Y"
+											]
+										}
+									],
+									"sid": 619926869348881
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "on-object-clicked",
+											"objectClass": "Controls_Desktop",
+											"sid": 454992952247187,
+											"parameters": {
+												"mouse-button": "left",
+												"click-type": "clicked",
+												"object-clicked": "Chatbox"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 893305447268895,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "is-boolean-instance-variable-set",
+													"objectClass": "ChatBoxInput",
+													"sid": 467270755978185,
+													"parameters": {
+														"instance-variable": "Active"
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "UI-ChatBox-Deactivate",
+													"sid": 722329609983289
+												}
+											],
+											"sid": 238027042739787
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 167614147281062
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "UI-ChatBox-Activate",
+													"sid": 955465882086651
+												}
+											],
+											"sid": 312920159666982
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "on-any-key-pressed",
+											"objectClass": "Keyboard",
+											"sid": 131372617952434
+										},
+										{
+											"id": "is-boolean-instance-variable-set",
+											"objectClass": "ChatBoxInput",
+											"sid": 615157889032425,
+											"parameters": {
+												"instance-variable": "Active"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 962625857304572,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "key-is-down",
+													"objectClass": "Keyboard",
+													"sid": 990267566853232,
+													"parameters": {
+														"key": 13
+													},
+													"isInverted": true
+												},
+												{
+													"id": "key-is-down",
+													"objectClass": "Keyboard",
+													"sid": 120167674917653,
+													"parameters": {
+														"key": 8
+													},
+													"isInverted": true
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "UI-ChatBox-UpdateContent",
+													"sid": 486595119919806,
+													"parameters": [
+														"Keyboard.TypedKey"
+													]
+												}
+											],
+											"sid": 208507378361706
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 932065574452880
+												},
+												{
+													"id": "key-is-down",
+													"objectClass": "Keyboard",
+													"sid": 440779491352483,
+													"parameters": {
+														"key": 8
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "UI-ChatBox-RemoveLastChar",
+													"sid": 554816367897430
+												}
+											],
+											"sid": 328539444304007
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 282576845506098
+												},
+												{
+													"id": "key-is-down",
+													"objectClass": "Keyboard",
+													"sid": 170439709139604,
+													"parameters": {
+														"key": 13
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "UI-ChatBox-SendMessage",
+													"sid": 836174480886814,
+													"parameters": [
+														"ui__ChatBoxContent"
+													]
+												}
+											],
+											"sid": 204856617108773
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 790516966224971
+		},
+		{
+			"functionName": "Controls-LocalPlayer-Move",
+			"functionDescription": "",
+			"functionCategory": "Controls, LocalPlayer",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 845821293899161,
+					"parameters": {
+						"object": "Netpeer",
+						"expression": "Netpeer.AssocActorNr",
+						"comparison": 0,
+						"value": "Photon.MyActorNr"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 910420096730642,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "Netpeer",
+							"sid": 406663852492177,
+							"parameters": {
+								"instance-variable": "MoveDir",
+								"comparison": 0,
+								"value": "\"North\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "simulate-control",
+							"objectClass": "Netpeer",
+							"sid": 591624742224896,
+							"behaviorType": "GridMove",
+							"parameters": {
+								"control": "up"
+							}
+						}
+					],
+					"sid": 840482984218113
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 345445866565151
+						},
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "Netpeer",
+							"sid": 662195001540722,
+							"parameters": {
+								"instance-variable": "MoveDir",
+								"comparison": 0,
+								"value": "\"West\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "simulate-control",
+							"objectClass": "Netpeer",
+							"sid": 496153964645184,
+							"behaviorType": "GridMove",
+							"parameters": {
+								"control": "left"
+							}
+						}
+					],
+					"sid": 183334009900570,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "Netpeer",
+									"sid": 944057504728365,
+									"parameters": {
+										"child": "asset_kindportrait_ingame",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-mirrored",
+									"objectClass": "asset_kindportrait_ingame",
+									"sid": 737011762313784,
+									"parameters": {
+										"state": "mirrored"
+									}
+								}
+							],
+							"sid": 682431335401911
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 648334612959592
+						},
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "Netpeer",
+							"sid": 778381456630261,
+							"parameters": {
+								"instance-variable": "MoveDir",
+								"comparison": 0,
+								"value": "\"South\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "simulate-control",
+							"objectClass": "Netpeer",
+							"sid": 337710475778151,
+							"behaviorType": "GridMove",
+							"parameters": {
+								"control": "down"
+							}
+						}
+					],
+					"sid": 977260411052275
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 259134931819259
+						},
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "Netpeer",
+							"sid": 554471618231105,
+							"parameters": {
+								"instance-variable": "MoveDir",
+								"comparison": 0,
+								"value": "\"East\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "simulate-control",
+							"objectClass": "Netpeer",
+							"sid": 946102664397405,
+							"behaviorType": "GridMove",
+							"parameters": {
+								"control": "right"
+							}
+						}
+					],
+					"sid": 138340206093358,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-children",
+									"objectClass": "Netpeer",
+									"sid": 403546333594925,
+									"parameters": {
+										"child": "asset_kindportrait_ingame",
+										"which": "own"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-mirrored",
+									"objectClass": "asset_kindportrait_ingame",
+									"sid": 122983747236013,
+									"parameters": {
+										"state": "not-mirrored"
+									}
+								}
+							],
+							"sid": 409489700486575
+						}
+					]
+				}
+			]
+		},
+		{
+			"functionName": "Controls-Path-CreateTarget",
+			"functionDescription": "",
+			"functionCategory": "Controls, Path",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pX",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "X-coordinate at which to spawn the PathTarget.",
+					"sid": 601570225201322
+				},
+				{
+					"name": "pY",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "Y-coordinate at which to spawn the PathTarget.",
+					"sid": 365609498151198
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "destroy",
+					"objectClass": "PathTarget",
+					"sid": 424095029917977
+				},
+				{
+					"id": "destroy",
+					"objectClass": "PathNode",
+					"sid": 315986199914765
+				},
+				{
+					"id": "create-object",
+					"objectClass": "System",
+					"sid": 175984717158618,
+					"parameters": {
+						"object-to-create": "PathTarget",
+						"layer": "\"UI\"",
+						"x": "pX",
+						"y": "pY"
+					}
+				}
+			],
+			"sid": 750614705887607,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "pick-by-comparison",
+							"objectClass": "System",
+							"sid": 366183280060068,
+							"parameters": {
+								"object": "Netpeer",
+								"expression": "Netpeer.AssocActorNr",
+								"comparison": 0,
+								"value": "Photon.MyActorNr"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-instvar-value",
+							"objectClass": "Netpeer",
+							"sid": 794861629840947,
+							"parameters": {
+								"instance-variable": "NextNodeID",
+								"value": "-1"
+							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "Netpeer",
+							"sid": 773660136299861,
+							"parameters": {
+								"instance-variable": "MoveDir",
+								"value": "\"NULL\""
+							}
+						},
+						{
+							"id": "set-boolean-instvar",
+							"objectClass": "Netpeer",
+							"sid": 248753527729133,
+							"parameters": {
+								"instance-variable": "CanMove",
+								"value": "false"
+							}
+						},
+						{
+							"id": "find-path",
+							"objectClass": "Netpeer",
+							"sid": 450854142675801,
+							"behaviorType": "Pathfinder",
+							"parameters": {
+								"x": "PathTarget.X",
+								"y": "PathTarget.Y"
+							}
+						}
+					],
+					"sid": 316801326299557
+				}
+			]
+		},
+		{
+			"functionName": "Controls-Path-ReachNode",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pNodeID",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 415788733444141
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 728524860753503,
+					"parameters": {
+						"object": "PathNode",
+						"expression": "PathNode.NodeID",
+						"comparison": 0,
+						"value": "pNodeID"
+					}
+				},
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 591646946806183,
+					"parameters": {
+						"object": "Netpeer",
+						"expression": "Netpeer.AssocActorNr",
+						"comparison": 0,
+						"value": "Photon.MyActorNr"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 298975893236097,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "PathNode",
+							"sid": 923588963549322,
+							"parameters": {
+								"instance-variable": "NodeID",
+								"comparison": 0,
+								"value": "Netpeer.Pathfinder.NodeCount-1"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "Controls-Path-ReachTarget",
+							"sid": 732760024552067
+						}
+					],
+					"sid": 894100997845524
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 642365463721601
+						}
+					],
+					"actions": [
+						{
+							"id": "destroy",
+							"objectClass": "PathNode",
+							"sid": 261287510188341
+						},
+						{
+							"id": "add-to-instvar",
+							"objectClass": "Netpeer",
+							"sid": 955882520793179,
+							"parameters": {
+								"instance-variable": "NextNodeID",
+								"value": "1"
+							}
+						}
+					],
+					"sid": 473191363154498
+				}
+			]
+		},
+		{
+			"functionName": "Controls-Navigation-ChangeMap",
+			"functionDescription": "",
+			"functionCategory": "Controls, Navigation",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pDestination",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"sid": 548499757463781
+				},
+				{
+					"name": "pDestX",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 477342420617803
+				},
+				{
+					"name": "pDestY",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 642057929991225
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "destroy",
+					"objectClass": "Netpeer",
+					"sid": 376088756643714
+				},
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 914023697883646,
+					"parameters": {
+						"variable": "SpawnX",
+						"value": "pDestX"
+					}
+				},
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 747377209307667,
+					"parameters": {
+						"variable": "SpawnY",
+						"value": "pDestY"
+					}
+				},
+				{
+					"callFunction": "UI-ChatBox-Clear",
+					"sid": 878725028516132
+				},
+				{
+					"callFunction": "Network-Connect",
+					"sid": 970415839858493,
+					"parameters": [
+						"pDestination"
+					]
+				}
+			],
+			"sid": 891809977675843
+		},
+		{
+			"functionName": "Controls-Path-ReachTarget",
+			"functionDescription": "",
+			"functionCategory": "Controls, Path",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 862180268039401,
+					"parameters": {
+						"object": "Netpeer",
+						"expression": "Netpeer.AssocActorNr",
+						"comparison": 0,
+						"value": "Photon.MyActorNr"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-grid-position",
+					"objectClass": "Netpeer",
+					"sid": 512770917350050,
+					"behaviorType": "GridMove",
+					"parameters": {
+						"x": "PathTarget.GridConform.GridX",
+						"y": "PathTarget.GridConform.GridY",
+						"instant": "animate"
+					}
+				},
+				{
+					"id": "destroy",
+					"objectClass": "PathTarget",
+					"sid": 856386018828290
+				},
+				{
+					"id": "destroy",
+					"objectClass": "PathNode",
+					"sid": 720760603148037
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "Netpeer",
+					"sid": 325797876325204,
+					"parameters": {
+						"instance-variable": "NextNodeID",
+						"value": "-1"
+					}
+				},
+				{
+					"id": "set-instvar-value",
+					"objectClass": "Netpeer",
+					"sid": 167620120005530,
+					"parameters": {
+						"instance-variable": "MoveDir",
+						"value": "\"NULL\""
+					}
+				},
+				{
+					"id": "set-boolean-instvar",
+					"objectClass": "Netpeer",
+					"sid": 874197629249244,
+					"parameters": {
+						"instance-variable": "CanMove",
+						"value": "false"
+					}
+				}
+			],
+			"sid": 621738000676678,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-overlapping-another-object",
+							"objectClass": "Netpeer",
+							"sid": 641988233242286,
+							"parameters": {
+								"object": "MapPlot"
+							}
+						},
+						{
+							"id": "is-boolean-instance-variable-set",
+							"objectClass": "MapPlot",
+							"sid": 648659974718952,
+							"parameters": {
+								"instance-variable": "Active"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "Minimap-ShiftIndicator",
+							"sid": 569882744693188,
+							"parameters": [
+								"MapPlot.MinimapXShift",
+								"MapPlot.MinimapYShift"
+							]
+						},
+						{
+							"callFunction": "Controls-Navigation-ChangeMap",
+							"sid": 713574624896764,
+							"parameters": [
+								"MapPlot.Destination",
+								"MapPlot.DestX",
+								"MapPlot.DestY"
+							]
+						}
+					],
+					"sid": 778369743205263
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-path-found",
+					"objectClass": "Netpeer",
+					"sid": 347580555430735,
+					"behaviorType": "Pathfinder"
+				}
+			],
+			"actions": [],
+			"sid": 761777097705808,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for",
+							"objectClass": "System",
+							"sid": 663194463957998,
+							"parameters": {
+								"name": "\"i_Node\"",
+								"start-index": "0",
+								"end-index": "Netpeer.Pathfinder.NodeCount-1"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "create-object",
+							"objectClass": "System",
+							"sid": 772119425779942,
+							"parameters": {
+								"object-to-create": "PathNode",
+								"layer": "\"UI\"",
+								"x": "Netpeer.Pathfinder.NodeXAt(loopindex(\"i_Node\"))",
+								"y": "Netpeer.Pathfinder.NodeYAt(loopindex(\"i_Node\"))"
+							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "PathNode",
+							"sid": 689810435670351,
+							"parameters": {
+								"instance-variable": "NodeID",
+								"value": "loopindex(\"i_Node\")"
+							}
+						},
+						{
+							"id": "spawn-another-object",
+							"objectClass": "PathNode",
+							"sid": 921970504340026,
+							"parameters": {
+								"object": "TextValue_node",
+								"layer": "\"_GAMEOBJECTS\"",
+								"image-point": "0"
+							}
+						},
+						{
+							"id": "add-child",
+							"objectClass": "PathNode",
+							"sid": 908448946287375,
+							"parameters": {
+								"child": "TextValue_node",
+								"transform-x": true,
+								"transform-y": true,
+								"transform-w": false,
+								"transform-h": false,
+								"transform-a": false,
+								"transform-z-elevation": false,
+								"destroy-with-parent": true
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "TextValue_node",
+							"sid": 288109006248739,
+							"parameters": {
+								"text": "PathNode.NodeID"
+							}
+						}
+					],
+					"sid": 869549270050045,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "PathNode",
+									"sid": 344139520008776,
+									"parameters": {
+										"instance-variable": "NodeID",
+										"comparison": 0,
+										"value": "Netpeer.Pathfinder.NodeCount-1"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-visible",
+									"objectClass": "PathNode",
+									"sid": 177393188142669,
+									"parameters": {
+										"visibility": "invisible"
+									}
+								}
+							],
+							"sid": 248629724837981
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 407489823988118
+						},
+						{
+							"id": "set-boolean-instvar",
+							"objectClass": "Netpeer",
+							"sid": 969429829519556,
+							"parameters": {
+								"instance-variable": "CanMove",
+								"value": "true"
+							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "Netpeer",
+							"sid": 348609873982097,
+							"parameters": {
+								"instance-variable": "NextNodeID",
+								"value": "0"
+							}
+						}
+					],
+					"sid": 249431107996117
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "compare-instance-variable",
+					"objectClass": "Netpeer",
+					"sid": 390172917647008,
+					"parameters": {
+						"instance-variable": "AssocActorNr",
+						"comparison": 0,
+						"value": "Photon.MyActorNr"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 765972215633109,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-boolean-instance-variable-set",
+							"objectClass": "Netpeer",
+							"sid": 282957147520399,
+							"parameters": {
+								"instance-variable": "CanMove"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 467835126203973,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-comparison",
+									"objectClass": "System",
+									"sid": 247989315091521,
+									"parameters": {
+										"object": "PathNode",
+										"expression": "PathNode.NodeID",
+										"comparison": 0,
+										"value": "Netpeer.NextNodeID"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Controls-Path-GetDirection",
+									"sid": 784449427231807,
+									"parameters": [
+										"PathNode.NodeID"
+									]
+								}
+							],
+							"sid": 857506152147761
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-moving",
+							"objectClass": "Netpeer",
+							"sid": 593899166390299,
+							"behaviorType": "GridMove",
+							"isInverted": true
+						},
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "Netpeer",
+							"sid": 656702382863587,
+							"parameters": {
+								"instance-variable": "MoveDir",
+								"comparison": 0,
+								"value": "\"NULL\""
+							},
+							"isInverted": true
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "Controls-LocalPlayer-Move",
+							"sid": 855221946124004
+						}
+					],
+					"sid": 554887094564226
+				}
+			]
+		},
+		{
+			"functionName": "Controls-Path-GetDirection",
+			"functionDescription": "",
+			"functionCategory": "Controls, Path",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pNodeID",
+					"type": "number",
+					"initialValue": "-1",
+					"comment": "",
+					"sid": 439677741639946
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 140674770518914,
+					"parameters": {
+						"object": "Netpeer",
+						"expression": "Netpeer.AssocActorNr",
+						"comparison": 0,
+						"value": "Photon.MyActorNr"
+					}
+				},
+				{
+					"id": "pick-by-comparison",
+					"objectClass": "System",
+					"sid": 159558807967080,
+					"parameters": {
+						"object": "PathNode",
+						"expression": "PathNode.NodeID",
+						"comparison": 0,
+						"value": "pNodeID"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 930099957967107,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "tolerance",
+					"type": "number",
+					"initialValue": "6",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 548046325372690
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-y",
+							"objectClass": "PathNode",
+							"sid": 634696184982888,
+							"parameters": {
+								"comparison": 2,
+								"y-co-ordinate": "Netpeer.Y-tolerance"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 927151423304907,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-x",
+									"objectClass": "PathNode",
+									"sid": 122203813096416,
+									"parameters": {
+										"comparison": 2,
+										"x-co-ordinate": "Netpeer.X-tolerance"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Netpeer",
+									"sid": 940933530773370,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "choose(\"North\", \"West\")"
+									}
+								}
+							],
+							"sid": 437309195026669
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 384184437676106
+								},
+								{
+									"id": "compare-x",
+									"objectClass": "PathNode",
+									"sid": 907422330764978,
+									"parameters": {
+										"comparison": 4,
+										"x-co-ordinate": "Netpeer.X+tolerance"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Netpeer",
+									"sid": 731459138290305,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "choose(\"North\", \"East\")"
+									}
+								}
+							],
+							"sid": 898921747628353
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 878895622498511
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Netpeer",
+									"sid": 803089185871451,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "\"North\""
+									}
+								}
+							],
+							"sid": 186417215500328
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 636761018908286
+						},
+						{
+							"id": "compare-y",
+							"objectClass": "PathNode",
+							"sid": 258622253490827,
+							"parameters": {
+								"comparison": 4,
+								"y-co-ordinate": "Netpeer.Y+tolerance"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 683381894784543,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-x",
+									"objectClass": "PathNode",
+									"sid": 614621178516422,
+									"parameters": {
+										"comparison": 2,
+										"x-co-ordinate": "Netpeer.X-tolerance"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Netpeer",
+									"sid": 589749989882695,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "choose(\"South\", \"West\")"
+									}
+								}
+							],
+							"sid": 348406833026099
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 339272195953410
+								},
+								{
+									"id": "compare-x",
+									"objectClass": "PathNode",
+									"sid": 246698226682675,
+									"parameters": {
+										"comparison": 4,
+										"x-co-ordinate": "Netpeer.X+tolerance"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Netpeer",
+									"sid": 868375799157463,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "choose(\"South\", \"East\")"
+									}
+								}
+							],
+							"sid": 182439176626560
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 417920038197244
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Netpeer",
+									"sid": 168584578307246,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "\"South\""
+									}
+								}
+							],
+							"sid": 105128342258866
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 158178447576067
+						},
+						{
+							"id": "compare-y",
+							"objectClass": "PathNode",
+							"sid": 905267710491417,
+							"parameters": {
+								"comparison": 5,
+								"y-co-ordinate": "Netpeer.Y-tolerance"
+							}
+						},
+						{
+							"id": "compare-y",
+							"objectClass": "PathNode",
+							"sid": 343010380109210,
+							"parameters": {
+								"comparison": 3,
+								"y-co-ordinate": "Netpeer.Y+tolerance"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 531363457697441,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-x",
+									"objectClass": "PathNode",
+									"sid": 945543787342709,
+									"parameters": {
+										"comparison": 2,
+										"x-co-ordinate": "Netpeer.X-tolerance"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Netpeer",
+									"sid": 754238117708878,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "\"West\""
+									}
+								}
+							],
+							"sid": 810645862983566
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 146598427483823
+								},
+								{
+									"id": "compare-x",
+									"objectClass": "PathNode",
+									"sid": 887528871006617,
+									"parameters": {
+										"comparison": 4,
+										"x-co-ordinate": "Netpeer.X+tolerance"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Netpeer",
+									"sid": 823684945638244,
+									"parameters": {
+										"instance-variable": "MoveDir",
+										"value": "\"East\""
+									}
+								}
+							],
+							"sid": 593916110009586
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 519683848474381
+								},
+								{
+									"id": "compare-x",
+									"objectClass": "PathNode",
+									"sid": 166800505914914,
+									"parameters": {
+										"comparison": 5,
+										"x-co-ordinate": "Netpeer.X-tolerance"
+									}
+								},
+								{
+									"id": "compare-x",
+									"objectClass": "PathNode",
+									"sid": 414373757917321,
+									"parameters": {
+										"comparison": 3,
+										"x-co-ordinate": "Netpeer.X+tolerance"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Controls-Path-ReachNode",
+									"sid": 242053004750677,
+									"parameters": [
+										"PathNode.NodeID"
+									]
+								}
+							],
+							"sid": 700966909314540
+						}
+					]
+				}
+			]
+		}
+	],
+	"sid": 111816648060611
+}

@@ -1,0 +1,43 @@
+{
+	"name": "MinimapIndicator",
+	"plugin-id": "Sprite",
+	"sid": 125238361029675,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Sin",
+			"name": "Sine",
+			"sid": 109298764527658
+		}
+	],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 8,
+						"height": 15,
+						"originX": 0.5,
+						"originY": 1.6666666666666667,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 3940312,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 896291788049404,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

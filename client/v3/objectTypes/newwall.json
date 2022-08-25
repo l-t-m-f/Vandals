@@ -1,0 +1,53 @@
+{
+	"name": "newWall",
+	"plugin-id": "Sprite",
+	"sid": 786420222863241,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 3028,
+						"height": 222,
+						"originX": 0,
+						"originY": 1,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 2051883,
+						"collisionPoly": {
+							"points": [
+								0.02906208718626156,
+								0.44594594594594594,
+								0.5033025099075297,
+								0.04054054054054054,
+								0.9973579920739762,
+								0.17117117117117117,
+								0.5680317040951123,
+								0.8783783783783784,
+								0.5033025099075297,
+								0.8783783783783784,
+								0.43824306472919416,
+								0.8783783783783784
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 380407170934379,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

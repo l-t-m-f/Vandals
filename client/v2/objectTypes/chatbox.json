@@ -1,0 +1,43 @@
+{
+	"name": "Chatbox",
+	"plugin-id": "Spritefont2",
+	"sid": 303331632636665,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "MaxLength",
+			"type": "number",
+			"desc": "Maximum number of character for this text. Set to -1 for infinite.",
+			"sid": 623886811477470
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Flash",
+			"name": "Flash",
+			"sid": 242191191159712
+		},
+		{
+			"behaviorId": "Sin",
+			"name": "Sine",
+			"sid": 573814228961594
+		},
+		{
+			"behaviorId": "Fade",
+			"name": "Fade",
+			"sid": 399615745119939
+		}
+	],
+	"effectTypes": [],
+	"image": {
+		"width": 256,
+		"height": 384,
+		"originX": 0.5,
+		"originY": 0.5,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 4703426,
+		"useCollisionPoly": true
+	}
+}

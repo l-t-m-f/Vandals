@@ -1,0 +1,1043 @@
+{
+	"projectFormatVersion": 1,
+	"savedWithRelease": 23404,
+	"name": "Vandals",
+	"runtime": "c3",
+	"useWorker": "auto",
+	"bundleAddons": true,
+	"usedAddons": [
+		{
+			"type": "plugin",
+			"id": "Sprite",
+			"name": "Sprite",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Arr",
+			"name": "Array",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Dictionary",
+			"name": "Dictionary",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "AJAX",
+			"name": "AJAX",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Audio",
+			"name": "Audio",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Mouse",
+			"name": "Mouse",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Touch",
+			"name": "Touch",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Keyboard",
+			"name": "Keyboard",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "LocalStorage",
+			"name": "Local storage",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Photon",
+			"name": "Photon",
+			"author": "Chadori",
+			"version": "2.0.3.8",
+			"bundled": true
+		},
+		{
+			"type": "plugin",
+			"id": "PlatformInfo",
+			"name": "Platform info",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Tilemap",
+			"name": "Tilemap",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "NinePatch",
+			"name": "9-patch",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Text",
+			"name": "Text",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Button",
+			"name": "Button",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "TextBox",
+			"name": "Text input",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Spritefont2",
+			"name": "Sprite font",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Particles",
+			"name": "Particles",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Sin",
+			"name": "Sine",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "scrollto",
+			"name": "Scroll To",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "bound",
+			"name": "Bound to layout",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "solid",
+			"name": "Solid",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Pin",
+			"name": "Pin",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Bullet",
+			"name": "Bullet",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "LOS",
+			"name": "Line of sight",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "TileMovement",
+			"name": "Tile movement",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Pathfinding",
+			"name": "Pathfinding",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Flash",
+			"name": "Flash",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Rotate",
+			"name": "Rotate",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Fade",
+			"name": "Fade",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "DragnDrop",
+			"name": "Drag & Drop",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "effect",
+			"id": "inverse",
+			"name": "Inverse",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "effect",
+			"id": "lighten",
+			"name": "Lighten",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "effect",
+			"id": "water",
+			"name": "Water",
+			"author": "Viktor Korsun",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "effect",
+			"id": "radialblur",
+			"name": "Radial blur",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		},
+		{
+			"type": "effect",
+			"id": "difference",
+			"name": "Difference",
+			"author": "Scirra",
+			"version": "r234.4",
+			"bundled": false
+		}
+	],
+	"uniqueId": "nrvpx3n2emq",
+	"objectTypes": {
+		"items": [
+			"TextValue_node",
+			"TextValue_netpeer",
+			"TextIndicator_host",
+			"TextIndicator_map",
+			"debugtext_MonsterGroupInfo",
+			"TextIndicator_nextspawn",
+			"TextDialog",
+			"TextValue_create_attribute",
+			"9patch_1",
+			"asset_ScrollBar",
+			"InGameMenu2",
+			"InGameMenu3",
+			"9patch_2",
+			"InGameMenu4",
+			"CombatStart",
+			"asset_Button",
+			"vfx_TileHoverSelection",
+			"GridGraph",
+			"vfx_InRangeTileTexture",
+			"Spritefont_special_EnergyDisplay",
+			"UIBar",
+			"asset_Clock",
+			"asset_PaintSpot",
+			"CastRequest",
+			"Spritefont_special_NameDisplay",
+			"Chatbox",
+			"vfx_dialogSpawn",
+			"overworldDialog",
+			"TextIndicator_DebuggingInfo",
+			"Tilemap",
+			"UI_Healthbar",
+			"UI_HealthbarFiller",
+			"UI_EnergyBar",
+			"UI_EnergyBarFiller"
+		],
+		"subfolders": [
+			{
+				"items": [
+					"MenuLogo",
+					"MenuCamera",
+					"asset_HexSocket"
+				],
+				"subfolders": [
+					{
+						"items": [
+							"asset_connect_Minigoo_temp",
+							"asset_connect_Mushroom_temp"
+						],
+						"subfolders": [],
+						"name": "Connect"
+					},
+					{
+						"items": [],
+						"subfolders": [
+							{
+								"items": [
+									"mem_HexSelection",
+									"mem_KindWheel"
+								],
+								"subfolders": [
+									{
+										"items": [
+											"data_AttributesInfo",
+											"data_CradlesInfo",
+											"data_HexesInfo",
+											"data_KindsInfo",
+											"data_SkillsInfo"
+										],
+										"subfolders": [],
+										"name": "static"
+									}
+								],
+								"name": "Data"
+							},
+							{
+								"items": [
+									"asset_BloodSplatter",
+									"asset_CradleIndicatorArrow",
+									"asset_CradleMap",
+									"special_PumpingHeartIcon"
+								],
+								"subfolders": [],
+								"name": "Visual assets"
+							}
+						],
+						"name": "CreateChar"
+					},
+					{
+						"items": [
+							"CaptchaDictionary",
+							"CaptchaLetter"
+						],
+						"subfolders": [],
+						"name": "Register"
+					},
+					{
+						"items": [
+							"asset_SlotShadow"
+						],
+						"subfolders": [],
+						"name": "LoadChar"
+					}
+				],
+				"name": "Menus"
+			},
+			{
+				"items": [
+					"AJAX",
+					"Audio",
+					"Controls_Desktop",
+					"Controls_Mobile",
+					"Cursor",
+					"Keyboard",
+					"LocalStorage",
+					"Photon",
+					"PlatformInfo"
+				],
+				"subfolders": [],
+				"name": "Meta"
+			},
+			{
+				"items": [],
+				"subfolders": [
+					{
+						"items": [
+							"InGameMenu",
+							"SkillSocket"
+						],
+						"subfolders": [
+							{
+								"items": [
+									"ChatBoxCursor",
+									"data_ChatBox"
+								],
+								"subfolders": [],
+								"name": "Chat"
+							},
+							{
+								"items": [
+									"DialogBox"
+								],
+								"subfolders": [],
+								"name": "Dialogs"
+							},
+							{
+								"items": [
+									"Minimap",
+									"MinimapBoundary",
+									"MinimapIndicator"
+								],
+								"subfolders": [],
+								"name": "Minimap"
+							},
+							{
+								"items": [
+									"PathNode",
+									"PathTarget"
+								],
+								"subfolders": [],
+								"name": "Indicators"
+							},
+							{
+								"items": [
+									"MapEdge",
+									"MapPlot"
+								],
+								"subfolders": [],
+								"name": "EmbededUI"
+							}
+						],
+						"name": "UI"
+					},
+					{
+						"items": [
+							"Camera",
+							"DefaultSpawner",
+							"GlobalSpeaker",
+							"MobSpawner"
+						],
+						"subfolders": [],
+						"name": "Special"
+					},
+					{
+						"items": [],
+						"subfolders": [
+							{
+								"items": [],
+								"subfolders": [
+									{
+										"items": [
+											"SkyBackground1",
+											"ShadowVoid"
+										],
+										"subfolders": [],
+										"name": "Skies"
+									}
+								],
+								"name": "Big textures"
+							},
+							{
+								"items": [
+									"asset_32x32",
+									"asset_Decor",
+									"asset_Graffiti"
+								],
+								"subfolders": [
+									{
+										"items": [
+											"newWall"
+										],
+										"subfolders": [],
+										"name": "Big assets"
+									}
+								],
+								"name": "Decor"
+							},
+							{
+								"items": [
+									"asset_OverworldPC",
+									"asset_Monster",
+									"assetNPC",
+									"asset_Monster2"
+								],
+								"subfolders": [],
+								"name": "Entities"
+							},
+							{
+								"items": [
+									"GroundPattern1"
+								],
+								"subfolders": [],
+								"name": "Randomized texture (programmed)"
+							},
+							{
+								"items": [
+									"asset_Shadow"
+								],
+								"subfolders": [],
+								"name": "Details"
+							}
+						],
+						"name": "Visual assets"
+					},
+					{
+						"items": [
+							"MonsterFollower",
+							"MonsterLeader",
+							"Netpeer",
+							"NPC"
+						],
+						"subfolders": [],
+						"name": "Entities"
+					},
+					{
+						"items": [
+							"data_Dialogs",
+							"data_MapHashes"
+						],
+						"subfolders": [],
+						"name": "Data"
+					}
+				],
+				"name": "Game"
+			},
+			{
+				"items": [
+					"EnigmaTest_DString",
+					"EnigmaTest_EString",
+					"EnigmaTestButton",
+					"EnigmaTestInput",
+					"SPRITESHEET_a01",
+					"TestSolid"
+				],
+				"subfolders": [],
+				"name": "Debug"
+			},
+			{
+				"items": [
+					"SpriteFont_FixedHeader",
+					"SpriteFont_FixedHeader_artsyXL",
+					"SpriteFont_Variant",
+					"SpriteFont_Variant2",
+					"SpriteFont_Variant4",
+					"OverworldDialogLine"
+				],
+				"subfolders": [],
+				"name": "Spritefonts"
+			},
+			{
+				"items": [
+					"VFX_CradleMapOverlay"
+				],
+				"subfolders": [
+					{
+						"items": [
+							"Particle_Shape"
+						],
+						"subfolders": [],
+						"name": "Particle Assets"
+					},
+					{
+						"items": [
+							"ParticleSpawner_Shapes"
+						],
+						"subfolders": [],
+						"name": "Particle Spawners"
+					}
+				],
+				"name": "VFX"
+			},
+			{
+				"items": [
+					"Button",
+					"Checkbox",
+					"hitbox_DisplayTooltip",
+					"hitbox_IconAnchor",
+					"Sizeable_Tooltip",
+					"Sizeable_Popup",
+					"Menu",
+					"MenuShade",
+					"FieldSelector",
+					"InputField"
+				],
+				"subfolders": [
+					{
+						"items": [
+							"AttributeIcon_large",
+							"AttributeIcon_medium",
+							"AttributeIcon_small",
+							"AttributeIcon_xtralarge",
+							"CradleIcon_large",
+							"HexIcon_large",
+							"HexIcon_medium",
+							"HexIcon_small",
+							"HexIcon_xtralarge",
+							"KindIcon_other",
+							"KindIcon_spotlight",
+							"KindIcon_myplayer",
+							"SkillIcon_medium"
+						],
+						"subfolders": [],
+						"name": "IconAssets"
+					}
+				],
+				"name": "Generic UI"
+			}
+		]
+	},
+	"autosaveData": null,
+	"containers": [],
+	"families": {
+		"items": [
+			"GridConform",
+			"Solid",
+			"DragDrop"
+		],
+		"subfolders": []
+	},
+	"layouts": {
+		"items": [
+			"INDEX"
+		],
+		"subfolders": [
+			{
+				"items": [
+					"GameInit",
+					"EnigmaTest"
+				],
+				"subfolders": [],
+				"name": "Dev"
+			},
+			{
+				"items": [],
+				"subfolders": [
+					{
+						"items": [
+							"000",
+							"001",
+							"002",
+							"003"
+						],
+						"subfolders": [],
+						"name": "a_TutorialWall"
+					}
+				],
+				"name": "Maps"
+			},
+			{
+				"items": [
+					"Connect",
+					"CreateChar",
+					"Register",
+					"LoadChar"
+				],
+				"subfolders": [],
+				"name": "Menus"
+			}
+		]
+	},
+	"eventSheets": {
+		"items": [
+			"KEYCHAIN"
+		],
+		"subfolders": [
+			{
+				"items": [
+					"eConnect",
+					"eCreateChar",
+					"eLoadChar",
+					"eRegister"
+				],
+				"subfolders": [],
+				"name": "Menu"
+			},
+			{
+				"items": [
+					"eMain",
+					"eInit",
+					"eMonsters",
+					"eMyPlayer",
+					"ePhotonCloud",
+					"eFight",
+					"eDialogs",
+					"eNetpeer"
+				],
+				"subfolders": [],
+				"name": "Game"
+			},
+			{
+				"items": [
+					"eControls",
+					"eEnigma",
+					"eDebug",
+					"eServer",
+					"eUI",
+					"eVFX",
+					"eJukebox",
+					"eButtons",
+					"eInputFields"
+				],
+				"subfolders": [],
+				"name": "Meta"
+			}
+		]
+	},
+	"rootFileFolders": {
+		"script": {
+			"items": [
+				{
+					"name": "main-forge.js",
+					"type": "application/javascript",
+					"sid": 291100514765600,
+					"script-info": {
+						"purpose": "none"
+					}
+				}
+			],
+			"subfolders": []
+		},
+		"sound": {
+			"items": [],
+			"subfolders": [
+				{
+					"items": [],
+					"subfolders": [
+						{
+							"items": [],
+							"subfolders": [
+								{
+									"items": [
+										{
+											"name": "Crash_8.webm",
+											"type": "audio/webm; codecs=opus",
+											"sid": 907962511055747
+										},
+										{
+											"name": "Crash_7.webm",
+											"type": "audio/webm; codecs=opus",
+											"sid": 801286099982697
+										},
+										{
+											"name": "Crash_6.webm",
+											"type": "audio/webm; codecs=opus",
+											"sid": 343067024384022
+										},
+										{
+											"name": "Crash_5.webm",
+											"type": "audio/webm; codecs=opus",
+											"sid": 190416470516372
+										},
+										{
+											"name": "Crash_4.webm",
+											"type": "audio/webm; codecs=opus",
+											"sid": 736089175066008
+										},
+										{
+											"name": "Crash_3.webm",
+											"type": "audio/webm; codecs=opus",
+											"sid": 104729871430204
+										},
+										{
+											"name": "Crash_2.webm",
+											"type": "audio/webm; codecs=opus",
+											"sid": 154871728284623
+										},
+										{
+											"name": "Crash_1.webm",
+											"type": "audio/webm; codecs=opus",
+											"sid": 924064920694402
+										}
+									],
+									"subfolders": [],
+									"name": "SFXCrashes"
+								}
+							],
+							"name": "Area-TutorialWall"
+						}
+					],
+					"name": "Game"
+				}
+			]
+		},
+		"music": {
+			"items": [
+				{
+					"name": "Tinkertank.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 225448896323385
+				},
+				{
+					"name": "Intro.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 165865578348162
+				},
+				{
+					"name": "Fever.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 362809854550033
+				},
+				{
+					"name": "RobotFactory.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 590229060655969
+				},
+				{
+					"name": "5_SkeletonHouse.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 503522731515401
+				},
+				{
+					"name": "TheWall.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 251704022914855
+				}
+			],
+			"subfolders": []
+		},
+		"video": {
+			"items": [],
+			"subfolders": []
+		},
+		"font": {
+			"items": [
+				{
+					"name": "8-bit-pusab.ttf",
+					"type": "application/font-sfnt",
+					"sid": 427597563893290
+				},
+				{
+					"name": "Pixelfy.ttf",
+					"type": "application/font-sfnt",
+					"sid": 229359124790217
+				}
+			],
+			"subfolders": []
+		},
+		"icon": {
+			"items": [
+				{
+					"name": "icon-16.png",
+					"type": "image/png",
+					"sid": 829344197616227,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-32.png",
+					"type": "image/png",
+					"sid": 853367039219253,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-64.png",
+					"type": "image/png",
+					"sid": 438911824507060,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-128.png",
+					"type": "image/png",
+					"sid": 865828422350433,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-512.png",
+					"type": "image/png",
+					"sid": 469419781659382,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "loading-logo.png",
+					"type": "image/png",
+					"sid": 463377850277738,
+					"icon-info": {
+						"purpose": "loading-logo"
+					}
+				},
+				{
+					"name": "icon-256.png",
+					"type": "image/png",
+					"sid": 733063053539077,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				}
+			],
+			"subfolders": []
+		},
+		"general": {
+			"items": [
+				{
+					"name": "CaptchaDictionary.json",
+					"type": "application/json",
+					"sid": 389690830616740
+				},
+				{
+					"name": "LOCAL_DATAREF_KINDS.json",
+					"type": "application/json",
+					"sid": 445235238293278
+				},
+				{
+					"name": "LOCAL_DATAREF_ATTRIBUTES.json",
+					"type": "application/json",
+					"sid": 776526615415637
+				},
+				{
+					"name": "LOCAL_DATAREF_CRADLES.json",
+					"type": "application/json",
+					"sid": 766348506389134
+				},
+				{
+					"name": "LOCAL_DATAREF_HEXES.json",
+					"type": "application/json",
+					"sid": 591460883801236
+				},
+				{
+					"name": "LOCAL_DATAREF_SKILLS.json",
+					"type": "application/json",
+					"sid": 246764321330703
+				},
+				{
+					"name": "LOCAL_DATAREF_DIALOGS.json",
+					"type": "application/json",
+					"sid": 190129427687710
+				},
+				{
+					"name": "maphashes.json",
+					"type": "application/json",
+					"sid": 622694804960367
+				}
+			],
+			"subfolders": []
+		}
+	},
+	"timelines": {
+		"items": [],
+		"subfolders": [
+			{
+				"items": [],
+				"subfolders": []
+			}
+		]
+	},
+	"properties": {
+		"description": "",
+		"version": "alpha0.3",
+		"author": "Émile Fréchette",
+		"authorEmail": "",
+		"authorWebsite": "vandals.online",
+		"appId": "",
+		"pixelRounding": true,
+		"useLoaderLayout": false,
+		"fullscreenMode": "letterbox-scale",
+		"fullscreenQuality": "high",
+		"viewportFit": "auto",
+		"backgroundColor": [
+			0,
+			0,
+			0,
+			0
+		],
+		"splashColor": [
+			0,
+			0,
+			0,
+			0
+		],
+		"useThemeColor": false,
+		"themeColor": [
+			1,
+			1,
+			1,
+			0
+		],
+		"useHighDpi": true,
+		"orientations": "landscape",
+		"enableWebGL": true,
+		"gpuPreference": "high-performance",
+		"scriptsType": "classic",
+		"framerateMode": "vsync",
+		"compositingMode": "standard",
+		"sampling": "nearest",
+		"downscaling": "medium",
+		"maxSpriteSheetSize": 2048,
+		"loaderStyle": "percent",
+		"preloadSounds": true,
+		"clearBackground": true,
+		"enhancedAccelerationPrecision": true,
+		"cordovaiOSScheme": "app"
+	},
+	"viewportWidth": 1280,
+	"viewportHeight": 720,
+	"firstLayout": "Connect"
+}

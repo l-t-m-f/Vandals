@@ -1,0 +1,16 @@
+{
+	"name": "eMyPlayer",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "myplayer__Artwork",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 405462150512968
+		}
+	],
+	"sid": 743311316817615
+}

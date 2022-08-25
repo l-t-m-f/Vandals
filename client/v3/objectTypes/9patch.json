@@ -1,0 +1,20 @@
+{
+	"name": "9patch",
+	"plugin-id": "NinePatch",
+	"sid": 435687293432244,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"image": {
+		"width": 433,
+		"height": 324,
+		"originX": 0.5017301038062284,
+		"originY": 0.5509259259259259,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 5239897,
+		"useCollisionPoly": true
+	}
+}

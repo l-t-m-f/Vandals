@@ -1,0 +1,37 @@
+{
+	"name": "asset_DialogsMenuBG",
+	"plugin-id": "Sprite",
+	"sid": 548694789516355,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 421,
+						"height": 259,
+						"originX": 0.8788598574821853,
+						"originY": 0.8146718146718147,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 6071868,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 420735436880316,
+				"name": "Default",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 0
+			}
+		],
+		"subfolders": []
+	}
+}

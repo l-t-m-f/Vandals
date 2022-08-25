@@ -1,0 +1,33 @@
+{
+	"name": "Spritefont_special_NameDisplay",
+	"plugin-id": "Spritefont2",
+	"sid": 470313723982384,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "MaxLength",
+			"type": "number",
+			"desc": "Maximum number of character for this text. Set to -1 for infinite.",
+			"sid": 213021556039980
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Flash",
+			"name": "Flash",
+			"sid": 383596661682280
+		}
+	],
+	"effectTypes": [],
+	"image": {
+		"width": 256,
+		"height": 384,
+		"originX": 0.5,
+		"originY": 0.5,
+		"originalSource": "",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 1910058,
+		"useCollisionPoly": true
+	}
+}

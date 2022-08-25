@@ -1,0 +1,853 @@
+{
+	"name": "eConnect",
+	"events": [
+		{
+			"eventType": "comment",
+			"text": "\"Connect\" Event Sheet"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eServer"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eControls"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eUI"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "KEYCHAIN"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eVFX"
+		},
+		{
+			"eventType": "variable",
+			"name": "connect__AppLaunchDone",
+			"type": "boolean",
+			"initialValue": "false",
+			"comment": "True (1) after App Id is sent to the server and client is authentificated.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 898075369040701
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "connect_ App Launch",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 628782639338556
+						}
+					],
+					"actions": [
+						{
+							"id": "check-item-exists",
+							"objectClass": "LocalStorage",
+							"sid": 373007370227336,
+							"parameters": {
+								"key": "\"optcookie_remember_user\""
+							}
+						},
+						{
+							"callFunction": "Function-Jukebox-PlayMusic",
+							"sid": 458881897540087,
+							"parameters": [
+								"\"Intro\"",
+								"0",
+								true,
+								"1"
+							]
+						}
+					],
+					"sid": 638326904719643,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 203334959502066,
+									"parameters": {
+										"variable": "connect__AppLaunchDone"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [],
+							"sid": 623029831130243,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "is-on-mobile",
+											"objectClass": "PlatformInfo",
+											"sid": 790207656579847
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 615779536258982,
+											"parameters": {
+												"variable": "main__Platform",
+												"value": "\"Mobile\""
+											}
+										}
+									],
+									"sid": 986985566550239
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 543342144481519
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 840461561422152,
+											"parameters": {
+												"variable": "main__Platform",
+												"value": "\"Desktop\""
+											}
+										}
+									],
+									"sid": 945236882909917
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"callFunction": "init Forge",
+											"sid": 853962707776145
+										},
+										{
+											"callFunction": "Connect-AppLaunch-SetVersion",
+											"sid": 866731930703692,
+											"parameters": [
+												"\"a0.3\""
+											]
+										},
+										{
+											"callFunction": "Connect-AppLaunch-LoadFiles",
+											"sid": 248684941605436
+										},
+										{
+											"callFunction": "Server-ConfirmRightApp",
+											"sid": 211484943939810
+										}
+									],
+									"sid": 465311118611118
+								}
+							]
+						}
+					]
+				},
+				{
+					"functionName": "Connect-AppLaunch-LoadFiles",
+					"functionDescription": "Load local json data.",
+					"functionCategory": "Connect, AppLaunch",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "request-project-file",
+							"objectClass": "AJAX",
+							"sid": 386294010063957,
+							"parameters": {
+								"tag": "\"LoadDialogs\"",
+								"file": "local_dataref_dialogs.json"
+							}
+						},
+						{
+							"id": "request-project-file",
+							"objectClass": "AJAX",
+							"sid": 684219948269639,
+							"parameters": {
+								"tag": "\"LoadMonstersCols\"",
+								"file": "cols_Monsters.json"
+							}
+						},
+						{
+							"id": "request-project-file",
+							"objectClass": "AJAX",
+							"sid": 560298204309606,
+							"parameters": {
+								"tag": "\"LoadMonsterGroupsCols\"",
+								"file": "cols_MonsterGroups.json"
+							}
+						},
+						{
+							"id": "request-project-file",
+							"objectClass": "AJAX",
+							"sid": 644219486611257,
+							"parameters": {
+								"tag": "\"LoadMapHashes\"",
+								"file": "maphashes.json"
+							}
+						}
+					],
+					"sid": 961252250944598
+				},
+				{
+					"functionName": "Connect-AppLaunch-SetVersion",
+					"functionDescription": "Sets the version text indicator to display information about the App platform and current version.",
+					"functionCategory": "Connect, AppLaunch",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pVersion",
+							"type": "string",
+							"initialValue": "NULL",
+							"comment": "String for the version of the game.",
+							"sid": 760157128733583
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [
+						{
+							"id": "pick-by-comparison",
+							"objectClass": "System",
+							"sid": 517886741045727,
+							"parameters": {
+								"object": "SpriteFont_Variant",
+								"expression": "SpriteFont_Variant.Type",
+								"comparison": 0,
+								"value": "\"Version\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "typewriter-text",
+							"objectClass": "SpriteFont_Variant",
+							"sid": 319933361781850,
+							"parameters": {
+								"text": "\"Vandals '25'000ft. Below' - MMO - Version \"&pVersion&\" on \"&main__Platform",
+								"duration": "len(\"Vandals '25'000ft. Below' - MMO - Version \"&pVersion&\" on \"&main__Platform)&main__TYPEWRITE_SINGLECHAR_DUR"
+							}
+						}
+					],
+					"sid": 221081950352695
+				},
+				{
+					"functionName": "Server-ConfirmRightApp",
+					"functionDescription": "",
+					"functionCategory": "Server",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 462597845764366,
+							"parameters": {
+								"variable": "server__data_NextSecret",
+								"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+							}
+						},
+						{
+							"callFunction": "Server-AJAX-Prep",
+							"sid": 791901120277588,
+							"parameters": [
+								"\"ConfirmApp\"",
+								"\"confirmapp.php?\"",
+								"\"APPID=\"&server__data_NextSecret"
+							]
+						}
+					],
+					"sid": 111607441640591
+				},
+				{
+					"functionName": "Server-LoadNews",
+					"functionDescription": "",
+					"functionCategory": "Server",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 255141808908421,
+							"parameters": {
+								"variable": "server__data_NextSecret",
+								"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+							}
+						},
+						{
+							"callFunction": "Server-AJAX-Prep",
+							"sid": 460127635564288,
+							"parameters": [
+								"\"LoadNews\"",
+								"\"loadnews.php?\"",
+								"\"APPID=\"&server__data_NextSecret"
+							]
+						}
+					],
+					"sid": 643579058122637
+				},
+				{
+					"functionName": "Server-LoadSession",
+					"functionDescription": "",
+					"functionCategory": "Server",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 696959341936933,
+							"parameters": {
+								"variable": "server__data_NextSecret",
+								"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+							}
+						},
+						{
+							"callFunction": "Server-AJAX-Prep",
+							"sid": 658675049567435,
+							"parameters": [
+								"\"Login\"",
+								"\"login.php?\"",
+								"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&UN=\"&server__data_Username&\"&PW=\"&server__data_Password"
+							]
+						}
+					],
+					"sid": 204674368419230
+				},
+				{
+					"functionName": "Server-CheckAlias",
+					"functionDescription": "",
+					"functionCategory": "Server",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 872712285011228,
+							"parameters": {
+								"variable": "server__data_NextSecret",
+								"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+							}
+						},
+						{
+							"callFunction": "Server-AJAX-Prep",
+							"sid": 488743823495816,
+							"parameters": [
+								"\"CheckAlias\"",
+								"\"checkalias.php?\"",
+								"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&UN=\"&server__data_Username"
+							]
+						}
+					],
+					"sid": 598395904489173
+				},
+				{
+					"functionName": "Server-RegisterAlias",
+					"functionDescription": "",
+					"functionCategory": "Server",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 872185275471449,
+							"parameters": {
+								"variable": "server__data_NextSecret",
+								"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+							}
+						},
+						{
+							"callFunction": "Server-AJAX-Prep",
+							"sid": 335235745218226,
+							"parameters": [
+								"\"RegisterAlias\"",
+								"\"registeralias.php?\"",
+								"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&UN=\"&server__data_Username&\"&AL=\"&server__data_RegisterAlias"
+							]
+						}
+					],
+					"sid": 199405412652690
+				},
+				{
+					"functionName": "Server-LoadCharacterList",
+					"functionDescription": "",
+					"functionCategory": "Server",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 960416175680356,
+							"parameters": {
+								"variable": "server__data_NextSecret",
+								"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+							}
+						},
+						{
+							"callFunction": "Server-AJAX-Prep",
+							"sid": 232550651127428,
+							"parameters": [
+								"\"LoadCharacterList\"",
+								"\"loadchar/loadlist.php?\"",
+								"\"APPID=\"&server__data_NextSecret&\"&BK=\"&server__data_BrowserKey&\"&UN=\"&server__data_Username"
+							]
+						}
+					],
+					"sid": 902855006948790
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-completed",
+							"objectClass": "AJAX",
+							"sid": 971395016154190,
+							"parameters": {
+								"tag": "\"LoadDialogs\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "load",
+							"objectClass": "data_Dialogs",
+							"sid": 345207355852332,
+							"parameters": {
+								"json": "AJAX.LastData"
+							}
+						}
+					],
+					"sid": 773441747738162
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-completed",
+							"objectClass": "AJAX",
+							"sid": 332104653960681,
+							"parameters": {
+								"tag": "\"LoadMonstersCols\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "load",
+							"objectClass": "data_Monsters",
+							"sid": 797956061281666,
+							"parameters": {
+								"json": "AJAX.LastData"
+							}
+						}
+					],
+					"sid": 775284586123064
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-completed",
+							"objectClass": "AJAX",
+							"sid": 508860707312307,
+							"parameters": {
+								"tag": "\"LoadMonsterGroupsCols\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "load",
+							"objectClass": "data_MonsterGroups",
+							"sid": 910321404792539,
+							"parameters": {
+								"json": "AJAX.LastData"
+							}
+						}
+					],
+					"sid": 444924936249591
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-completed",
+							"objectClass": "AJAX",
+							"sid": 365192770512758,
+							"parameters": {
+								"tag": "\"LoadMapHashes\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "load",
+							"objectClass": "data_MapHashes",
+							"sid": 189913929158797,
+							"parameters": {
+								"json": "AJAX.LastData"
+							}
+						}
+					],
+					"sid": 598661942165925
+				}
+			],
+			"sid": 812787354884385
+		},
+		{
+			"eventType": "variable",
+			"name": "connect__RememberUsername",
+			"type": "boolean",
+			"initialValue": "false",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 618805313348675
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "connect_ Remember Username",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-item-exists",
+							"objectClass": "LocalStorage",
+							"sid": 201859031021606,
+							"parameters": {
+								"key": "\"optcookie_remember_user\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "UI-Menu-Checkbox-Activate",
+							"sid": 877755000283658,
+							"parameters": [
+								"\"RememberUsername\""
+							]
+						},
+						{
+							"id": "check-item-exists",
+							"objectClass": "LocalStorage",
+							"sid": 868686286614376,
+							"parameters": {
+								"key": "\"SavedUsername\""
+							}
+						}
+					],
+					"sid": 628077017791362
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-item-exists",
+							"objectClass": "LocalStorage",
+							"sid": 528746153909510,
+							"parameters": {
+								"key": "\"SavedUsername\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "get-item",
+							"objectClass": "LocalStorage",
+							"sid": 974651850838464,
+							"parameters": {
+								"key": "\"SavedUsername\""
+							}
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 761548154096806
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 392346626686526,
+							"parameters": {
+								"variable": "server__data_Username",
+								"value": "LocalStorage.ItemValue"
+							}
+						}
+					],
+					"sid": 431553700825809,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-comparison",
+									"objectClass": "System",
+									"sid": 762262408236468,
+									"parameters": {
+										"object": "SpriteFont_Variant",
+										"expression": "SpriteFont_Variant.Type",
+										"comparison": 0,
+										"value": "\"Field_Username\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "SpriteFont_Variant",
+									"sid": 783018986010357,
+									"parameters": {
+										"text": "Functions.Enigma_Decrypt(server__data_Username, K_USERNAME)"
+									}
+								}
+							],
+							"sid": 349162212847336
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 252547756123224
+								},
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 104364046609337,
+									"parameters": {
+										"variable": "connect__AppLaunchDone",
+										"value": "true"
+									}
+								}
+							],
+							"sid": 848502023871345
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "No Username"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-item-missing",
+							"objectClass": "LocalStorage",
+							"sid": 909570088264311,
+							"parameters": {
+								"key": "\"optcookie_remember_user\""
+							}
+						},
+						{
+							"id": "on-item-missing",
+							"objectClass": "LocalStorage",
+							"sid": 867375323174325,
+							"parameters": {
+								"key": "\"SavedUsername\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 295014464097662,
+							"parameters": {
+								"variable": "connect__RememberUsername",
+								"value": "false"
+							}
+						},
+						{
+							"callFunction": "UI-Menu-Checkbox-Deactivate",
+							"sid": 906787575548362,
+							"parameters": [
+								"\"Username\""
+							]
+						},
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 869825742880361,
+							"parameters": {
+								"variable": "connect__AppLaunchDone",
+								"value": "true"
+							}
+						}
+					],
+					"sid": 760523965403865,
+					"isOrBlock": true
+				},
+				{
+					"functionName": "Connect-RememberUsername-SetCookie",
+					"functionDescription": "Sets a cookie to remember the last used Username.",
+					"functionCategory": "Connect, RememberUsername",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "pCookieState",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "Whether or not to set a cookie for remembering the username.",
+							"sid": 798725235060957
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 241058363938573,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 568542640307299,
+									"parameters": {
+										"variable": "pCookieState",
+										"comparison": 0,
+										"value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "remove-item",
+									"objectClass": "LocalStorage",
+									"sid": 558666939019310,
+									"parameters": {
+										"key": "\"optcookie_remember_user\""
+									}
+								},
+								{
+									"id": "remove-item",
+									"objectClass": "LocalStorage",
+									"sid": 697974065980966,
+									"parameters": {
+										"key": "\"SavedUsername\""
+									}
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 954480071717020
+								},
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 235098313952850,
+									"parameters": {
+										"variable": "connect__RememberUsername",
+										"value": "false"
+									}
+								}
+							],
+							"sid": 531495889060568
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 736334638425612
+								},
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 996385685215888,
+									"parameters": {
+										"variable": "pCookieState",
+										"comparison": 0,
+										"value": "1"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-item",
+									"objectClass": "LocalStorage",
+									"sid": 501473856270240,
+									"parameters": {
+										"key": "\"optcookie_remember_user\"",
+										"value": "1"
+									}
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 335927246131975
+								},
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 697756190444638,
+									"parameters": {
+										"variable": "connect__RememberUsername",
+										"value": "true"
+									}
+								}
+							],
+							"sid": 662766218263922
+						}
+					]
+				}
+			],
+			"sid": 360353591039082
+		}
+	],
+	"sid": 263511451591227
+}

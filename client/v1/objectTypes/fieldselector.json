@@ -1,0 +1,56 @@
+{
+	"name": "FieldSelector",
+	"plugin-id": "Sprite",
+	"sid": 703545594972989,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "AssocField",
+			"type": "string",
+			"desc": "",
+			"sid": 599717306505548
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 32,
+						"height": 32,
+						"originX": 0,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 2219527,
+						"useCollisionPoly": true,
+						"duration": 1
+					},
+					{
+						"width": 32,
+						"height": 32,
+						"originX": 0,
+						"originY": 1,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 1546437,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 993783597527669,
+				"name": "Default",
+				"isLooping": true,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 4
+			}
+		],
+		"subfolders": []
+	}
+}

@@ -1,0 +1,164 @@
+{
+	"name": "eFight",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "fight__CastMode",
+			"type": "boolean",
+			"initialValue": "false",
+			"comment": "True (1) if currently casting a spell (next click in area triggers the cast).",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 425939739486891
+		},
+		{
+			"eventType": "variable",
+			"name": "fight__CurPreviewedRangeSkillName",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "Name of the skill whose range is currently previewed.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 223328090285231
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__fight__DamageRequestDecryptedReturn",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 952323545374290
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-collision-with-another-object",
+					"objectClass": "CastRequest",
+					"sid": 466618781492073,
+					"parameters": {
+						"object": "MonsterLeader"
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "Server-Monsters-Damage",
+					"sid": 604877019975427,
+					"parameters": [
+						"MonsterLeader.MonsterGroupHashID_e",
+						"MonsterLeader.MonsterHashID_e",
+						"Functions.Enigma_Encrypt(\"\"&1, K_BROWSER)"
+					]
+				}
+			],
+			"sid": 446781576669584
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-collision-with-another-object",
+					"objectClass": "CastRequest",
+					"sid": 202803685197938,
+					"parameters": {
+						"object": "MonsterFollower"
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "Server-Monsters-Damage",
+					"sid": 954889198959972,
+					"parameters": [
+						"MonsterFollower.MonsterGroupHashID_e",
+						"MonsterFollower.MonsterHashID_e",
+						"Functions.Enigma_Encrypt(\"\"&1, K_BROWSER)"
+					]
+				}
+			],
+			"sid": 895408838912726
+		},
+		{
+			"functionName": "Server-Monsters-Damage",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "p_e_MonsterGroupHashIDe",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"sid": 193408403052272
+				},
+				{
+					"name": "p_e_MonsterHashIDe",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"sid": 237438216480751
+				},
+				{
+					"name": "p_e_DamageValue",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"sid": 262034013548843
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 194800688373136,
+					"parameters": {
+						"variable": "server__data_NextSecret",
+						"value": "Functions.Enigma_Encrypt(\"4742177755576614\", K_BROWSER)"
+					}
+				},
+				{
+					"callFunction": "Server-AJAX-Prep",
+					"sid": 349608599635363,
+					"parameters": [
+						"\"Monsters_Damage\"",
+						"\"monsters/damage.php?\"",
+						"\"APPID=\"&server__data_NextSecret&\"&MHI=\"&main__CurMapHashID&\"&MGHI=\"&p_e_MonsterGroupHashIDe&\"&MHI2=\"&p_e_MonsterHashIDe&\"&DV=\"&p_e_DamageValue"
+					]
+				}
+			],
+			"sid": 428476202088358
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-completed",
+					"objectClass": "AJAX",
+					"sid": 853835257577848,
+					"parameters": {
+						"tag": "\"Monsters_Damage\""
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 978808752529723,
+					"parameters": {
+						"variable": "debug__fight__DamageRequestDecryptedReturn",
+						"value": "Functions.Enigma_Decrypt(AJAX.LastData, K_BROWSER)"
+					}
+				}
+			],
+			"sid": 917590151953828
+		}
+	],
+	"sid": 406112941091822
+}

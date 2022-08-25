@@ -1,0 +1,643 @@
+{
+	"name": "ePhotonCloud",
+	"events": [
+		{
+			"eventType": "comment",
+			"text": "PhotonCloud Events"
+		},
+		{
+			"eventType": "variable",
+			"name": "photonCloud_NextRoom",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "Name of the room to join the next time the session joins the Game Lobby.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 222740090809403
+		},
+		{
+			"eventType": "variable",
+			"name": "photonCloud_RoomMaster",
+			"type": "boolean",
+			"initialValue": "false",
+			"comment": "True (1) if this session is the MasterClient.",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 194693042484320
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "photonCloud_ Common",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "onjoinedlobby22",
+							"objectClass": "Photon",
+							"sid": 157149894075650
+						}
+					],
+					"actions": [
+						{
+							"id": "joinroom12",
+							"objectClass": "Photon",
+							"sid": 739929469337704,
+							"parameters": {
+								"room0": "photonCloud_NextRoom",
+								"rejoin3": "no",
+								"createifnotexists6": "yes",
+								"lobbyname7": "\"\"",
+								"lobbytype10": "default"
+							}
+						}
+					],
+					"sid": 259300536894040
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "onjoinroom14",
+							"objectClass": "Photon",
+							"sid": 765226620170142
+						}
+					],
+					"actions": [
+						{
+							"id": "go-to-layout-by-name",
+							"objectClass": "System",
+							"sid": 328209715701153,
+							"parameters": {
+								"layout": "Photon.MyRoomName"
+							}
+						}
+					],
+					"sid": 218617868311097
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "onactorleave16",
+							"objectClass": "Photon",
+							"sid": 231376478642590
+						}
+					],
+					"actions": [],
+					"sid": 367579342448674,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 512000245090376,
+									"parameters": {
+										"first-value": "Photon.ActorNr",
+										"comparison": 0,
+										"second-value": "Photon.MasterActorNr"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 471227491234961,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-all",
+											"objectClass": "System",
+											"sid": 308073706024863,
+											"parameters": {
+												"object": "MonsterLeader"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "destroy",
+											"objectClass": "MonsterLeader",
+											"sid": 561307044270627
+										}
+									],
+									"sid": 276771704290396
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"type": "comment",
+									"text": "Raised event: Delete netpeer"
+								},
+								{
+									"id": "raiseevent17",
+									"objectClass": "Photon",
+									"sid": 442218521063461,
+									"parameters": {
+										"code0": "9",
+										"data1": "Photon.ActorNr",
+										"interestgroup2": "0",
+										"cache11": "donotcache",
+										"receivers15": "all",
+										"targetactors16": "\"\"",
+										"webforward19": "no"
+									}
+								}
+							],
+							"sid": 510886970619161
+						}
+					]
+				}
+			],
+			"sid": 972256346168278
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "onevent3",
+					"objectClass": "Photon",
+					"sid": 441737585976690,
+					"parameters": {
+						"code0": "9"
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "Netpeer-Delete",
+					"sid": 476559653012360,
+					"parameters": [
+						"int(Photon.EventData)"
+					]
+				}
+			],
+			"sid": 810791582158941
+		},
+		{
+			"functionName": "PhotonCloud-Connect",
+			"functionDescription": "Leave your current photon room (if any), set DispatchToRoom global = to pRoom and connect to a lobby. The global will be used to generate the room and select the next layout to goto.",
+			"functionCategory": "PhotonCloud",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "pRoom",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"sid": 859130167930413
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"type": "comment",
+					"text": "Leave any previous room for map navigation. Since each room is its own map."
+				},
+				{
+					"id": "leaveroom16",
+					"objectClass": "Photon",
+					"sid": 447330090003957
+				},
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 992611599721818,
+					"parameters": {
+						"variable": "photonCloud_NextRoom",
+						"value": "pRoom"
+					}
+				},
+				{
+					"id": "set-eventvar-value",
+					"objectClass": "System",
+					"sid": 673294004576464,
+					"parameters": {
+						"variable": "main__CurMapHashID",
+						"value": "Functions.Enigma_Encrypt(data_MapHashes.Get(pRoom), K_BROWSER)"
+					}
+				},
+				{
+					"id": "wait",
+					"objectClass": "System",
+					"sid": 527943398696662,
+					"parameters": {
+						"seconds": "0.5"
+					}
+				},
+				{
+					"id": "connect10",
+					"objectClass": "Photon",
+					"sid": 343411959726387,
+					"parameters": {
+						"lobby-name": "\"\""
+					}
+				}
+			],
+			"sid": 513683093803546
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "photonCloud_ HostOnly",
+			"description": "",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 538969875478669,
+							"parameters": {
+								"group-name": "\"monsters_ HostControl\"",
+								"state": "activated"
+							}
+						},
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 476204806142677,
+							"parameters": {
+								"group-name": "\"monsters_ Spawning\"",
+								"state": "activated"
+							}
+						},
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 996192736714490,
+							"parameters": {
+								"group-name": "\"monsters_ OverworldLogic\"",
+								"state": "activated"
+							}
+						}
+					],
+					"sid": 405786461323647
+				}
+			],
+			"sid": 833212928962736
+		},
+		{
+			"eventType": "variable",
+			"name": "debug__photonCloud__lastmessageforoverworld",
+			"type": "string",
+			"initialValue": "NULL",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 214877098929562
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "photonCloud_ Chat Events",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "Send message"
+				},
+				{
+					"eventType": "variable",
+					"name": "temp_data",
+					"type": "string",
+					"initialValue": "NULL",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 434989825481134
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "onevent3",
+							"objectClass": "Photon",
+							"sid": 647213997367403,
+							"parameters": {
+								"code0": "100"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 796474410762487,
+							"parameters": {
+								"variable": "temp_data",
+								"value": "tokenat(Photon.EventData, 1, \"|\")"
+							}
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 722266728907653,
+							"parameters": {
+								"variable": "debug__photonCloud__lastmessageforoverworld",
+								"value": "tokenat(Photon.EventData, 1, \"|\")"
+							}
+						},
+						{
+							"id": "destroy",
+							"objectClass": "Chatbox",
+							"sid": 619294168274274
+						},
+						{
+							"id": "create-object",
+							"objectClass": "System",
+							"sid": 567929463441403,
+							"parameters": {
+								"object-to-create": "Chatbox",
+								"layer": "\"FixedUI\"",
+								"x": "32",
+								"y": "576",
+								"create-hierarchy": false
+							}
+						}
+					],
+					"sid": 267045213987955,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-size",
+									"objectClass": "data_ChatBox",
+									"sid": 786197322550359,
+									"parameters": {
+										"axis": "x",
+										"comparison": 4,
+										"value": "4"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "pop",
+									"objectClass": "data_ChatBox",
+									"sid": 200014271588743,
+									"parameters": {
+										"where": "front",
+										"axis": "x"
+									}
+								},
+								{
+									"id": "push",
+									"objectClass": "data_ChatBox",
+									"sid": 337758507904177,
+									"parameters": {
+										"where": "back",
+										"value": "tokenat(Photon.EventData, 1, \"|\")",
+										"axis": "x"
+									}
+								}
+							],
+							"sid": 763676724057785
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 169607485243305
+								}
+							],
+							"actions": [
+								{
+									"id": "push",
+									"objectClass": "data_ChatBox",
+									"sid": 160795373279137,
+									"parameters": {
+										"where": "back",
+										"value": "tokenat(Photon.EventData, 1, \"|\")",
+										"axis": "x"
+									}
+								}
+							],
+							"sid": 323103350267588
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 106650848301314
+								}
+							],
+							"sid": 826702830388938,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each-element",
+											"objectClass": "data_ChatBox",
+											"sid": 622791365887681,
+											"parameters": {
+												"axes": "x"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Chatbox",
+											"sid": 748135838649662,
+											"parameters": {
+												"text": "Self.Text&newline&data_ChatBox.At(data_ChatBox.CurX)"
+											}
+										}
+									],
+									"sid": 987211686546854
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-comparison",
+									"objectClass": "System",
+									"sid": 800543245467779,
+									"parameters": {
+										"object": "Netpeer",
+										"expression": "Netpeer.AssocActorNr",
+										"comparison": 0,
+										"value": "int(tokenat(Photon.EventData, 0, \"|\"))"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "spawn-another-object",
+									"objectClass": "Netpeer",
+									"sid": 999303051934767,
+									"parameters": {
+										"object": "vfx_dialogSpawn",
+										"layer": "\"VFX\"",
+										"image-point": "1",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "Netpeer",
+									"sid": 494593502796725,
+									"parameters": {
+										"child": "vfx_dialogSpawn",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "wait",
+									"objectClass": "System",
+									"sid": 470974801070207,
+									"parameters": {
+										"seconds": "0.5"
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "Netpeer",
+									"sid": 332861875333404,
+									"parameters": {
+										"object": "overworldDialog",
+										"layer": "\"VFX\"",
+										"image-point": "1",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "set-position",
+									"objectClass": "overworldDialog",
+									"sid": 645144820439736,
+									"parameters": {
+										"x": "Self.X + 2",
+										"y": "Self.Y - 2"
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "Netpeer",
+									"sid": 959257643610589,
+									"parameters": {
+										"child": "overworldDialog",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "spawn-another-object",
+									"objectClass": "Netpeer",
+									"sid": 563621890303992,
+									"parameters": {
+										"object": "OverworldDialogLine",
+										"layer": "\"VFX\"",
+										"image-point": "1",
+										"create-hierarchy": false
+									}
+								},
+								{
+									"id": "add-child",
+									"objectClass": "overworldDialog",
+									"sid": 940490719934746,
+									"parameters": {
+										"child": "OverworldDialogLine",
+										"transform-x": true,
+										"transform-y": true,
+										"transform-w": false,
+										"transform-h": false,
+										"transform-a": true,
+										"transform-z-elevation": false,
+										"destroy-with-parent": true
+									}
+								},
+								{
+									"id": "typewriter-text",
+									"objectClass": "OverworldDialogLine",
+									"sid": 754419398726311,
+									"parameters": {
+										"text": "debug__photonCloud__lastmessageforoverworld",
+										"duration": "len(debug__photonCloud__lastmessageforoverworld)*main__TYPEWRITE_SINGLECHAR_DUR"
+									}
+								},
+								{
+									"id": "set-height",
+									"objectClass": "OverworldDialogLine",
+									"sid": 845965640115864,
+									"parameters": {
+										"height": "Self.TextHeight"
+									}
+								},
+								{
+									"id": "set-width",
+									"objectClass": "OverworldDialogLine",
+									"sid": 743444167249705,
+									"parameters": {
+										"width": "Self.TextWidth+3"
+									}
+								},
+								{
+									"id": "set-height",
+									"objectClass": "overworldDialog",
+									"sid": 125875031314620,
+									"parameters": {
+										"height": "OverworldDialogLine.Height-1"
+									}
+								},
+								{
+									"id": "set-width",
+									"objectClass": "overworldDialog",
+									"sid": 650479194825881,
+									"parameters": {
+										"width": "OverworldDialogLine.Width+1"
+									}
+								},
+								{
+									"callFunction": "InputFields-Clear",
+									"sid": 641228764455678,
+									"parameters": [
+										"\"Chat\""
+									]
+								}
+							],
+							"sid": 256728934628946
+						}
+					]
+				}
+			],
+			"sid": 890648225964777
+		}
+	],
+	"sid": 293913615576184
+}
